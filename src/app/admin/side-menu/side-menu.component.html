@@ -1,0 +1,15 @@
+<aside class="aside_menu">
+    
+    <div class="imagen_de_perfil"></div>
+    <span class="username">{{username}}</span>
+
+    <ul>
+        <li *ngFor="let link of links">
+            <a [routerLink]="[(link.enlace)]">
+                <i class="material-icons">{{link.icono}}</i>
+                {{link.nombre}}
+            </a>
+        </li>
+    </ul>
+    
+</aside>
