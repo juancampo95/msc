@@ -9,6 +9,7 @@ import { TopbarComponent } from './admin/topbar/topbar.component';
 import { LoginComponent } from './login/login.component';
 import { MesasComponent } from './admin/mesas/mesas.component';
 import { ConfiguracionesComponent } from './admin/configuraciones/configuraciones.component';
+import { DetalleComponent } from './admin/mesas/detalle/detalle.component';
 
 const routes: Routes = [
   {path:"", redirectTo:"administracion",pathMatch:"full"},
@@ -29,7 +30,8 @@ const routes: Routes = [
     SideMenuComponent,
     TopbarComponent,
     MesasComponent,
-    ConfiguracionesComponent
+    DetalleComponent,
+    ConfiguracionesComponent,
   ],
   imports: [
     RouterModule.forRoot(routes),

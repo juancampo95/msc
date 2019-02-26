@@ -5,7 +5,7 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ConfiguracionesComponent } from './admin/configuraciones/configuraciones.component';
+import { DetalleComponent } from './admin/mesas/detalle/detalle.component';
 
 
 
