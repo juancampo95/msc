@@ -2,10 +2,11 @@ import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { DetalleComponent } from './admin/mesas/detalle/detalle.component';
+
 
 
 
@@ -17,7 +18,8 @@ import { DetalleComponent } from './admin/mesas/detalle/detalle.component';
     BrowserModule,
     CommonModule,
     AppRoutingModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+
   ],
   providers: [],
   bootstrap: [AppComponent]

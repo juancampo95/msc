@@ -1,7 +1,7 @@
 <section class="main-container container-fluid">
     <nav>
         <span class="titulo_nav">Detalle de pedido</span>
-        <button class="btn btn-small btn-primary"> <i class="material-icons">add</i>Agregar Producto</button>
+        <button class="btn btn-small btn-primary"  data-toggle="modal" data-target="#exampleModalCenter"> <i class="material-icons">add</i>Agregar Producto</button>
     </nav>
     <div class="pedido_container">
         <h6>Orden de la mesa 1</h6>
@@ -16,46 +16,14 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td width="10px">2</td>
-                    <td>Salchipapa Especial</td>
-                    <td>15.000</td>
-                    <td>15.000</td>
+                <tr *ngFor="let product of productos_agregados">
+                    <!-- <td width="10px">{{product.cantidad}}</td> -->
+                    <td width="10px"><input class="number_input" type="number" [(ngModel)]="product.cantidad"  (ngModelChange)="recalcularTotal(product)" min="1"></td>
+                    <td>{{product.nombre}}</td>
+                    <td>${{product.v_unidad | number}}</td>
+                    <td>${{product.v_total | number}}</td>
                     <td>
-                        <button class="btn btn-danger borrar_btn">
-                            <i class="material-icons">close</i>
-                        </button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>Salchipapa</td>
-                    <td>15.000</td>
-                    <td>15.000</td>
-                    <td>
-                        <button class="btn btn-danger borrar_btn">
-                            <i class="material-icons">close</i>
-                        </button>
-                    </td>
-                </tr>
-                <tr>
-                    <td width="10px">2</td>
-                    <td>Salchipapa Especial</td>
-                    <td>15.000</td>
-                    <td>15.000</td>
-                    <td>
-                        <button class="btn btn-danger borrar_btn">
-                            <i class="material-icons">close</i>
-                        </button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>Salchipapa</td>
-                    <td>15.000</td>
-                    <td>15.000</td>
-                    <td>
-                        <button class="btn btn-danger borrar_btn">
+                        <button (click)="borrarProducto(product)" class="btn btn-danger borrar_btn">
                             <i class="material-icons">close</i>
                         </button>
                     </td>
@@ -90,3 +58,4 @@
         </div>
     </div>
 </section>
+

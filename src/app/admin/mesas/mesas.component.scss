@@ -1,3 +1,114 @@
 .row{
     width: 100%;
 }
+.modal-body{
+    h5{
+        margin-top: 10px;
+        margin-bottom: 0px;
+        color: #5a5a5a;
+    }
+}
+.contenedor_busquedaylisto{
+    display: flex;
+    justify-content: space-between;
+    flex-flow: row wrap;
+    .form-control{
+        width: 60%;
+    }
+}
+.td_container_items{
+    display: flex;
+    justify-content: flex-start;
+    flex-flow: row;
+    .foto_product_list{
+        width: 80px;
+        height: 56px;
+        background-position: center;
+        background-size: cover;
+    }
+    .nombre_desc_list{
+        padding-left: 0.5rem;
+        h6,p{
+            margin-bottom: 0;
+        }
+    }
+}
+.agregar_btn{
+    border: none;
+    background: transparent;
+    vertical-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all linear 0.1s;
+    i{
+        font-size: 40px;
+        color: #4C7AC8;
+        transition: all linear 0.1s;
+    }      
+}
+.agregar_btn:hover{
+    i{
+        font-size: 45px;
+        color: rgb(53, 104, 192);
+    }   
+}
+.agregar_btn:focus{
+    box-shadow: none;
+    outline:0px!important;
+}
+.borrar_btn{
+    border: none;
+    background: transparent;
+    vertical-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all linear 0.1s;
+    i{
+        font-size: 40px;
+        color: rgb(255, 37, 37);
+        transition: all linear 0.1s;
+    }      
+}
+.borrar_btn:hover{
+    i{
+        font-size: 45px;
+        color: rgb(218, 37, 37);
+    }   
+}
+.borrar_btn:focus{
+    box-shadow: none;
+    outline:0px!important;
+}
+.number_input{
+    width: 62px!important;
+    border: none;
+}
+.number_input:focus{
+   box-shadow: none;
+   outline:0px!important;
+}
+.table{ 
+    td:nth-child(2){
+        text-align: left;
+    }
+    td, th {
+        padding: 0.4em;
+        font-size: 12px;
+        vertical-align: middle;
+    }
+    th{
+        color: #A2A2A2;
+        background-color: #e9ecef;
+        border-top:0px;
+        border-color: #dee2e6;
+        background-color: transparent;
+        border-bottom: 1px solid #dee2e6;
+        font-weight: 200;
+        font-size: 14px!important;
+    }
+    td{
+        border-top: 0px;
+    }
+}

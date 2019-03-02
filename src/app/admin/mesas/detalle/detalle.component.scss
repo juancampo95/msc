@@ -38,41 +38,12 @@
             text-align: left;
         }
         td, th {
+            text-align: center;
             padding: 0.4em;
             font-size: 12px;
         }
     }
-    .btn-danger{
-        background-color: red;
-        font-weight: 400;
-        color: white;
-        border: 0;
-        padding: .1rem .35rem 0 .35rem;
-        font-size: 4px;
-        line-height: 1.5;
-        box-shadow: 1px 1px 4px 0px rgba(0,0,0,0.2);
-        border-radius: .25rem;
-        .material-icons{
-            font-size:18px;
-            font-weight: bold;
-        }
-    }
-    .btn-warning{
-        display: flex;
-        flex-flow: row wrap;
-        justify-content: space-evenly;
-        align-items: center;
-        background-color: #FFA200;
-        font-weight: 400;
-        color: white;
-        border: 0;
-        padding: 0.3em 1em;
-        font-size: 16px;
-        line-height: 1.5;
-        box-shadow: 1px 1px 4px 0px rgba(0,0,0,0.2);
-        border-radius: .25rem;
-        margin-right:10px;
-    }
+
     .print_container{
         display: flex;
         justify-content:flex-end;
@@ -100,3 +71,11 @@
 }
 
 
+.number_input{
+    width: 35px!important;
+    border: none;
+}
+.number_input:focus{
+   box-shadow: none;
+   outline:0px!important;
+}

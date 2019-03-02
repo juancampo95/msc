@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { Producto } from '../../modelos_de_datos/producto';
 
 @Component({
   selector: 'app-detalle',
@@ -6,10 +7,22 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['detalle.component.scss']
 })
 export class DetalleComponent implements OnInit {
+  @Input() productos_agregados:object[];
 
   constructor() { }
 
   ngOnInit() {
+  } 
+  recalcularTotal(product:Producto){
+    product.v_total = product.v_unidad * product.cantidad;
   }
-
+  borrarProducto(product){
+    console.log("al menos funciona el boton");
+    var i = this.productos_agregados.indexOf( product );
+    if ( i !== -1 ) {
+        this.productos_agregados.splice( i, 1 );
+        product.anadido = false;
+        product.cantidad = 1;
+    }
+  }
 }

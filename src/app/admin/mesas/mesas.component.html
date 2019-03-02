@@ -1,8 +1,116 @@
 <section class="row">
     <div class="col-md-6">
-        <app-detalle></app-detalle>
+        <app-detalle [productos_agregados]="productos_agregados" ></app-detalle>
     </div>
     <div class="col-md-6">
-            <app-detalle></app-detalle>
+        
+        <!-- {{productos_agregados.nombre}} -->
     </div>
 </section>
+
+<!-- Modal -->
+<div class="modal fade" data-easein="bounceLeftIn" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog " role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Elige los productos y cantidades</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <i class="material-icons">close</i>
+          </button>
+        </div>
+        <div class="modal-body row">
+          <div class="col-md-12 contenedor_busquedaylisto">
+              
+              <input [(ngModel)]="listaFilter.nombre" name="search" class="form-control" type="text" placeholder="Buscar producto">
+              <button type="button" class="btn btn-success" data-dismiss="modal">Listo</button>
+          </div>   
+          <div class="col-md-6">
+              <h5>Comidas</h5>
+              <table class="table table-condensed">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>Producto</th>
+                            <th>Cant.</th>
+                            <th>Precio</th>
+                            <th width="70px">Agregar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <ng-container *ngFor="let product of listadeproductos | filterBy:listaFilter">
+                        <tr  *ngIf="product.tipo==='comida'" >
+                            <td class="td_container_items">
+                                <div class="foto_product_list" [style.backgroundImage]="'url('+ '../../../assets/img/' + product.foto +')'" ></div>
+                                <div class="nombre_desc_list">
+                                    <h6>{{product.nombre}}</h6>
+                                    <p>{{product.descripcion}}</p>
+                                </div>
+                            </td>
+                            <td>
+                                <input  width="20px" min="1" class="form-control number_input" type="number" [(ngModel)]="product.cantidad"  (ngModelChange)="recalcularTotal(product)"> 
+                            </td>
+                            <td>
+                                ${{product.v_total | number}}
+                            </td>
+                            <td>
+                                <button *ngIf="!product.anadido" (click)="anadirProducto(product)" class="agregar_btn">
+                                    <i class="material-icons">add_box</i>
+                                </button>
+                                <button *ngIf="product.anadido" (click)="borrarProducto(product)" class="borrar_btn">
+                                        <i class="material-icons">close</i>
+                                </button>
+                            </td>
+                        </tr>
+                        </ng-container>
+                        <div *ngIf="(listadeproductos | filterBy: listaFilter).length === 0">
+                                <h4>No hay datos en esta busqueda.</h4>
+                        </div>
+                    </tbody>
+              </table>
+          </div>
+          <div class="col-md-6">
+                <h5>Bebidas</h5>
+                <table class="table table-condensed">
+                      <thead class="thead-light">
+                          <tr>
+                              <th>Producto</th>
+                              <th>Cant.</th>
+                              <th>Precio</th>
+                              <th width="70px">Agregar</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <ng-container *ngFor="let product of listadeproductos | filterBy:listaFilter">
+                          <tr  *ngIf="product.tipo==='bebida'" >
+                              <td class="td_container_items">
+                                  <div class="foto_product_list" [style.backgroundImage]="'url('+ '../../../assets/img/' + product.foto +')'" ></div>
+                                  <div class="nombre_desc_list">
+                                      <h6>{{product.nombre}}</h6>
+                                      <p>{{product.descripcion}}</p>
+                                  </div>
+                              </td>
+                              <td>
+                                  <input  width="20px" min="1" class="form-control number_input" type="number" [(ngModel)]="product.cantidad"  (ngModelChange)="recalcularTotal(product)"> 
+                              </td>
+                              <td>
+                                  ${{product.v_total | number}}
+                              </td>
+                              <td>
+                                  <button *ngIf="!product.anadido" (click)="anadirProducto(product)" class="agregar_btn">
+                                      <i class="material-icons">add_box</i>
+                                  </button>
+                                  <button *ngIf="product.anadido" (click)="borrarProducto(product)" class="borrar_btn">
+                                          <i class="material-icons">close</i>
+                                  </button>
+                              </td>
+                          </tr>
+                          </ng-container>
+                          <div *ngIf="(listadeproductos | filterBy: listaFilter).length === 0">
+                              <h4>No hay datos en esta busqueda.</h4>
+                          </div>
+                      </tbody>
+                </table>
+            </div>
+        </div>
+      </div>
+    </div>
+</div>
