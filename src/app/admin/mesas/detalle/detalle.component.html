@@ -1,7 +1,7 @@
 <section class="main-container container-fluid">
     <nav>
         <span class="titulo_nav">Detalle de pedido</span>
-        <button class="btn btn-small btn-primary"> <i class="material-icons">add</i>Agregar</button>
+        <button class="btn btn-small btn-primary"> <i class="material-icons">add</i>Agregar Producto</button>
     </nav>
     <div class="pedido_container">
         <h6>Orden de la mesa 1</h6>
@@ -63,16 +63,9 @@
             </tbody>
         </table>
         <div class="row">
-            <div class="col-md-9">
+            <div class="col-md-12">
                 <input class="form-control" type="text" placeholder="Ingresar comentario">
             </div>
-            <div class="col-md-3 print_container" >
-                <button class="btn btn-small btn-warning">
-                    <i class="material-icons">print</i>
-                    Pedir
-                </button>
-            </div>
-
         </div>
 
     </div>
@@ -85,7 +78,14 @@
                 <input class="form-control" placeholder="Ingrese el documento" type="text">
                 <input class="form-control" placeholder="mesero" type="text">
                 <input class="form-control" placeholder="tipo de pago" type="text">
+                <button class="btn-pedir btn btn-small btn-warning">
+                    <i class="material-icons">print</i>
+                    Pedir
+                </button>
                 
+            </div>
+            <div class="col-md-5 calculador_container">
+                <h4>Total $ 100.000</h4>
             </div>
         </div>
     </div>
