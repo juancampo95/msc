@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { FilterPipeModule } from 'ngx-filter-pipe';
+import { HttpClientModule } from '@angular/common/http';
 
 // Componentes
 import { AdminComponent } from './admin/admin.component';
@@ -12,6 +13,9 @@ import { LoginComponent } from './login/login.component';
 import { MesasComponent } from './admin/mesas/mesas.component';
 import { ConfiguracionesComponent } from './admin/configuraciones/configuraciones.component';
 import { DetalleComponent } from './admin/mesas/detalle/detalle.component';
+
+// Servicios
+import { DatabaseProductosService } from './servicios/database-productos.service';
 
 const routes: Routes = [
   {path:"", redirectTo:"administracion",pathMatch:"full"},
@@ -39,7 +43,11 @@ const routes: Routes = [
     RouterModule.forRoot(routes),
     CommonModule,
     FormsModule,
-    FilterPipeModule
+    FilterPipeModule,
+    HttpClientModule
+  ],
+  providers:[
+    DatabaseProductosService
   ],
   exports: [
     RouterModule,

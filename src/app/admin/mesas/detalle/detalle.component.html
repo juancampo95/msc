@@ -44,8 +44,12 @@
             <div class="col-md-7">
                 <input class="form-control" placeholder="Ingrese el cliente" type="text">
                 <input class="form-control" placeholder="Ingrese el documento" type="text">
-                <input class="form-control" placeholder="mesero" type="text">
-                <input class="form-control" placeholder="tipo de pago" type="text">
+                <select class="form-control">
+                    <option *ngFor="let mesero of meseros" value="{{mesero}}">{{mesero}}</option>
+                </select>
+                <select class="form-control">
+                        <option *ngFor="let metodo of metodos_de_pago" value="{{metodo}}">{{metodo}}</option>
+                    </select>
                 <button class="btn-pedir btn btn-small btn-warning">
                     <i class="material-icons">print</i>
                     Pedir
@@ -53,7 +57,17 @@
                 
             </div>
             <div class="col-md-5 calculador_container">
-                <h4>Total $ 100.000</h4>
+                <ul>
+                    <li>Subtotal</li>
+                    <li>Descuento</li>
+                    <li class="total">Total</li>
+                </ul>
+                <ul>
+                    <li>${{subtotal | number}}</li>
+                    <li>${{descuento | number}}</li>
+                    <li class="total f-verde">${{ total | number}}</li>
+                </ul>
+                
             </div>
         </div>
     </div>

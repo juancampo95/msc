@@ -8,6 +8,12 @@ import { Producto } from '../../modelos_de_datos/producto';
 })
 export class DetalleComponent implements OnInit {
   @Input() productos_agregados:object[];
+  @Input() meseros:string[];
+  @Input() metodos_de_pago:string[];
+
+  subtotal:number = 0;
+  descuento:number = 0;
+  total:number = 0;
 
   constructor() { }
 

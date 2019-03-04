@@ -3,6 +3,9 @@ import { Component, OnInit } from '@angular/core';
 // importando modelos
 import { Producto } from '../modelos_de_datos/producto';
 
+// servicios
+import { DatabaseProductosService } from 'src/app/servicios/database-productos.service';
+
 @Component({
   selector: 'app-mesas',
   templateUrl: 'mesas.component.html',
@@ -109,11 +112,19 @@ export class MesasComponent implements OnInit {
       anadido:false
     },
   ]
-
+  meseros:string[] = ['Caja','Carlos', 'Nicolas','Nelmar'];
+  metodos_de_pago:string[] = ['Efectivo', 'Datafono'];
   productos_agregados:Producto[] = [];
-  constructor() { }
+  
+  constructor(private DatabaseProductosService:DatabaseProductosService){
+
+   }
 
   ngOnInit() {
+    return this.DatabaseProductosService.getProductos().subscribe(productos=>{
+      console.log(productos);
+      this.listadeproductos = productos;
+    });
   }
 
   anadirProducto(product:Producto){    
