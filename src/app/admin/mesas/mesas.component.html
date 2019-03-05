@@ -1,6 +1,11 @@
 <section class="row">
     <div class="col-md-6">
-        <app-detalle [metodos_de_pago]="metodos_de_pago" [meseros]="meseros" [productos_agregados]="productos_agregados" ></app-detalle>
+        <app-detalle
+            [metodos_de_pago]="metodos_de_pago"
+            [meseros]="meseros"
+            [productos_agregados]="productos_agregados"
+            [pedido_cargado]="pedido_cargado"
+        ></app-detalle>
     </div>
     <div class="col-md-6">
         
@@ -52,10 +57,10 @@
                                 ${{product.v_total | number}}
                             </td>
                             <td>
-                                <button *ngIf="!product.anadido" (click)="anadirProducto(product)" class="agregar_btn">
+                                <button *ngIf="product.anadido == 0" (click)="anadirProducto(product)" class="agregar_btn">
                                     <i class="material-icons">add_box</i>
                                 </button>
-                                <button *ngIf="product.anadido" (click)="borrarProducto(product)" class="borrar_btn">
+                                <button *ngIf="product.anadido == 1" (click)="borrarProducto(product)" class="borrar_btn">
                                         <i class="material-icons">close</i>
                                 </button>
                             </td>
@@ -95,10 +100,10 @@
                                   ${{product.v_total | number}}
                               </td>
                               <td>
-                                  <button *ngIf="!product.anadido" (click)="anadirProducto(product)" class="agregar_btn">
+                                  <button *ngIf="product.anadido == 0" (click)="anadirProducto(product)" class="agregar_btn">
                                       <i class="material-icons">add_box</i>
                                   </button>
-                                  <button *ngIf="product.anadido" (click)="borrarProducto(product)" class="borrar_btn">
+                                  <button *ngIf="product.anadido == 1" (click)="borrarProducto(product)" class="borrar_btn">
                                           <i class="material-icons">close</i>
                                   </button>
                               </td>

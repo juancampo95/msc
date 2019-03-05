@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 // importando modelos
 import { Producto } from '../modelos_de_datos/producto';
+import { Pedido } from '../modelos_de_datos/pedidos';
 
 // servicios
 import { DatabaseProductosService } from 'src/app/servicios/database-productos.service';
@@ -12,109 +13,15 @@ import { DatabaseProductosService } from 'src/app/servicios/database-productos.s
   styleUrls: ['mesas.component.scss']
 })
 export class MesasComponent implements OnInit {
-  anadido:boolean = false;
-  listaFilter:any={nombre:''}
-  listadeproductos:Producto[] = [
-    {
-      nombre:"Salchipapa Especial",
-      v_unidad:2000,
-      v_total:2000,
-      cantidad:1,
-      foto:'maisitos.jpg',
-      descripcion:`2 ingredientes especiales, queso, ripio papa amarilla, salchicha y salsas caseras.`,
-      tipo:'comida',
-      anadido:false
-      
-    },
-    {
-      nombre:"Maicitos",
-      v_unidad:2000,
-      v_total:2000,
-      cantidad:1,
-      foto:'maisitos.jpg',
-      descripcion:`2 ingredientes especiales, queso, ripio papa amarilla, salchicha y salsas caseras.`,
-      tipo:'comida',
-      anadido:false
-      
-    },
-    {
-      nombre:"Hamburguesa",
-      v_unidad:2000,
-      v_total:2000,
-      cantidad:1,
-      foto:'hamburguesadepollo+.png',
-      descripcion:`2 ingredientes especiales, queso, ripio papa amarilla, salchicha y salsas caseras.`,
-      tipo:'comida',
-      anadido:false
-      
-    },
-    {
-      nombre:"Salchipapa Especial",
-      v_unidad:2000,
-      v_total:2000,
-      cantidad:1,
-      foto:'maisitos.jpg',
-      descripcion:`2 ingredientes especiales, queso, ripio papa amarilla, salchicha y salsas caseras.`,
-      tipo:'comida',
-      anadido:false
-      
-    },
-    {
-      nombre:"Maicitos",
-      v_unidad:2000,
-      v_total:2000,
-      cantidad:1,
-      foto:'maisitos.jpg',
-      descripcion:`2 ingredientes especiales, queso, ripio papa amarilla, salchicha y salsas caseras.`,
-      tipo:'comida',
-      anadido:false
-      
-    },
-    {
-      nombre:"Hamburguesa",
-      v_unidad:2000,
-      v_total:2000,
-      cantidad:1,
-      foto:'hamburguesadepollo+.png',
-      descripcion:`2 ingredientes especiales, queso, ripio papa amarilla, salchicha y salsas caseras.`,
-      tipo:'comida',
-      anadido:false
-      
-    },
-    {
-      nombre:"Perro Caliente",
-      v_unidad:3000,
-      v_total:3000,
-      cantidad:1,
-      foto:'perro.png',
-      descripcion:`2 ingredientes especiales, queso, ripio papa amarilla, salchicha y salsas caseras.`,
-      tipo:'comida',
-      anadido:false
-    },
-    {
-      nombre:"Pepsi Cola",
-      v_unidad:3000,
-      v_total:3000,
-      cantidad:1,
-      foto:'gaseosas.png',
-      descripcion:`2 ingredientes especiales, queso, ripio papa amarilla, salchicha y salsas caseras.`,
-      tipo:'bebida',
-      anadido:false
-    },
-    {
-      nombre:"Mango (Jugo nataral cona Agua)",
-      v_unidad:3000,
-      v_total:3000,
-      cantidad:1, 
-      foto:'jugos.png',
-      descripcion:`2 ingredientes especiales, queso, ripio papa amarilla, salchicha y salsas caseras.`,
-      tipo:'bebida',
-      anadido:false
-    },
-  ]
+ 
+  
+  listaFilter:any={nombre:''};
+  listadeproductos:Producto[] = [];
   meseros:string[] = ['Caja','Carlos', 'Nicolas','Nelmar'];
   metodos_de_pago:string[] = ['Efectivo', 'Datafono'];
+  
   productos_agregados:Producto[] = [];
+  pedido_cargado:Pedido={};
   
   constructor(private DatabaseProductosService:DatabaseProductosService){
 
@@ -128,21 +35,19 @@ export class MesasComponent implements OnInit {
   }
 
   anadirProducto(product:Producto){    
-    //hayando el valor total ->
     let validacion = this.productos_agregados.includes(product);
-
+    //hayando el valor total ->
     product.v_total = product.cantidad * product.v_unidad;
 
     if(validacion == true){
       alert("El producto ya está agregado, puede cambiar las cantidades si desea.");
-      product.anadido=false;
     }else{
+      product.anadido = '1';
       this.productos_agregados.push(product);
-      product.anadido=true;
+      this.pedido_cargado.productos =  this.productos_agregados;
+      this.calcularTotal();
+      console.log(this.pedido_cargado);
     }
-  }
-  recalcularTotal(product:Producto){
-    product.v_total = product.v_unidad * product.cantidad;
   }
   // remover el producto desde modal
   borrarProducto(product){
@@ -150,8 +55,20 @@ export class MesasComponent implements OnInit {
     var i = this.productos_agregados.indexOf( product );
     if ( i !== -1 ) {
         this.productos_agregados.splice( i, 1 );
-        product.anadido = false;
+        product.anadido = '0';
         product.cantidad = 1;
     }
+  }
+
+  recalcularTotal(product:Producto){
+    product.v_total = product.v_unidad * product.cantidad;
+    this.calcularTotal();
+  }
+  calcularTotal(){
+    this.productos_agregados.forEach(producto=>{
+      this.pedido_cargado.subtotal_p += producto.v_total;
+      console.log(this.productos_agregados);
+      console.log(this.pedido_cargado.subtotal_p);
+    })
   }
 }

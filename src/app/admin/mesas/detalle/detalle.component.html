@@ -63,9 +63,9 @@
                     <li class="total">Total</li>
                 </ul>
                 <ul>
-                    <li>${{subtotal | number}}</li>
-                    <li>${{descuento | number}}</li>
-                    <li class="total f-verde">${{ total | number}}</li>
+                    <li>${{pedido_cargado.subtotal_p | number}}</li>
+                    <li>${{pedido_cargado.descuento | number}}</li>
+                    <li class="total f-verde">${{ pedido_cargado.total_p | number}}</li>
                 </ul>
                 
             </div>
