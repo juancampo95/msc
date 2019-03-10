@@ -28,4 +28,7 @@ export class DetalleComponent implements OnInit {
   borrarProducto(product){
     this.mesas.borrarProducto(product);
   }
+  calcularTotal(){
+    this.mesas.calcularTotal();
+  }
 }

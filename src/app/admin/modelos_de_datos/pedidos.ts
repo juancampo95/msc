@@ -9,5 +9,6 @@ export interface Pedido{
     subtotal_p?:number,
     total_p?:number,
     descuento?:number,
-    comentario?:string
+    comentario?:string,
+    mesa?:string,
 }

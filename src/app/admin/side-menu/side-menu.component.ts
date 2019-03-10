@@ -14,6 +14,11 @@ export class SideMenuComponent implements OnInit {
       icono:"aspect_ratio"
     },
     { 
+      nombre:"Pedidos",
+      enlace:"pedidos",
+      icono:"assignment"
+    },
+    { 
       nombre:"Configuraciones",
       enlace:"configuraciones",
       icono:"settings"

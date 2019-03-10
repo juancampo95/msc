@@ -23,6 +23,8 @@ export class MesasComponent implements OnInit {
   productos_agregados:Producto[] = [];
   pedido_cargado:Pedido={};
   
+
+  
   constructor(private DatabaseProductosService:DatabaseProductosService){
 
    }
@@ -46,7 +48,6 @@ export class MesasComponent implements OnInit {
       this.productos_agregados.push(product);
       this.pedido_cargado.productos =  this.productos_agregados;
       this.calcularTotal();
-      console.log(this.pedido_cargado);
     }
   }
   // remover el producto desde modal
@@ -57,7 +58,9 @@ export class MesasComponent implements OnInit {
         this.productos_agregados.splice( i, 1 );
         product.anadido = '0';
         product.cantidad = 1;
+        product.v_total = product.v_unidad * product.cantidad;
     }
+    this.calcularTotal();
   }
 
   recalcularTotal(product:Producto){
@@ -65,10 +68,14 @@ export class MesasComponent implements OnInit {
     this.calcularTotal();
   }
   calcularTotal(){
+    this.pedido_cargado.subtotal_p = 0;
+    this.pedido_cargado.total_p = 0;
+    var sub = 0;
     this.productos_agregados.forEach(producto=>{
-      this.pedido_cargado.subtotal_p += producto.v_total;
-      console.log(this.productos_agregados);
-      console.log(this.pedido_cargado.subtotal_p);
+      sub += producto.v_total;
     })
+    this.pedido_cargado.subtotal_p = sub;
+    this.pedido_cargado.total_p = sub - this.pedido_cargado.descuento;
   }
+
 }

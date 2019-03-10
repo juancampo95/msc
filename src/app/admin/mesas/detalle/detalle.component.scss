@@ -87,3 +87,8 @@
    box-shadow: none;
    outline:0px!important;
 }
+@media (min-width: 576px){
+    .small-modal{
+        max-width: 450px;
+    }
+}

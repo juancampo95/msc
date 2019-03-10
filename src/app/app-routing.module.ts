@@ -13,6 +13,9 @@ import { LoginComponent } from './login/login.component';
 import { MesasComponent } from './admin/mesas/mesas.component';
 import { ConfiguracionesComponent } from './admin/configuraciones/configuraciones.component';
 import { DetalleComponent } from './admin/mesas/detalle/detalle.component';
+import { PedidosComponent } from './admin/pedidos/pedidos.component';
+
+
 
 // Servicios
 import { DatabaseProductosService } from './servicios/database-productos.service';
@@ -23,6 +26,7 @@ const routes: Routes = [
     children:[
       { path:"",redirectTo:"mesas",pathMatch:"full"},
       { path:"mesas",component:MesasComponent},
+      { path:"pedidos",component:PedidosComponent},
       { path:"configuraciones",component:ConfiguracionesComponent}
     ]
   },
@@ -38,6 +42,7 @@ const routes: Routes = [
     MesasComponent,
     DetalleComponent,
     ConfiguracionesComponent,
+    PedidosComponent
   ],
   imports: [
     RouterModule.forRoot(routes),
