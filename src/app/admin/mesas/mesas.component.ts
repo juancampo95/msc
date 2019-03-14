@@ -23,19 +23,30 @@ export class MesasComponent implements OnInit {
   productos_agregados:Producto[] = [];
   pedido_cargado:Pedido={};
   
-
+  mesasEnUso:Pedido[];
   
   constructor(private DatabaseProductosService:DatabaseProductosService){
 
    }
 
   ngOnInit() {
-    return this.DatabaseProductosService.getProductos().subscribe(productos=>{
-      console.log(productos);
-      this.listadeproductos = productos;
-    });
+    this.cargarPedidos();
+    this.cargarProductos();
+  }
+  cargarProductos(){
+    this.DatabaseProductosService.getProductos().subscribe(productos=>{
+      console.log("Productos Cargados");
+     return this.listadeproductos = productos;
+    });    
+  }
+  cargarPedidos(){
+    this.mesasEnUso = []
+    this.DatabaseProductosService.getPedidos().subscribe(pedidos=>{
+      this.mesasEnUso = pedidos as Pedido[];
+    })
   }
 
+  // Añadir productos a la lista de pedido cargado
   anadirProducto(product:Producto){    
     let validacion = this.productos_agregados.includes(product);
     //hayando el valor total ->
@@ -52,7 +63,6 @@ export class MesasComponent implements OnInit {
   }
   // remover el producto desde modal
   borrarProducto(product){
-    console.log("al menos funciona el boton");
     var i = this.productos_agregados.indexOf( product );
     if ( i !== -1 ) {
         this.productos_agregados.splice( i, 1 );
@@ -62,11 +72,12 @@ export class MesasComponent implements OnInit {
     }
     this.calcularTotal();
   }
-
+  // Re-calcular el valor total del pedido cargado por cambios de los inputs number
   recalcularTotal(product:Producto){
     product.v_total = product.v_unidad * product.cantidad;
     this.calcularTotal();
   }
+  // Calcular el valor total del pedido cargado
   calcularTotal(){
     this.pedido_cargado.subtotal_p = 0;
     this.pedido_cargado.total_p = 0;
@@ -77,5 +88,16 @@ export class MesasComponent implements OnInit {
     this.pedido_cargado.subtotal_p = sub;
     this.pedido_cargado.total_p = sub - this.pedido_cargado.descuento;
   }
-
+  sumarProductos(product){
+    if(product.cantidad >= 0){
+      product.cantidad ++;
+      this.recalcularTotal(product)
+    }
+  }
+  restarProductos(product){
+    if(product.cantidad >= 1){
+      product.cantidad --;
+      this.recalcularTotal(product)
+    }
+  }
 }

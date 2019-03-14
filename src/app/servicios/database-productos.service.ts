@@ -19,4 +19,8 @@ export class DatabaseProductosService {
   getPedidos(){
     return this.Http.get<Pedido[]>(this.api_url + '/get_pedidos.php')
   }
+
+  enviarPedido(pedido){
+    return this.Http.post(this.api_url + '/post_pedidos.php',pedido,{responseType:'text'});
+  }
 }

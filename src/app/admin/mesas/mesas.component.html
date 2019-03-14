@@ -1,4 +1,4 @@
-<section class="row">
+<section class="row full-container">
     <div class="col-md-6">
         <app-detalle
             [metodos_de_pago]="metodos_de_pago"
@@ -7,8 +7,13 @@
             [pedido_cargado]="pedido_cargado"
         ></app-detalle>
     </div>
-    <div class="col-md-6">
-        
+    <div style="padding:0px" class="col-md-6">
+        <section class="main-container container-fluid row">
+            <nav class="col-md-12">
+                <span class="titulo_nav">Mesas en uso</span>
+            </nav>
+            <app-table *ngFor="let table of mesasEnUso" [table]="table" class="col-md-4 table-container"></app-table>
+        </section>
         <!-- {{productos_agregados.nombre}} -->
     </div>
 </section>
@@ -25,7 +30,6 @@
         </div>
         <div class="modal-body row">
           <div class="col-md-12 contenedor_busquedaylisto">
-              
               <input [(ngModel)]="listaFilter.nombre" name="search" class="form-control" type="text" placeholder="Buscar producto">
               <button type="button" class="btn btn-success" data-dismiss="modal">Listo</button>
           </div>   

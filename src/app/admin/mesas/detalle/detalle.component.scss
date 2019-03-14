@@ -2,7 +2,7 @@
     background-color: white;
     height: 100%;
     width: 100%;
-    margin:0.5em;
+    margin:0.5em 0.25em 0.5em 0.5em;
     padding:0.7em;
     nav{
         display: flex;
@@ -42,6 +42,14 @@
             padding: 0.4em;
             font-size: 12px;
         }
+        .cant_td{
+            display: flex;
+            justify-content: center;
+            align-items:center;
+            h6{
+                margin:0 0.5em;
+            }
+        }
     }
 
     .print_container{
@@ -67,9 +75,9 @@
             text-align: right;
         }
     }
-    .btn-pedir{
-        margin:1em 0;
-    }
+    // .btn-pedir{
+    //     margin:1em 0;
+    // }
 }
 .total{
     font-size: 23px;
@@ -90,5 +98,29 @@
 @media (min-width: 576px){
     .small-modal{
         max-width: 450px;
+    }
+}
+.mesa_numbers_detail{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    h6{
+        text-align: left;
+    }
+}
+.btns-container{
+    display: flex;
+    justify-content: flex-end;
+    margin-top:0.5em;
+    button{
+        margin:0 0.2em;
+        height: 35px;
+    }
+    .btn-limpiar{
+        display: flex;
+        align-self: flex-start;
+        box-shadow: 1px 1px 4px 0px rgba(0,0,0,0.2);
+        line-height: 1.5;
+        padding: 0.3em 1em;
     }
 }

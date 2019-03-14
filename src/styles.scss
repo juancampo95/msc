@@ -56,12 +56,27 @@ h1,h2,h3,h4,h5,h6{
     border-radius: .25rem;
     margin-right:10px;
 }
+.btn-warning:hover{
+    color: white;
+}
+.btn-primary{
+    box-shadow: 1px 1px 4px 0px rgba(0,0,0,0.2);
+    line-height: 1.5;
+    padding: 0.3em 1em;
+}
 .btn-success{
     background-color: #02C83E;
     padding: 0.3em 1em;
     box-shadow: 1px 1px 4px 0px rgba(0,0,0,0.2);
     border:0px;
 }
+// iconos de mas y menos en numeros
+.icons-numbers{font-size: 16px;cursor: pointer; user-select: none; }
+.icons-numbers:hover{transition: all ease 0.2s}
+.menos{color: red;}
+.menos:hover{color: rgb(218, 0, 0);}
+.mas{color: rgb(8, 182, 8)}
+.mas:hover{color: rgb(7, 156, 7)}
 
 @media (min-width: 576px){
     .modal-dialog {

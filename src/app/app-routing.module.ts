@@ -14,7 +14,7 @@ import { MesasComponent } from './admin/mesas/mesas.component';
 import { ConfiguracionesComponent } from './admin/configuraciones/configuraciones.component';
 import { DetalleComponent } from './admin/mesas/detalle/detalle.component';
 import { PedidosComponent } from './admin/pedidos/pedidos.component';
-
+import { TableComponent } from './admin/mesas/table/table.component';
 
 
 // Servicios
@@ -42,7 +42,8 @@ const routes: Routes = [
     MesasComponent,
     DetalleComponent,
     ConfiguracionesComponent,
-    PedidosComponent
+    PedidosComponent,
+    TableComponent
   ],
   imports: [
     RouterModule.forRoot(routes),

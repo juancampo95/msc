@@ -1,10 +1,16 @@
 <section class="main-container container-fluid">
     <nav>
-        <span class="titulo_nav">Detalle de pedido</span>
+        <span class="titulo_nav">Detalle de pedido <span *ngIf="!pedido_cargado.mesa == 0">de la mesa {{pedido_cargado.mesa}}</span></span>
         <button class="btn btn-small btn-primary"  data-toggle="modal" data-target="#exampleModalCenter"> <i class="material-icons">add</i>Agregar Producto</button>
     </nav>
     <div class="pedido_container">
-        <h6>Orden de la mesa 1</h6>
+        <div class="mesa_numbers_detail">
+            <h6>Asignar mesa</h6>
+            <i  (click)="restarMesa(pedido_cargado)" class="material-icons icons-numbers menos">remove_circle</i>
+            <h6>{{pedido_cargado.mesa}}</h6>
+            <i (click)="sumarMesa(pedido_cargado)" class="material-icons icons-numbers mas">add_circle</i>
+
+        </div>
         <table class="table table-condensed">
             <thead class="thead-light">
                 <tr>
@@ -18,7 +24,12 @@
             <tbody>
                 <tr *ngFor="let product of productos_agregados">
                     <!-- <td width="10px">{{product.cantidad}}</td> -->
-                    <td width="10px"><input class="number_input" type="number" [(ngModel)]="product.cantidad"  (ngModelChange)="recalcularTotal(product)" min="1"></td>
+                    
+                    <td class="cant_td">
+                        <i  (click)="restarProductos(product)" class="material-icons icons-numbers menos">remove_circle</i>
+                        <h6>{{product.cantidad}}</h6>
+                        <i (click)="sumarProductos(product)" class="material-icons icons-numbers mas">add_circle</i>
+                    </td>
                     <td>{{product.nombre}}</td>
                     <td>${{product.v_unidad | number}}</td>
                     <td>${{product.v_total | number}}</td>
@@ -35,7 +46,7 @@
         </table>
         <div class="row">
             <div class="col-md-12">
-                <input class="form-control" type="text" placeholder="Ingresar comentario">
+                <input [(ngModel)]="pedido_cargado.comentario" class="form-control" type="text" placeholder="Ingresar comentario">
             </div>
         </div>
 
@@ -45,21 +56,19 @@
             <h6>Datos de Facturación</h6>
         <div class="row">
             <div class="col-md-7">
-                <input class="form-control" placeholder="Ingrese el cliente" type="text">
-                <input class="form-control" placeholder="Ingrese el documento" type="text">
-                <select class="form-control">
+                <input [(ngModel)]="pedido_cargado.cliente" class="form-control" placeholder="Ingrese el cliente" type="text">
+                <input [(ngModel)]="pedido_cargado.documento" class="form-control" placeholder="Ingrese el documento" type="text">
+                <select  [(ngModel)]="pedido_cargado.mesero"  class="form-control">
                     <option *ngFor="let mesero of meseros" value="{{mesero}}">{{mesero}}</option>
                 </select>
-                <select class="form-control">
+                <select [(ngModel)]="pedido_cargado.metodo" class="form-control">
                         <option *ngFor="let metodo of metodos_de_pago" value="{{metodo}}">{{metodo}}</option>
-                    </select>
-                <button class="btn-pedir btn btn-small btn-warning">
-                    <i class="material-icons">print</i>
-                    Pedir
-                </button>
+                </select>
+                <input  type="hidden" [(ngModel)]="pedido_cargado.id">
                 
             </div>
-            <div class="col-md-5 calculador_container">
+            <div class="col-md-5 ">
+                <div class="calculador_container"> 
                 <ul>
                     <li>Subtotal</li>
                     <li  data-toggle="modal" data-target="#ModalDescuentos">Descuento</li>
@@ -70,7 +79,21 @@
                     <li>${{pedido_cargado.descuento | number}}</li>
                     <li class="total f-verde">${{ pedido_cargado.total_p | number}}</li>
                 </ul>
-                
+                </div>
+            </div>
+            <div class="col-md-12 btns-container">
+                <button (click)="limpiarPedido()" class="btn-pedir btn btn-small btn-limpiar">
+                    <i class="material-icons">print</i>
+                    Limpiar
+                </button>
+                <button (click)="enviarPedido(pedido_cargado)" class="btn-pedir btn btn-small btn-warning">
+                    <i class="material-icons">print</i>
+                    Pedir
+                </button>
+                <button (click)="enviarPedido(pedido_cargado)" class="btn-pedir btn btn-small btn-primary d-flex">
+                    <i class="material-icons">print</i>
+                    Facturar
+                </button>
             </div>
         </div>
     </div>
@@ -92,6 +115,7 @@
             
         </div>
         <div class="modal-footer d-flex align-items-center">
+            
             <p style="margin-bottom:0px">El descuento que aplicarás es de ${{pedido_cargado.descuento | number}}</p>
             <button class="btn btn-success" data-dismiss="modal">Listo</button>
         </div>
