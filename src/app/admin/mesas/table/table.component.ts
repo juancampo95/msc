@@ -23,6 +23,10 @@ export class TableComponent implements OnInit {
     console.log(table.mesa)
     this.mesas.pedido_cargado = table;
     this.mesas.productos_agregados =JSON.parse(table.productos);
+
+    table.productos.forEach(producto => {
+      producto.anadido = '1';
+    });
   }
 
 }
