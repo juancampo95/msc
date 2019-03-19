@@ -1,0 +1,39 @@
+.mesa-cubo{
+    width: 100%;
+    height: 100px;
+    background-color: #4C7AC8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    cursor: pointer;
+    flex-flow: column;
+    user-select: none;
+    transition: all ease-in-out 0.1s;
+}
+.mesa-cubo:hover{
+    background-color: #315EAA;
+}
+.mesa-cubo:active{
+    background-color: #E62B04;
+
+}
+h3{
+    margin:0 auto;
+    padding:0;
+    
+}
+.mesero{
+    color: white;
+    margin:0 auto;
+    padding:0;
+    font-size: 12px;
+}
+.totales_c{
+    display: flex;
+    justify-content: space-between;
+    flex-flow: row;
+    span{
+        font-size: 12px;
+    }
+}

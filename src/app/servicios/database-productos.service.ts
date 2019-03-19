@@ -23,4 +23,12 @@ export class DatabaseProductosService {
   enviarPedido(pedido){
     return this.Http.post(this.api_url + '/post_pedidos.php',pedido,{responseType:'text'});
   }
+
+  actualizarPedido(pedido){
+    return this.Http.post(this.api_url + '/put_pedidos.php',pedido,{responseType:'text'});
+  }
+
+  eliminarPedido(id_pedido){
+    return this.Http.post(this.api_url + '/delete_pedidos.php',id_pedido,{responseType:'text'});
+  }
 }

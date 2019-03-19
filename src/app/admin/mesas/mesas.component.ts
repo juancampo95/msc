@@ -13,26 +13,18 @@ import { DatabaseProductosService } from 'src/app/servicios/database-productos.s
   styleUrls: ['mesas.component.scss']
 })
 export class MesasComponent implements OnInit {
- 
-  
   listaFilter:any={nombre:''};
   listadeproductos:Producto[] = [];
   meseros:string[] = ['Caja','Carlos', 'Nicolas','Nelmar'];
   metodos_de_pago:string[] = ['Efectivo', 'Datafono'];
-  
-  productos_agregados:Producto[] = [];
-  pedido_cargado:Pedido={};
-  
   mesasEnUso:Pedido[];
+  productos_agregados:Producto[] = [];
+  pedido_cargado:Pedido = new Pedido();
   
-  constructor(private DatabaseProductosService:DatabaseProductosService){
+  constructor(private DatabaseProductosService:DatabaseProductosService){}
 
-   }
+  ngOnInit() {this.cargarPedidos();this.cargarProductos();}
 
-  ngOnInit() {
-    this.cargarPedidos();
-    this.cargarProductos();
-  }
   cargarProductos(){
     this.DatabaseProductosService.getProductos().subscribe(productos=>{
       console.log("Productos Cargados");
@@ -59,6 +51,8 @@ export class MesasComponent implements OnInit {
       this.productos_agregados.push(product);
       this.pedido_cargado.productos =  this.productos_agregados;
       this.calcularTotal();
+      
+
     }
   }
   // remover el producto desde modal
@@ -78,6 +72,7 @@ export class MesasComponent implements OnInit {
     this.calcularTotal();
   }
   // Calcular el valor total del pedido cargado
+
   calcularTotal(){
     this.pedido_cargado.subtotal_p = 0;
     this.pedido_cargado.total_p = 0;

@@ -1,5 +1,5 @@
 export interface Producto{
-    id?:number,
+    id?:any,
     nombre:string,
     descripcion?:string,
     cantidad:number,

@@ -1,5 +1,8 @@
 <div style="padding:0.2em">
     <div class="mesa-cubo" (click)="mostrarPedido(table)">
         <h3>Mesa {{table.mesa}}</h3>
+        <div class="totales_c">
+            <span>{{table.mesero}} - ${{table.total_p | number}}</span>
+        </div>
     </div>
 </div>

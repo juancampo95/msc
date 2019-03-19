@@ -1,18 +1,18 @@
 import {Producto} from './producto';
 
-export interface Pedido{
-    id?:number,
-    fecha?:string,
-    hora?:string,
-    cliente?:string,
-    documento?:string
-    mesero?:string,
-    metodo?:string,
-    productos?:Producto[],
-    subtotal_p?:number,
-    total_p?:number,
-    descuento?:number,
-    comentario?:string,
-    mesa?:any,
-    estado?:string
-}
+export class Pedido{
+    id?:number;
+    fecha?:string;
+    hora?:string;
+    cliente?:string;
+    documento?:string;
+    mesero?:string = "Caja";
+    metodo?:string = "Efectivo";
+    productos?:Producto[] = [];
+    subtotal_p?:number = 0;
+    total_p?:number = 0;
+    descuento?:number = 0;
+    comentario?:string = "";
+    mesa?:number = 0;
+    estado?:string = "sin facturar";
+ }
