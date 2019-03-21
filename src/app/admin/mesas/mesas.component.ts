@@ -95,4 +95,12 @@ export class MesasComponent implements OnInit {
       this.recalcularTotal(product)
     }
   }
+
+  filtrar(producto){
+    if(this.listaFilter.nombre == producto){
+      this.listaFilter.nombre = "";
+    }else{
+      this.listaFilter.nombre = producto;
+    }
+  }
 }

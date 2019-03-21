@@ -31,10 +31,21 @@
         <div class="modal-body row">
           <div class="col-md-12 contenedor_busquedaylisto">
               <input [(ngModel)]="listaFilter.nombre" name="search" class="form-control" type="text" placeholder="Buscar producto">
+        
               <button type="button" class="btn btn-success" data-dismiss="modal">Listo</button>
           </div>   
           <div class="col-md-6">
-              <h5>Comidas</h5>
+              <div class="filtros_rapidos_container">
+                <h5>Comidas</h5>
+                <div class="btn-group">
+                    <button class="btn btn-filtro" (click)="filtrar('salchipapa')">Salchipapas</button>
+                    <button class="btn btn-filtro" (click)="filtrar('perro')">Perros</button>
+                    <button class="btn btn-filtro" (click)="filtrar('hamburguesa')">Hamburguesas</button>
+                    <button class="btn btn-filtro" (click)="filtrar('filete')">Filetes</button>
+                    <button class="btn btn-filtro" (click)="filtrar('adicion')">Adiciones</button>
+
+                </div>
+              </div>
               <table class="table table-condensed">
                     <thead class="thead-light">
                         <tr>
@@ -77,7 +88,17 @@
               </table>
           </div>
           <div class="col-md-6">
-                <h5>Bebidas</h5>
+                <div class="filtros_rapidos_container">
+                        <h5>Bebidas</h5>
+                        <div class="btn-group">
+                            <button class="btn btn-filtro" (click)="filtrar('litro 1/2')">Litro 1/2</button>
+                            <button class="btn btn-filtro" (click)="filtrar('jugo')">Jugos</button>
+                            <button class="btn btn-filtro" (click)="filtrar('mr tea')">Mr. Tea</button>
+                            <button class="btn btn-filtro" (click)="filtrar('agua')">Agua</button>
+                            <button class="btn btn-filtro" (click)="filtrar('limonada')">Limonada</button>
+        
+                        </div>
+                </div>
                 <table class="table table-condensed">
                       <thead class="thead-light">
                           <tr>

@@ -1,7 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Producto } from '../../modelos_de_datos/producto';
 import { Pedido } from '../../modelos_de_datos/pedidos';
-
 import { MesasComponent } from '../mesas.component';
 
 // servicios
@@ -21,7 +20,7 @@ export class DetalleComponent implements OnInit {
 
   DatabaseProductosService: any;
 
-  constructor(private mesas:MesasComponent, private http:DatabaseProductosService) {}
+  constructor(private mesas:MesasComponent, private http:DatabaseProductosService,private notifier:Notifier) {}
   
   ngOnInit() {
 
@@ -61,8 +60,9 @@ export class DetalleComponent implements OnInit {
   eliminarPedido(pedido_cargado){
     this.http.eliminarPedido(pedido_cargado.id).subscribe(res=>{
       console.log(res);
-      this.mesas.cargarProductos()
+      this.mesas.cargarProductos();
       this.mesas.cargarPedidos();
+      this.limpiarPedido();
     })
   }
   sumarMesa(pedido){
