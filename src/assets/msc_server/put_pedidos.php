@@ -44,6 +44,7 @@ header('Allow: GET, POST, OPTIONS, PUT, DELETE');
 				if(mysqli_query($this->conexion,$query)){
 					// echo json_decode("{'status':'Empleado Actualizado'}");
 					echo "El pedido fue actualizado correctamente";
+
 				}else{
 					// echo json_decode("{'status':'Error en exitoso'".mysqli_error($this->conexion)."}");
 					echo "Error ".mysqli_error($this->conexion);

@@ -7,7 +7,7 @@ class showData extends conexion{
 		parent :: __construct();
 		$output = array();
 		$query  = "SELECT * FROM $tabla";
-			$result = mysqli_query($this->conexion,$query);
+		$result = mysqli_query($this->conexion,$query);
 
 			if(mysqli_num_rows($result)>0){
 				while ($row = mysqli_fetch_array($result)){

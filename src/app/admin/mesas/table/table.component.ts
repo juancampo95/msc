@@ -22,11 +22,11 @@ export class TableComponent implements OnInit {
   mostrarPedido(table){
     this.DatabaseProductosService.getProductos().subscribe(productos=>{
       this.mesas.listadeproductos = productos;
+      this.mesas.pedidovacio = true;
       Number(table.mesa);
 
       this.mesas.pedido_cargado = table;
       let tipo = typeof(table.productos);
-      console.log(tipo);
       if(tipo === "string"){
         this.mesas.productos_agregados = JSON.parse(table.productos);
       }else{
