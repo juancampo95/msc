@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { QzTrayService } from 'src/app/servicios/qz-tray.service';
+
 
 @Component({
   selector: 'app-pedidos',
@@ -7,9 +9,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PedidosComponent implements OnInit {
 
-  constructor() { }
+  constructor(private Qz:QzTrayService) { }
 
   ngOnInit() {
+    this.Qz.getPrinters();
   }
 
 }

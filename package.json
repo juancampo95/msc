@@ -29,8 +29,11 @@
     "jquery": "^3.3.1",
     "ngx-filter-pipe": "^2.1.2",
     "popper.js": "^1.14.7",
+    "qz-tray": "^2.0.9-1",
     "rxjs": "~6.3.3",
+    "sha": "^3.0.0",
     "tslib": "^1.9.0",
+    "ws": "^6.2.0",
     "zone.js": "~0.8.26"
   },
   "devDependencies": {

@@ -20,7 +20,7 @@ export class DetalleComponent implements OnInit {
 
   DatabaseProductosService: any;
 
-  constructor(private mesas:MesasComponent, private http:DatabaseProductosService,private notifier:Notifier) {}
+  constructor(private mesas:MesasComponent, private http:DatabaseProductosService) {}
   
   ngOnInit() {
 
