@@ -1,0 +1,39 @@
+<section class="main-container container-fluid">
+    <nav>
+        <span class="titulo_nav">Pedidos sin facturar</span>
+    </nav>
+    <div class="pedido_container">
+        <div class="mesa_numbers_detail">
+            busqueda
+        </div>
+        <table class="table table-condensed">
+            <thead class="thead-light">
+                <tr>
+                    <th>No.</th>
+                    <th>Mesa</th>
+                    <th>Cliente</th>
+                    <th>Hora</th>
+                    <th>Total</th>
+                    <th>Funciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let pedido of pedidos_realizados">
+                    <td class="cant_td">{{pedido.id}}</td>
+                    <td>{{pedido.mesa}}</td>
+                    <td>{{pedido.cliente}}</td>
+                    <td>{{pedido.hora}}</td>
+                    <td>${{pedido.total_p | number}}</td>
+                    <td>
+                        <button (click)="borrarProducto(product)" class="btn btn-danger borrar_btn">
+                            <i class="material-icons">close</i>
+                        </button>
+                    </td>
+                </tr>
+                <!-- <tr>
+                    <td colspan="5" style="text-align: center" *ngIf="(pedidos_realizados).length == 0">Aún no hay pedidos realizados</td>
+                </tr> -->
+            </tbody>
+        </table>
+    </div>
+</section>

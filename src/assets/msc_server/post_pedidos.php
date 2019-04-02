@@ -27,29 +27,28 @@
 				$query = "INSERT INTO $tabla (fecha,hora,cliente,documento,mesero,metodo,comentario,mesa,subtotal_p,total_p,descuento,productos,estado)
 				VALUES 	('$fecha','$hora','$cliente','$documento','$mesero','$metodo','$comentario','$mesa','$subtotal_p','$total_p','$descuento','$productos','$estado')";
 				if(mysqli_query($this->conexion,$query)){
-					print_r($productos);
-					echo "ingreso correctamente";
+					// print_r($productos);
+					// echo "ingreso correctamente";
+
+					$query2="SELECT id FROM $tabla WHERE fecha='$fecha'and hora='$hora' and total_p='$total_p'";
+					$resulta = mysqli_query($this->conexion,$query2);
+					// echo "respuesta :".$resulta;
+
+					if(mysqli_num_rows($resulta)>0){
+						while ($row = mysqli_fetch_array($resulta)){
+							$output[] = $row;
+						}
+						echo json_encode($output);	
+							// echo "Se Mostraron";
+					}else{
+							echo "no funciono";
+					}
+
 				}else{
 					// echo json_decode("{'status':'Error en exitoso'".mysqli_error($this->conexion)."}");
 					echo "Error ".mysqli_error($this->conexion);
 					
 				}
-
-// 				if($btn_name == "Actualizar Datos"){
-// 					$id = $pedido->id;
-// 					$query = "UPDATE $tabla SET 
-// 					fullname = '$ful',
-// 					company = '$com',
-// 					phone = '$ph',
-// }
-// 					fecha_modificacion = '$fechaActual' WHERE id = '$id'";
-
-// 					if(mysqli_query($this->conexion,$query)){
-// 						echo "Dato actualizado";
-// 					}else{
-// 						echo "falló la actualización";
-// 					}
-// 				}
 			}
 		}
 	}

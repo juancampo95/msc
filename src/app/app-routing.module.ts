@@ -15,7 +15,7 @@ import { ConfiguracionesComponent } from './admin/configuraciones/configuracione
 import { DetalleComponent } from './admin/mesas/detalle/detalle.component';
 import { PedidosComponent } from './admin/pedidos/pedidos.component';
 import { TableComponent } from './admin/mesas/table/table.component';
-
+import { PedidosdiariosComponent } from './admin/pedidos/pedidosdiarios/pedidosdiarios.component';
 
 // Servicios
 import { DatabaseProductosService } from './servicios/database-productos.service';
@@ -43,7 +43,8 @@ const routes: Routes = [
     DetalleComponent,
     ConfiguracionesComponent,
     PedidosComponent,
-    TableComponent
+    TableComponent,
+    PedidosdiariosComponent
   ],
   imports: [
     RouterModule.forRoot(routes),

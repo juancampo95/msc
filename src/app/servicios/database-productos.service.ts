@@ -21,13 +21,18 @@ export class DatabaseProductosService {
   }
 
   enviarPedido(pedido){
-    return this.Http.post(this.api_url + '/post_pedidos.php',pedido,{responseType:'text'});
+    return this.Http.post(this.api_url + '/post_pedidos.php',pedido);
   }
 
   actualizarPedido(pedido){
     return this.Http.post(this.api_url + '/put_pedidos.php',pedido,{responseType:'text'});
   }
-
+  facturarPedido(pedido){
+    return this.Http.post(this.api_url + '/facturar_pedidos.php',pedido,{responseType:'text'});
+  }
+  imprimirPedido(pedido){
+    return this.Http.post(this.api_url + '/imprimir_pedido.php',pedido,{responseType:'text'});
+  }
   eliminarPedido(id_pedido){
     return this.Http.post(this.api_url + '/delete_pedidos.php',id_pedido,{responseType:'text'});
   }

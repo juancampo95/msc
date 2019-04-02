@@ -13,6 +13,8 @@ export class Pedido{
     total_p?:number = 0;
     descuento?:number = 0;
     comentario?:string = "";
-    mesa?:number = 0;
+    mesa?:any = 0;
+    pagadocon?:number = 0;
+    devuelve?:number=0;
     estado?:string = "sin facturar";
  }

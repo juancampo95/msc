@@ -9,7 +9,6 @@
             <i  (click)="restarMesa(pedido_cargado)" class="material-icons icons-numbers menos">remove_circle</i>
             <h6>{{pedido_cargado.mesa}}</h6>
             <i (click)="sumarMesa(pedido_cargado)" class="material-icons icons-numbers mas">add_circle</i>
-
         </div>
         <table class="table table-condensed">
             <thead class="thead-light">
@@ -46,7 +45,11 @@
         </table>
         <div class="row">
             <div class="col-md-12">
-                <input [(ngModel)]="pedido_cargado.comentario" class="form-control" type="text" placeholder="Ingresar comentario">
+                <!-- <textarea [(ngModel)]="pedido_cargado.comentario" class="form-control" cols="30" rows="1" placeholder="Ingresar comentario"></textarea> -->
+                <input [(ngModel)]="pedido_cargado.comentario" class="form-control" type="text"  placeholder="Ingresar comentario">
+                <div class="notas_rapidas">
+                     <button class="btn btn-danger notas_btns" *ngFor="let nota of notas" (click)="comentar(nota)">{{nota}}</button>
+                </div>
             </div>
         </div>
 
@@ -87,21 +90,28 @@
                     <i class="material-icons"  style="margin-right: 5px;">clear_all</i>
                     Limpiar
                 </button>
-                <button (click)="enviarPedido(pedido_cargado,'put')" class="btn-pedir btn btn-small btn-limpiar">
+                <button *ngIf="pedidovacio" (click)="enviarPedido(pedido_cargado,'put')" class="btn-pedir btn btn-small btn-limpiar">
                         <i class="material-icons"  style="margin-right: 5px;">save</i>
                         Guardar
                 </button>
             </div>    
-            <div class="col-md-6 btns-container">
-                <button (click)="enviarPedido(pedido_cargado,'post')" class="btn-pedir btn btn-small btn-warning">
-                    <i class="material-icons" style="margin-right: 5px;">add_circle</i>
-                    Pedir
-                </button>
-                <button (click)="enviarPedido(pedido_cargado,'put')" class="btn-pedir btn btn-small btn-primary d-flex">
+            <div *ngIf="pedidovacio" class="col-md-6 btns-container ">
+                <div>
+                    <button id="btn_pedir" (click)="enviarPedido(pedido_cargado,'post')" class="btn-pedir btn btn-small btn-warning">
+                        <i class="material-icons" style="margin-right: 5px;">add_circle</i>
+                        Pedir
+
+                    </button>
+                    <div (click)="imprimirPedido('btn')" class="sub-menu-pedir">
+                            <i class="material-icons"  style="margin-right: 5px;">print</i>
+                            <span>Sólo imprimir</span>
+                    </div>
+                </div>
+                <button (click)="pedido_cargado.pagadocon = 0;pedido_cargado.devuelve = 0"  data-toggle="modal" data-target="#exampleModalFacturar"  class="btn-pedir btn btn-small btn-primary d-flex">
                     <i class="material-icons"  style="margin-right: 5px;">print</i>
                     Facturar
                 </button>
-                <button data-toggle="modal" data-target="#exampleModal" class="btn-pedir btn btn-small btn-danger  d-flex">
+                <button  data-toggle="modal" data-target="#exampleModal" class="btn-pedir btn btn-small btn-danger  d-flex">
                         <i class="material-icons"  style="padding:0 0.2rem;">delete_forever</i>
                 </button>
             </div>
@@ -120,9 +130,22 @@
           </button>
         </div>
         <div class="modal-body">
-            Descuento por valor
+            <h6>Descuento asignado a ${{pedido_cargado.subtotal_p | number}}.</h6>
             <input class="form-control" (ngModelChange)="calcularTotal()" [(ngModel)]="pedido_cargado.descuento" type="number">
-            
+            <div class="col-md-12 row mt-2 mb-2" >
+                <button (click)="decuentode(1000)" class="btn btn-warning">$1.000</button>
+                <button (click)="decuentode(2000)" class="btn btn-warning">$2.000</button>
+                <button (click)="decuentode(5000)" class="btn btn-warning">$5.000</button>
+                <button (click)="decuentode(10000)" class="btn btn-warning">$10.000</button>
+                <hr>
+                <div class="row" style="width: 100%; margin:1em 0">
+                    <div class="col-5" style="display: flex;align-items: center;justify-content: flex-start;">Por porcentaje %</div>
+                    <div class="col-7">
+                        <input min="0" max="100" class="form-control"(ngModelChange)="porcentar()" [(ngModel)]="percentDescuento" type="number" >
+                    </div>
+                </div>
+            </div>
+
         </div>
         <div class="modal-footer d-flex align-items-center">
             
@@ -155,3 +178,39 @@
           </div>
         </div>
       </div>
+
+<!-- Modal para eliminar CLOSE-->
+
+
+<!-- Modal para facturar -->
+<!-- Modal -->
+<div class="modal fade" id="exampleModalFacturar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog small-modal" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Facturar Pedido <span *ngIf="!pedido_cargado.mesa == 0">Mesa {{pedido_cargado.mesa}}</span></h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="col-md-12">
+                <h6 style="text-align:center">Total de cuenta ${{pedido_cargado.total_p | number}}</h6>
+                <label for="pagadocon">Paga con...
+                    <input step="any" type="number" class="form-control" (change)="calcularTotal()"  [(ngModel)]="pedido_cargado.pagadocon">
+                </label>
+                <span style="margin-left:1em;font-weight: bold;color:white;background-color: rgb(11, 187, 11);padding:0.5em 1em;">Devuelve: ${{pedido_cargado.devuelve | number}}</span>
+                </div>
+                <div class="col-md-12">
+                    <button (click)="pedido_cargado.pagadocon = pedido_cargado.total_p;pedido_cargado.devuelve = 0" class="btn btn-limpiar">Valor Exacto ${{pedido_cargado.total_p | number}}</button>
+                </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">cerrar</button>
+              <button (click)="enviarPedido(pedido_cargado,'facturar')"  data-dismiss="modal" type="button" class="btn btn-primary">Facturar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+<!-- Modal para facturar CLOSE-->

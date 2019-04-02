@@ -6,6 +6,7 @@ import { Pedido } from '../modelos_de_datos/pedidos';
 
 // servicios
 import { DatabaseProductosService } from 'src/app/servicios/database-productos.service';
+import { PedidosdiariosComponent } from '../pedidos/pedidosdiarios/pedidosdiarios.component';
 
 @Component({
   selector: 'app-mesas',
@@ -15,26 +16,32 @@ import { DatabaseProductosService } from 'src/app/servicios/database-productos.s
 export class MesasComponent implements OnInit {
   listaFilter:any={nombre:''};
   listadeproductos:Producto[] = [];
-  meseros:string[] = ['Caja','Carlos', 'Nicolas','Nelmar'];
+  meseros:string[] = ['Caja','Nicolas','Nelmar'];
   metodos_de_pago:string[] = ['Efectivo', 'Datafono'];
-  mesasEnUso:Pedido[];
+  mesasEnUso:Pedido[]=[];
   productos_agregados:Producto[] = [];
   pedido_cargado:Pedido = new Pedido();
-  
+  pedidovacio:boolean;
+
   constructor(private DatabaseProductosService:DatabaseProductosService){}
 
   ngOnInit() {this.cargarPedidos();this.cargarProductos();}
 
   cargarProductos(){
     this.DatabaseProductosService.getProductos().subscribe(productos=>{
-      console.log("Productos Cargados");
      return this.listadeproductos = productos;
     });    
   }
   cargarPedidos(){
     this.mesasEnUso = []
     this.DatabaseProductosService.getPedidos().subscribe(pedidos=>{
-      this.mesasEnUso = pedidos as Pedido[];
+      pedidos.forEach(pedido=>{
+        if(pedido.estado == 'Sin Facturar'){
+          if(pedido.mesa > 0){
+            this.mesasEnUso.push(pedido);
+          }
+        }
+      })
     })
   }
 
@@ -43,7 +50,7 @@ export class MesasComponent implements OnInit {
     let validacion = this.productos_agregados.includes(product);
     //hayando el valor total ->
     product.v_total = product.cantidad * product.v_unidad;
-
+    this.pedidovacio=true;
     if(validacion == true){
       alert("El producto ya está agregado, puede cambiar las cantidades si desea.");
     }else{
@@ -52,8 +59,9 @@ export class MesasComponent implements OnInit {
       this.pedido_cargado.productos =  this.productos_agregados;
       this.calcularTotal();
       
-
+      
     }
+    
   }
   // remover el producto desde modal
   borrarProducto(product){
@@ -77,11 +85,14 @@ export class MesasComponent implements OnInit {
     this.pedido_cargado.subtotal_p = 0;
     this.pedido_cargado.total_p = 0;
     var sub = 0;
+    
     this.productos_agregados.forEach(producto=>{
       sub += producto.v_total;
     })
     this.pedido_cargado.subtotal_p = sub;
     this.pedido_cargado.total_p = sub - this.pedido_cargado.descuento;
+    this.pedido_cargado.devuelve = this.pedido_cargado.pagadocon - this.pedido_cargado.total_p;
+    console.log("devuelve: " + this.pedido_cargado.devuelve + "y paga con: " + this.pedido_cargado.pagadocon);
   }
   sumarProductos(product){
     if(product.cantidad >= 0){
