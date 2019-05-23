@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthSessionService } from '../servicios/auth-session.service';
 
 @Component({
   selector: 'app-admin',
@@ -7,9 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminComponent implements OnInit {
 
-  constructor() { }
+  constructor(private AuthS:AuthSessionService ) {
+    this.AuthS.validacionUser().subscribe(res=>{
+      if(res.status !== 'autenticado'){
+        this.AuthS.logOut();
+      }   
+    })
+  }
 
   ngOnInit() {
+
   }
 
 }

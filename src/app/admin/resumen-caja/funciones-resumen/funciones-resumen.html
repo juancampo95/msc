@@ -1,0 +1,116 @@
+<section class="main-container container-fluid">
+        <nav>
+            <span style="display: flex;align-items: center;" 
+            class="titulo_nav">Funciones de resumen</span>
+        </nav>
+
+        <div class="pedido_container">
+            <div class="d-flex justify-content-center ">
+                <button (click)="cambioPestana('base inicial')" class="btn btn-primary m-1 btn_principal">Base Inicial</button>
+                <button (click)="cambioPestana('otros ingresos')" class="btn btn-primary m-1 btn_principal">Otros Ingresos</button>
+                <button (click)="cambioPestana('gastos y vales')" class="btn btn-primary m-1 btn_principal">Gastos y Vales</button>
+            </div>
+        </div>
+        <div *ngIf="pestana == 'base inicial'">
+            <h6>Base Inicial</h6>
+            <div class="row">
+                <div class="col-md-8 form-container">
+                    <label for="monedas">
+                        Monedas <br>
+                        <input [(ngModel)]="base_i_m" class="form-control" name="monedas" type="number" placeholder="Ingrese el total de monedas aquí" (ngModelChange)="calcularBaseInicial()" >
+                    </label>
+                    <label for="billetes">
+                        Billetes <br>
+                        <input [(ngModel)]="base_i_b" class="form-control" name="billetes" type="number" placeholder="Ingrese el total de billetes aquí"  (ngModelChange)="calcularBaseInicial()">
+                    </label>
+                </div>
+                <div class="col-md-4 form-container2">
+                    <h6>Total ${{total_base_inicial | number}}</h6>
+                    <button (click)="enviarBaseInicial('base_inicial')" class="btn btn-primary">Guardar</button>
+                </div>                
+            </div>
+        </div>
+        <div *ngIf="pestana == 'otros ingresos'" class="pedido_container">
+            <div class="d-flex justify-content-between pl-1 pr-1">
+                <h6>Otros Ingresos</h6>
+                <button  (click)="agregarIngreso('post_ingresos')" class="btn btn-primary d-flex"><i class="material-icons"  style="margin-right: 5px;">add</i>Agregar</button>
+            </div>
+            <div class="mesa_numbers_detail" style="margin:0.5em auto">
+                <div class="row" style="width: 100%">
+                    <div class="col-md-12 form-container">
+                            <input [(ngModel)]="nuevoIngreso.total" class="form-control" name="Total" type="number" placeholder="Total de ingreso"  (ngModelChange)="calcularBaseInicial()">
+                    </div>
+                    <div class="col-md-12 form-container">
+                            <input [(ngModel)]="nuevoIngreso.detalle" class="form-control" name="Total" type="text" placeholder="Detalle o motivo de ingreso"  (ngModelChange)="calcularBaseInicial()">
+                    </div>
+                </div>
+            </div>
+            <table class="table table-condensed">
+                <thead class="thead-light">
+                    <tr>
+                        <th>No.</th>
+                        <th>Detalle</th>
+                        <th>Fecha</th>
+                        <th>Total</th>
+                        <th>Funciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let i of o_ingresos | filterBy:listaFilter">
+                        <td class="cant_td"><i class="material-icons" style="color:#00d400;margin-right: 0.5em;font-size: 14px;">done_outline</i> {{i.id}}</td>
+                        <td>{{i.detalle}}</td>
+                        <td>{{i.fecha}}</td>
+                        <td>{{i.total | number}}</td>
+                        <td>
+                            <button (click)="eliminarIngreso(i)" class="btn btn-danger borrar_btn " style="margin-right: 5px">
+                                <i class="material-icons">close</i>
+                            </button>
+                            <button (click)="eliminarIngreso(i)" class="btn btn-danger borrar_btn">
+                                <i class="material-icons">close</i>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+
+
+        <!-- <div class="pedido_container">
+            <div class="mesa_numbers_detail" style="margin:0.5em auto">
+                
+            </div>
+            <table class="table table-condensed">
+                <thead class="thead-light">
+                    <tr>
+                        <th>No.</th>
+                        <th>Mesa</th>
+                        <th>Cliente</th>
+                        <th>Hora</th>
+                        <th>Total</th>
+                        <th>Funciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let pedido of pedidos_facturados | filterBy:listaFilter">
+                        <td class="cant_td"><i class="material-icons" style="color:#00d400;margin-right: 0.5em;font-size: 14px;">done_outline</i> {{pedido.id}}</td>
+                        <td> <span *ngIf="pedido.mesa > 0">Mesa {{pedido.mesa}}</span><span *ngIf="pedido.mesa == 0">Para llevar</span></td>
+                        <td>{{pedido.cliente}}</td>
+                        <td>{{pedido.hora}}</td>
+                        <td>${{pedido.total_p | number}}</td>
+                        <td>
+                            <a [routerLink]="['../mesas',pedido.id]">
+                            <button class="btn btn-danger btn-detalle-color">
+                                        <i class="material-icons">toc</i>
+                            </button>
+                            </a>
+                            <button (click)="eliminarPedido(pedido)" class="btn btn-danger borrar_btn">
+                                <i class="material-icons">close</i>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div> -->
+    </section>
+    

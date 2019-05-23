@@ -1,0 +1,131 @@
+<section class="main-container container-fluid">
+        <nav>
+            <span class="titulo_nav">Resumen de Caja Diaria</span>
+        </nav>
+            <!-- ingresos -->
+            <div class="caja-detalle">
+                <div class="titulo-detalle">
+                    <i class="material-icons azul">add_circle_outline</i>
+                    <h5>Ingresos</h5>
+                </div>
+                <div class="listas-detalle">
+                    <ul>
+                        <li>Base Inicial</li>
+                        <li>Pedidos Facturados</li>
+                        <li>Pagos con Datafono</li>
+                        <li>Pagos Online</li>
+                        <li>Otros Ingresos</li>
+                        <li class="subtotal-ingresos azul">
+                            Subtotal
+                        </li>
+                    </ul>
+                    <ul>
+                        <li>${{base_inicial | number}}</li>
+                        <li>${{r_actual.pedidos_facturados | number}}</li>
+                        <li>${{r_actual.datafono | number}}</li>
+                        <li>${{r_actual.online | number}}</li>
+                        <li>${{r_actual.otros_ingresos | number}}</li>
+                        <li class="subtotal-ingresos azul">
+                            <i class="material-icons">add_circle_outline</i>
+                            ${{r_actual.total_ingresos  | number}}</li>
+                    </ul>
+                </div>
+            </div>
+            <hr>
+            <!-- gastos -->
+            <div class="caja-detalle">
+                    <div class="titulo-detalle">
+                        <i class="material-icons rojo">remove_circle_outline</i>
+                        <h5>Egresos</h5>
+                    </div>
+                    <div class="listas-detalle">
+                        <ul>
+                            <li>Compras y gastos</li>
+                            <li>Vales</li>
+                            <li class="subtotal-ingresos rojo">
+                                Subtotal
+                            </li>
+                        </ul>
+                        <ul>
+                            <li>${{r_actual.compras_gastos | number}}</li>
+                            <li>${{r_actual.vales | number}}</li>
+                            <li class="subtotal-ingresos rojo">
+                                <i class="material-icons">remove_circle_outline</i>
+                                ${{r_actual.total_gastos | number}}</li>
+                        </ul>
+                </div>
+            </div>
+            <hr>
+            <div class="caja-detalle">
+                    <div class="listas-detalle" style="margin:0.4em 0 0.3em 0">
+                        <ul>
+                            <li class="subtotal-ingresos bold">
+                                Total de Resumen
+                            </li>
+                        </ul>
+                        <ul>
+                            <li class="subtotal-ingresos bold">
+                                    ${{r_actual.total_resumen | number}}
+                            </li>
+                        </ul>
+                </div>
+            </div> 
+            <hr>
+            <!-- Arqueo -->
+            <div class="caja-detalle">
+                <div class="titulo-detalle">
+                    <i class="material-icons verde">attach_money</i>
+                    <h5>Arqueo de Efectivo</h5>
+                </div>
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <label class="label_number_inputs" for="datafono">Datáfono $</label>
+                            <input [(ngModel)]="r_actual.datafono_a" class="form-control" placeholder="Datafono" type="number" min="0" (ngModelChange)="calcularArqueo()">
+                        </div>
+                        <div class="form-group">
+                                <label class="label_number_inputs" for="datafono">Online $</label>
+                                <input [(ngModel)]="r_actual.online_a" class="form-control" placeholder="Pagos en linea" type="number" min="0" (ngModelChange)="calcularArqueo()"> 
+                        </div>
+                        <div class="form-group">
+                                <label class="label_number_inputs" for="datafono">Billetes $</label>
+                                <input [(ngModel)]="r_actual.billetes_a" class="form-control" placeholder="Billetes" type="number" min="0" (ngModelChange)="calcularArqueo()"> 
+                        </div>     
+                        <div class="form-group">
+                                <label class="label_number_inputs" for="datafono">Monedas $</label>
+                                <input [(ngModel)]="r_actual.monedas_a" class="form-control" placeholder="Monedas" type="number" min="0" (ngModelChange)="calcularArqueo()">
+                        </div>                                            
+                    </div>
+                    <div class="col-md-7">
+                            <div class="listas-detalle detalle-arqueo"> 
+                                    <ul>
+                                        <li>Resumen</li>
+                                        <li>Arqueo</li>
+                                        <li>Datafono y Online</li>
+                                        <li class="total" *ngIf="r_actual.descuadre > 0">Faltan</li>
+                                        <li class="total" *ngIf="r_actual.descuadre < 0">Sobran</li>
+                                        <li class="total" *ngIf="r_actual.descuadre == 0">Cuadre</li>
+                                    </ul>
+                                    <ul>
+                                        <li>${{r_actual.total_resumen | number}}</li>
+                                        <li>${{r_actual.total_arqueo | number}}</li>
+                                        <li>${{online | number}}</li>
+                                        <li [ngClass]="(r_actual.descuadre > 0)?'rojo':'verde'" class="total">${{r_actual.descuadre | number}}</li>
+                                    </ul>
+                            </div>
+                            <div class="d-flex mt-2">
+                            <button data-toggle="modal" data-target="#exampleModalFacturar"  class="btn btn-small btn-warning d-flex mr-2">
+                                    <i class="material-icons"  style="margin-right: 5px;">print</i>
+                                    Imprimir
+                            </button>
+                            <button data-toggle="modal" data-target="#exampleModalFacturar"  class="btn btn-small btn-primary d-flex">
+                                    <i class="material-icons"  style="margin-right: 5px;">done_outline</i>
+                                    Cuadrar Caja
+                            </button>
+                            </div>
+                    </div>
+                </div>
+            </div> 
+</section>
+    
+    

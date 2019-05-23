@@ -1,0 +1,15 @@
+.container-cage{
+    background-color: white;
+    height: 100%;
+    width: 100%;
+    margin:0.5em 0.25em 0.5em 0.5em;
+    padding:0.7em;
+    font-family: "roboto";
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: column;
+    &btn{
+        margin:1em auto;
+    }
+}

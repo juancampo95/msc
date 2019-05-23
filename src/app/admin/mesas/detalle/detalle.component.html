@@ -1,6 +1,6 @@
 <section class="main-container container-fluid">
     <nav>
-        <span class="titulo_nav">Detalle de pedido <span *ngIf="!pedido_cargado.mesa == 0">de la mesa {{pedido_cargado.mesa}}</span></span>
+        <span class="titulo_nav">Detalle de pedido <span *ngIf="pedido_cargado.id > 0">No. {{pedido_cargado.id}}</span><span *ngIf="pedido_cargado.mesa == 0 && pedido_cargado.id > 0"> - Llevar</span></span>
         <button class="btn btn-small btn-primary"  data-toggle="modal" data-target="#exampleModalCenter"> <i class="material-icons">add</i>Agregar Producto</button>
     </nav>
     <div class="pedido_container">
@@ -9,6 +9,7 @@
             <i  (click)="restarMesa(pedido_cargado)" class="material-icons icons-numbers menos">remove_circle</i>
             <h6>{{pedido_cargado.mesa}}</h6>
             <i (click)="sumarMesa(pedido_cargado)" class="material-icons icons-numbers mas">add_circle</i>
+
         </div>
         <table class="table table-condensed">
             <thead class="thead-light">
@@ -88,7 +89,7 @@
                 
                 <button (click)="limpiarPedido()" class="btn-pedir btn btn-small btn-limpiar">
                     <i class="material-icons"  style="margin-right: 5px;">clear_all</i>
-                    Limpiar
+                    Nuevo
                 </button>
                 <button *ngIf="pedidovacio" (click)="enviarPedido(pedido_cargado,'put')" class="btn-pedir btn btn-small btn-limpiar">
                         <i class="material-icons"  style="margin-right: 5px;">save</i>
@@ -97,15 +98,14 @@
             </div>    
             <div *ngIf="pedidovacio" class="col-md-6 btns-container ">
                 <div>
-                    <button id="btn_pedir" (click)="enviarPedido(pedido_cargado,'post')" class="btn-pedir btn btn-small btn-warning">
+                    <button *ngIf="pedido_cargado.estado === ''" id="btn_pedir" (click)="enviarPedido(pedido_cargado,'post')" class="btn-pedir btn btn-small btn-warning">
                         <i class="material-icons" style="margin-right: 5px;">add_circle</i>
                         Pedir
-
                     </button>
-                    <div (click)="imprimirPedido('btn')" class="sub-menu-pedir">
-                            <i class="material-icons"  style="margin-right: 5px;">print</i>
-                            <span>Sólo imprimir</span>
-                    </div>
+                    <button *ngIf="pedido_cargado.estado === 'Sin Facturar' || pedido_cargado.estado === 'facturado' " id="btn_pedir"(click)="imprimirPedido('btn')" class="btn-pedir btn btn-small btn-warning">
+                            <i class="material-icons" style="margin-right: 5px;">print</i>
+                            Pedido
+                    </button>
                 </div>
                 <button (click)="pedido_cargado.pagadocon = 0;pedido_cargado.devuelve = 0"  data-toggle="modal" data-target="#exampleModalFacturar"  class="btn-pedir btn btn-small btn-primary d-flex">
                     <i class="material-icons"  style="margin-right: 5px;">print</i>
@@ -114,6 +114,9 @@
                 <button  data-toggle="modal" data-target="#exampleModal" class="btn-pedir btn btn-small btn-danger  d-flex">
                         <i class="material-icons"  style="padding:0 0.2rem;">delete_forever</i>
                 </button>
+            </div>
+            <div class="col-md-12 d-flex justify-content-end">
+                <span style="font-size: 12px;" *ngIf="pedido_cargado.estado"> Este pedido está <b>{{pedido_cargado.estado}}.</b></span>
             </div>
         </div>
     </div>
@@ -207,6 +210,7 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">cerrar</button>
+              <button (click)="enviarPedido(pedido_cargado,'imprimir factura')"  data-dismiss="modal" type="button" class="btn btn-warning">Solo Imprimir</button>
               <button (click)="enviarPedido(pedido_cargado,'facturar')"  data-dismiss="modal" type="button" class="btn btn-primary">Facturar</button>
             </div>
           </div>

@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Producto } from '../../modelos_de_datos/producto';
 import { Pedido } from '../../modelos_de_datos/pedidos';
 import { MesasComponent } from '../mesas.component';
+import { Router } from '@angular/router';
 
 // servicios
 import { DatabaseProductosService } from 'src/app/servicios/database-productos.service';
@@ -22,7 +23,7 @@ export class DetalleComponent implements OnInit {
   DatabaseProductosService: any;
   notas:string[]=['llevar','todas','verde','piña','empacar salsas',]
 
-  constructor(private mesas:MesasComponent, private http:DatabaseProductosService) {}
+  constructor(private mesas:MesasComponent, private http:DatabaseProductosService,private Router:Router) {}
   
   ngOnInit() {
 
@@ -48,16 +49,14 @@ export class DetalleComponent implements OnInit {
         pedido.cliente = "";
       }
       this.http.enviarPedido(pedido).subscribe(res=>{
-        console.log(res[0].id);
         pedido.id= parseInt(res[0].id)
         this.imprimirPedido("",pedido);
+        // console.log(res);
       });
       
     }else if(pedido.id > 0  && accion == 'put'){
       pedido.productos = this.mesas.productos_agregados;
-      console.log(pedido.productos)
       this.http.actualizarPedido(pedido).subscribe(res=>{
-        console.log(res)
         this.mesas.cargarProductos();
         this.mesas.cargarPedidos();
       });
@@ -66,9 +65,16 @@ export class DetalleComponent implements OnInit {
       pedido.productos = this.mesas.productos_agregados;
       pedido.fecha = new Date().toLocaleDateString();
       pedido.hora = new Date().toLocaleTimeString();
-
+      pedido.estado = 'facturado'
       this.http.facturarPedido(pedido).subscribe(res=>{
-        console.log("respuesta: " + res);
+        this.mesas.cargarProductos()
+        this.mesas.cargarPedidos();
+      });
+    }
+    else if((pedido.id == undefined || pedido.id > 0) && accion == 'imprimir factura'){
+      pedido.productos = this.mesas.productos_agregados;
+      pedido.estado = 'facturado'
+      this.http.imprimirFacturaSola(pedido).subscribe(res=>{
         this.mesas.cargarProductos()
         this.mesas.cargarPedidos();
       });
@@ -81,17 +87,20 @@ export class DetalleComponent implements OnInit {
       this.http.actualizarPedido(pedido).subscribe(res=>{console.log(res)});
     }
     this.http.imprimirPedido(pedido).subscribe(res=>{
-      console.log(res);
       this.mesas.cargarProductos()
       this.mesas.cargarPedidos();
     })
   }
   eliminarPedido(pedido_cargado){
-    this.http.eliminarPedido(pedido_cargado.id).subscribe(res=>{
+    if(pedido_cargado.estado == 'facturado' || pedido_cargado.estado == 'Sin Facturar'){
+      pedido_cargado.estado = 'anulado';
+    }else{
+      pedido_cargado.estado = 'facturado';
+    }
+    this.http.anularPedido(pedido_cargado).subscribe(res=>{
       console.log(res);
-      this.mesas.cargarProductos();
-      this.mesas.cargarPedidos();
       this.limpiarPedido();
+
     })
   }
   sumarMesa(pedido){
@@ -111,6 +120,7 @@ export class DetalleComponent implements OnInit {
     this.mesas.restarProductos(product);
   }
   limpiarPedido(){
+    this.Router.navigate(['/administracion/mesas']);
     this.mesas.productos_agregados = [];
     this.mesas.pedido_cargado.productos =  this.mesas.productos_agregados;
     this.mesas.pedido_cargado = new Pedido();

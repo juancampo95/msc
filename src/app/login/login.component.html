@@ -1,0 +1,17 @@
+<section class="full_container">
+    <div class="container_form">
+        <img  src="../../assets/img/logo_lightlogo-.png" alt="logo mi salsa casera">
+        <form #myLoginForm="ngForm" (ngSubmit)="loginUser(myLoginForm.value)">
+                <span>Ingresa tus datos</span>
+                <label for="username">Nombre de Usuario
+                    <input type="text" class="form-control" id="username" name="username" ngModel>
+                </label>
+                <label for="password">Contraseña
+                    <input type="password" class="form-control" id="password" name="password" ngModel>
+                </label>
+                <input type="submit" class="btn btn-primary action-btn" value="Iniciar Sesión"> 
+                <span [ngClass]="error_class">Datos incorrectos, por favor vuelva a intentarlo.</span>
+                <span [ngClass]="success_class">Haz ingresado correctamente.</span>
+        </form>
+    </div>
+</section>

@@ -1,7 +1,11 @@
-<section class="row full-container">
+<section class="row full-container" style="margin-right: 0;">
     <div class="col-md-6">
         <app-pedidosdiarios
         [pedidos_realizados]="pedidos_realizados"
         > </app-pedidosdiarios>
+    </div>
+    <div class="col-md-6" style="padding-left: 0;">
+            <app-facturadosdiarios [pedidos_facturados]="pedidos_facturados">
+            </app-facturadosdiarios>
     </div>
 </section>

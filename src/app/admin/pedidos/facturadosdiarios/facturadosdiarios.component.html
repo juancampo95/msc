@@ -1,0 +1,61 @@
+<section class="main-container container-fluid">
+        <nav>
+            <span style="display: flex;align-items: center;" 
+            class="titulo_nav">Facturados<i style="color:#00d400;margin-left: 0.2em" class="material-icons">check_circle_outline</i></span>
+        </nav>
+        <div class="pedido_container">
+            <div class="mesa_numbers_detail" style="margin:0.5em auto">
+                <i class="material-icons">search</i>
+                <input [(ngModel)]="listaFilter.id" name="search" class="form-control" type="text" placeholder="Buscar por factura">
+                <span style="cursor: pointer" *ngIf="listaFilter.id > 0" (click)="listaFilter.id = ''"><i class="material-icons">close</i></span>
+                <button style="margin:0 0 0 1em"  (click)="listaFilter.mesa === ''? listaFilter.mesa = 0 : listaFilter.mesa = ''" class="btn btn-warning">
+                    <span *ngIf="listaFilter.mesa === ''">Llevar</span>
+                    <span *ngIf="listaFilter.mesa === 0">Todos</span>  
+                </button>
+            </div>
+            <table class="table table-condensed">
+                <thead class="thead-light">
+                    <tr>
+                        <th>No.</th>
+                        <th>Mesa</th>
+                        <th>Cliente</th>
+                        <th>Hora</th>
+                        <th>Estado</th>
+                        <th>Total</th>
+                        <th>Funciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let pedido of pedidos_facturados | filterBy:listaFilter | paginate: { itemsPerPage: 11, currentPage: p }; let i = index">
+                        <td class="cant_td"><i class="material-icons" style="color:#00d400;margin-right: 0.5em;font-size: 14px;">done_outline</i> {{pedido.id}}</td>
+                        <td> <span *ngIf="pedido.mesa > 0">Mesa {{pedido.mesa}}</span><span *ngIf="pedido.mesa == 0">Para llevar</span></td>
+                        <td>{{pedido.cliente}}</td>
+                        <td>{{pedido.hora}}</td>
+                        <td>
+                            <span                         
+                            [class.back_rojo]="pedido.estado === 'anulado'"
+                            [class.back_verde]="pedido.estado === 'facturado'">
+                            {{pedido.estado}}
+                            </span> </td>
+                        <td>${{pedido.total_p | number}}</td>
+                        <td>
+                            <a [routerLink]="['../mesas',pedido.id]">
+                            <button class="btn btn-danger btn-detalle-color">
+                                        <i class="material-icons">toc</i>
+                            </button>
+                            </a>
+                            <button (click)="eliminarPedido(pedido)" class="btn btn-danger borrar_btn">
+                                <i class="material-icons">close</i>
+                            </button>
+                        </td>
+                    </tr>
+                    <!-- <tr>
+                        <td colspan="5" style="text-align: center" *ngIf="(pedidos_realizados).length == 0">Aún no hay pedidos realizados</td>
+                    </tr> -->
+                </tbody>
+            </table>
+            <pagination-controls (pageChange)="p = $event"></pagination-controls>
+        </div>
+    </section>
+    
+    

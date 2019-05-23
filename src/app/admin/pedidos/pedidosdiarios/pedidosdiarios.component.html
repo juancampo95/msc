@@ -1,10 +1,16 @@
 <section class="main-container container-fluid">
     <nav>
-        <span class="titulo_nav">Pedidos sin facturar</span>
+        <span class="titulo_nav">Sin Facturar</span>
     </nav>
     <div class="pedido_container">
-        <div class="mesa_numbers_detail">
-            busqueda
+        <div class="mesa_numbers_detail" style="margin:0.5em auto">
+            <i class="material-icons">search</i>
+            <input [(ngModel)]="listaFilter.id" name="search" class="form-control" type="text" placeholder="Buscar por factura">
+            <span style="cursor: pointer" *ngIf="listaFilter.id > 0" (click)="listaFilter.id = ''"><i class="material-icons">close</i></span>
+            <button style="margin:0 0 0 1em"  (click)="listaFilter.mesa === ''? listaFilter.mesa = 0 : listaFilter.mesa = ''" class="btn btn-warning">
+                <span *ngIf="listaFilter.mesa === ''">Llevar</span>
+                <span *ngIf="listaFilter.mesa === 0">Todos</span>  
+            </button>
         </div>
         <table class="table table-condensed">
             <thead class="thead-light">
@@ -13,27 +19,37 @@
                     <th>Mesa</th>
                     <th>Cliente</th>
                     <th>Hora</th>
+                    <th>Estado</th>
                     <th>Total</th>
                     <th>Funciones</th>
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let pedido of pedidos_realizados">
+                <tr *ngFor="let pedido of pedidos_realizados | filterBy:listaFilter  | paginate: { itemsPerPage: 11, currentPage: a }; let s = index">
                     <td class="cant_td">{{pedido.id}}</td>
-                    <td>{{pedido.mesa}}</td>
+                    <td> <span *ngIf="pedido.mesa > 0">Mesa {{pedido.mesa}}</span><span *ngIf="pedido.mesa == 0">Para llevar</span></td>
                     <td>{{pedido.cliente}}</td>
                     <td>{{pedido.hora}}</td>
+                    <td ><span                     
+                        >{{pedido.estado}}</span></td>
                     <td>${{pedido.total_p | number}}</td>
                     <td>
-                        <button (click)="borrarProducto(product)" class="btn btn-danger borrar_btn">
+                        <a [routerLink]="['../mesas',pedido.id]">
+                        <button class="btn btn-danger btn-detalle-color">
+                                    <i class="material-icons">toc</i>
+                        </button>
+                        </a>
+                        <button (click)="eliminarPedido(pedido)" class="btn btn-danger borrar_btn">
                             <i class="material-icons">close</i>
                         </button>
                     </td>
                 </tr>
-                <!-- <tr>
+                <tr>
                     <td colspan="5" style="text-align: center" *ngIf="(pedidos_realizados).length == 0">Aún no hay pedidos realizados</td>
-                </tr> -->
+                </tr>
             </tbody>
         </table>
+        <pagination-controls (pageChange)="a = $event"></pagination-controls>
     </div>
 </section>
+

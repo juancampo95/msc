@@ -16,21 +16,29 @@ import { DetalleComponent } from './admin/mesas/detalle/detalle.component';
 import { PedidosComponent } from './admin/pedidos/pedidos.component';
 import { TableComponent } from './admin/mesas/table/table.component';
 import { PedidosdiariosComponent } from './admin/pedidos/pedidosdiarios/pedidosdiarios.component';
-
+import { FacturadosdiariosComponent } from './admin/pedidos/facturadosdiarios/facturadosdiarios.component';
+import { ResumenCajaComponent } from './admin/resumen-caja/resumen-caja.component';
+import { ResumenDetailComponent } from './admin/resumen-caja/resumen-detail/resumen-detail.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { FuncionesResumenComponent } from './admin/resumen-caja/funciones-resumen/funciones-resumen.component';
+import {NgxPaginationModule} from 'ngx-pagination'; // <-- import the module
 // Servicios
 import { DatabaseProductosService } from './servicios/database-productos.service';
 
 const routes: Routes = [
-  {path:"", redirectTo:"administracion",pathMatch:"full"},
+  {path:"", redirectTo:"login",pathMatch:"full"},
   {path:"administracion",component:AdminComponent,
     children:[
       { path:"",redirectTo:"mesas",pathMatch:"full"},
       { path:"mesas",component:MesasComponent},
+      { path:"mesas/:id",component:MesasComponent},
       { path:"pedidos",component:PedidosComponent},
+      { path:"resumen-de-caja",component:ResumenCajaComponent},
       { path:"configuraciones",component:ConfiguracionesComponent}
     ]
   },
-  {path:"login",component:LoginComponent}
+  {path:"login",component:LoginComponent},
+  {path:"**",component:PageNotFoundComponent}
 ];
 
 @NgModule({
@@ -44,14 +52,20 @@ const routes: Routes = [
     ConfiguracionesComponent,
     PedidosComponent,
     TableComponent,
-    PedidosdiariosComponent
+    PedidosdiariosComponent,
+    FacturadosdiariosComponent,
+    ResumenCajaComponent,
+    ResumenDetailComponent,
+    FuncionesResumenComponent,
+    PageNotFoundComponent 
   ],
   imports: [
     RouterModule.forRoot(routes),
     CommonModule,
     FormsModule,
     FilterPipeModule,
-    HttpClientModule
+    HttpClientModule,
+    NgxPaginationModule
   ],
   providers:[
     DatabaseProductosService

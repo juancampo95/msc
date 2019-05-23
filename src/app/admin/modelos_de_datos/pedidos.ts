@@ -10,11 +10,12 @@ export class Pedido{
     metodo?:string = "Efectivo";
     productos?:Producto[] = [];
     subtotal_p?:number = 0;
-    total_p?:number = 0;
+    total_p?:any = 0;
     descuento?:number = 0;
     comentario?:string = "";
     mesa?:any = 0;
     pagadocon?:number = 0;
     devuelve?:number=0;
-    estado?:string = "sin facturar";
+    estado?:string = "";
+    usuario?:string = localStorage.getItem('currentUser');
  }

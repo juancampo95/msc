@@ -1,0 +1,16 @@
+<section class="row full-container" style="margin-right: 0; height: 90vh;">
+        <div *ngIf="inicio == false" class="container-cage">
+                <h3>¡Hola {{usuario}}!</h3>
+                <h5>Parece ser que no tienes cajas activas</h5>
+                <button (click)="iniciarResumen()" class="btn btn-primary">Iniciar Caja</button>
+        </div>
+        
+        <div *ngIf="inicio==true" class="col-md-6">
+            <app-resumen-detail [base_inicial]="base_inicial" [r_actual]='r_actual'></app-resumen-detail>
+        </div>
+        <div *ngIf="inicio==true" class="col-md-6" style="padding-left: 0;">
+                <app-funciones-resumen [r_actual]="r_actual">
+                </app-funciones-resumen>
+        </div>
+</section>
+    

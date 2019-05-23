@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+
 
 // importando modelos
 import { Producto } from '../modelos_de_datos/producto';
@@ -6,7 +8,8 @@ import { Pedido } from '../modelos_de_datos/pedidos';
 
 // servicios
 import { DatabaseProductosService } from 'src/app/servicios/database-productos.service';
-import { PedidosdiariosComponent } from '../pedidos/pedidosdiarios/pedidosdiarios.component';
+import { AuthSessionService } from 'src/app/servicios/auth-session.service';
+
 
 @Component({
   selector: 'app-mesas',
@@ -17,16 +20,26 @@ export class MesasComponent implements OnInit {
   listaFilter:any={nombre:''};
   listadeproductos:Producto[] = [];
   meseros:string[] = ['Caja','Nicolas','Nelmar'];
-  metodos_de_pago:string[] = ['Efectivo', 'Datafono'];
+  metodos_de_pago:string[] = ['Efectivo', 'Datafono','Online'];
   mesasEnUso:Pedido[]=[];
   productos_agregados:Producto[] = [];
   pedido_cargado:Pedido = new Pedido();
   pedidovacio:boolean;
+  idParam:number;
+  user = localStorage.getItem('currentUser');
+  constructor(
+    private DatabaseProductosService:DatabaseProductosService, private Route:ActivatedRoute, private router:Router, private Auth:AuthSessionService)
+  {}
 
-  constructor(private DatabaseProductosService:DatabaseProductosService){}
-
-  ngOnInit() {this.cargarPedidos();this.cargarProductos();}
-
+  ngOnInit() {
+    this.cargarPedidos();
+    this.cargarProductos();
+    this.idParam = parseInt(this.Route.snapshot.paramMap.get('id'));
+    if(isNaN(this.idParam) == false){
+      // console.log('busca el pedido del parametro');
+      this.asignarPedidoParam();
+    }
+  }
   cargarProductos(){
     this.DatabaseProductosService.getProductos().subscribe(productos=>{
      return this.listadeproductos = productos;
@@ -34,17 +47,23 @@ export class MesasComponent implements OnInit {
   }
   cargarPedidos(){
     this.mesasEnUso = []
-    this.DatabaseProductosService.getPedidos().subscribe(pedidos=>{
-      pedidos.forEach(pedido=>{
-        if(pedido.estado == 'Sin Facturar'){
-          if(pedido.mesa > 0){
-            this.mesasEnUso.push(pedido);
+    this.DatabaseProductosService.getPedidos(this.user).subscribe(pedidos=>{
+      let caja = this.Auth.inicio_de_caja;
+      if(pedidos == null && caja == false ){
+        this.router.navigate(['administracion/resumen-de-caja']);
+      }else if(pedidos == null && caja == true){
+        // console.log("puedes hacer pedidos");
+      }else{
+        pedidos.forEach(pedido=>{
+          if(pedido.estado == 'Sin Facturar'){
+            if(pedido.mesa > 0){
+              this.mesasEnUso.push(pedido);
+            }
           }
-        }
-      })
+        })
+      }
     })
   }
-
   // Añadir productos a la lista de pedido cargado
   anadirProducto(product:Producto){    
     let validacion = this.productos_agregados.includes(product);
@@ -58,10 +77,7 @@ export class MesasComponent implements OnInit {
       this.productos_agregados.push(product);
       this.pedido_cargado.productos =  this.productos_agregados;
       this.calcularTotal();
-      
-      
     }
-    
   }
   // remover el producto desde modal
   borrarProducto(product){
@@ -106,12 +122,48 @@ export class MesasComponent implements OnInit {
       this.recalcularTotal(product)
     }
   }
-
   filtrar(producto){
     if(this.listaFilter.nombre == producto){
       this.listaFilter.nombre = "";
     }else{
       this.listaFilter.nombre = producto;
     }
+  }
+
+
+  // metodo para activar carga de mesas en el detalle
+  mostrarPedido(table){
+    this.DatabaseProductosService.getProductos().subscribe(productos=>{
+      
+      this.listadeproductos = productos;
+      this.pedidovacio = true;
+      Number(table.mesa);
+
+      this.pedido_cargado = table;
+      let tipo = typeof(table.productos);
+      if(tipo === "string"){
+        this.productos_agregados = JSON.parse(table.productos);
+      }else{
+        this.productos_agregados = table.productos;
+      }
+
+      this.productos_agregados.forEach(producto=>{
+        for(var i = 0; this.listadeproductos.length > i; i++){
+          if(this.listadeproductos[i].id == producto.id){
+              this.listadeproductos[i] = producto;
+          }
+        }
+      });
+    });    
+  }
+
+  asignarPedidoParam(){
+    this.DatabaseProductosService.getPedidos(this.user).subscribe(pedidos=>{
+      pedidos.forEach(pedido=>{
+        if(pedido.id == this.idParam){
+          this.mostrarPedido(pedido);
+        }
+      })
+    })
   }
 }

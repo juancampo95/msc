@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { QzTrayService } from './qz-tray.service';
+import { AuthSessionService } from './auth-session.service';
 
-describe('QzTrayService', () => {
+describe('AuthSessionService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: QzTrayService = TestBed.get(QzTrayService);
+    const service: AuthSessionService = TestBed.get(AuthSessionService);
     expect(service).toBeTruthy();
   });
 });
