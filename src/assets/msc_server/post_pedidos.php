@@ -22,10 +22,11 @@
 				$descuento = mysqli_real_escape_string($this->conexion,$pedido->descuento);
 				$estado = mysqli_real_escape_string($this->conexion,$pedido->estado);
 				$productos =json_encode($pedido->productos);
+				$usuario =mysqli_real_escape_string($this->conexion,$pedido->usuario);
 				
 
-				$query = "INSERT INTO $tabla (fecha,hora,cliente,documento,mesero,metodo,comentario,mesa,subtotal_p,total_p,descuento,productos,estado)
-				VALUES 	('$fecha','$hora','$cliente','$documento','$mesero','$metodo','$comentario','$mesa','$subtotal_p','$total_p','$descuento','$productos','$estado')";
+				$query = "INSERT INTO $tabla (fecha,hora,cliente,documento,mesero,metodo,comentario,mesa,subtotal_p,total_p,descuento,productos,estado,usuario)
+				VALUES 	('$fecha','$hora','$cliente','$documento','$mesero','$metodo','$comentario','$mesa','$subtotal_p','$total_p','$descuento','$productos','$estado','$usuario')";
 				if(mysqli_query($this->conexion,$query)){
 					// print_r($productos);
 					// echo "ingreso correctamente";

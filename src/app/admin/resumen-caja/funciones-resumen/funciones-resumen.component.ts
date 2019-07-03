@@ -17,7 +17,7 @@ export class FuncionesResumenComponent implements OnInit {
   base_i_m = 0;
   total_base_inicial = 0;
   nuevoIngreso = new Ingreso();
-
+  btn_ingreso = "Agregar";
   o_ingresos;
 
   @Input() r_actual:Resumen;
@@ -65,6 +65,7 @@ export class FuncionesResumenComponent implements OnInit {
     this.nuevoIngreso.usuario = this.r_actual.usuario;
     this.Http.putResumen(this.nuevoIngreso,param).subscribe(res=>{
       this.cargarIngresos()
+      console.log(res);
       this.nuevoIngreso = new Ingreso;
     })
   }
@@ -79,7 +80,14 @@ export class FuncionesResumenComponent implements OnInit {
         });
   
       })
-    },100)
-    
+    },100) 
+  }
+  cargarIngreso(i){
+    this.btn_ingreso = "Actualizar";
+    this.nuevoIngreso = i;
+  }
+  limpiarIngreso(){
+    this.btn_ingreso = "Agregar";
+    this.nuevoIngreso = new Ingreso();
   }
 }

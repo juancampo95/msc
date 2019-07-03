@@ -5,8 +5,9 @@ require("./conexion.php");
 class showData extends conexion{
 	public function __construct($tabla){
 		parent :: __construct();
+		$user = $_GET['user'];
 		$output = array();
-		$query  = "SELECT * FROM $tabla";
+		$query  = "SELECT * FROM $tabla WHERE usuario = '$user'";
 		$result = mysqli_query($this->conexion,$query);
 
 			if(mysqli_num_rows($result)>0){
@@ -16,7 +17,7 @@ class showData extends conexion{
 				echo json_encode($output);
 				// echo "Se Mostraron";
 			}else{
-				echo "no funciono";
+				echo json_decode("{'status':'Error no hay pedidos'".mysqli_error($this->conexion)."}");
 			}
 		}
 	}

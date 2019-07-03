@@ -33,7 +33,12 @@
         <div *ngIf="pestana == 'otros ingresos'" class="pedido_container">
             <div class="d-flex justify-content-between pl-1 pr-1">
                 <h6>Otros Ingresos</h6>
-                <button  (click)="agregarIngreso('post_ingresos')" class="btn btn-primary d-flex"><i class="material-icons"  style="margin-right: 5px;">add</i>Agregar</button>
+                <div class="btns_caja d-flex">
+                    <button *ngIf="btn_ingreso === 'Actualizar'"  (click)="limpiarIngreso()" class="btn btn-limpiar d-flex ml-5"><i class="material-icons"  style="margin-right: 5px;">clear_all</i>Nuevo</button>
+                    <button *ngIf="btn_ingreso === 'Actualizar'"  (click)="agregarIngreso('actualizar_ingreso')" class="btn btn-primary d-flex ml-2"><i class="material-icons"  style="margin-right: 5px;">add</i>Actualizar</button>
+                    <button *ngIf="btn_ingreso != 'Actualizar'"  (click)="agregarIngreso('post_ingresos')" class="btn btn-primary d-flex ml-2"><i class="material-icons"  style="margin-right: 5px;">add</i>Guardar</button>
+                </div>
+             
             </div>
             <div class="mesa_numbers_detail" style="margin:0.5em auto">
                 <div class="row" style="width: 100%">
@@ -62,8 +67,8 @@
                         <td>{{i.fecha}}</td>
                         <td>{{i.total | number}}</td>
                         <td>
-                            <button (click)="eliminarIngreso(i)" class="btn btn-danger borrar_btn " style="margin-right: 5px">
-                                <i class="material-icons">close</i>
+                            <button (click)="cargarIngreso(i)" class="btn btn-danger borrar_btn btn-detalle-y" style="margin-right: 5px">
+                                <i class="material-icons">edit</i>
                             </button>
                             <button (click)="eliminarIngreso(i)" class="btn btn-danger borrar_btn">
                                 <i class="material-icons">close</i>
