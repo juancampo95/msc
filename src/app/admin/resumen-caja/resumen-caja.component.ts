@@ -24,25 +24,32 @@ export class ResumenCajaComponent implements OnInit {
   }
 
   calcularSubTotales(){
-    this.r_actual.total_ingresos = Number(this.r_actual.pedidos_facturados) + this.base_inicial  + Number(this.r_actual.datafono) + Number(this.r_actual.online) + this.r_actual.otros_ingresos;
+    this.r_actual.total_ingresos = this.r_actual.pedidos_facturados + Number(this.base_inicial)  + Number(this.r_actual.datafono) + Number(this.r_actual.online) +  Number(this.r_actual.otros_ingresos);
+    //this.r_actual.total_ingresos = Number(this.r_actual.pedidos_facturados) + Number(this.base_inicial)  + Number(this.r_actual.datafono) + Number(this.r_actual.online) +  Number(this.r_actual.otros_ingresos);
     this.r_actual.total_resumen = this.r_actual.total_ingresos - this.r_actual.total_gastos;
   }
   sumarFacturados(){
     setTimeout(()=>{
       this.http.getPedidos(this.usuario).subscribe(res=>{
-        console.log(res);
+        // console.log(res);
         if(res!=null){
+        var n = Number(this.r_actual.pedidos_facturados);
+        var d = Number(this.r_actual.datafono);
+        var o = Number(this.r_actual.online);
         res.forEach(pedido=>{
           if(pedido.estado == 'facturado' && pedido.metodo == 'Efectivo'){
-            this.r_actual.pedidos_facturados += Number(pedido.total_p);
+            n += Number(pedido.total_p);
+            this.r_actual.pedidos_facturados = n;
             this.calcularSubTotales();
           }
           if(pedido.estado == 'facturado' && pedido.metodo == 'Datafono'){
-            this.r_actual.datafono += Number(pedido.total_p)
+            d += Number(pedido.total_p);
+            this.r_actual.datafono = d;
             this.calcularSubTotales();
           }
           if(pedido.estado == 'facturado' && pedido.metodo == 'Online'){
-            this.r_actual.online += Number(pedido.total_p)
+            o += Number(pedido.total_p);
+            this.r_actual.online = o;
             this.calcularSubTotales();
           }
         })

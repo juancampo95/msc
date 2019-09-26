@@ -18,7 +18,7 @@ export class FuncionesResumenComponent implements OnInit {
   total_base_inicial = 0;
   nuevoIngreso = new Ingreso();
   btn_ingreso = "Agregar";
-  o_ingresos;
+  o_ingresos:any = 0;
 
   @Input() r_actual:Resumen;
 
@@ -51,6 +51,7 @@ export class FuncionesResumenComponent implements OnInit {
   calcularBaseInicial(){
     this.total_base_inicial = Number(this.base_i_b) +  Number(this.base_i_m);
     this.resumen.base_inicial = this.total_base_inicial;
+    this.resumen.calcularSubTotales();
   }
   enviarBaseInicial(param){
     this.r_actual.base_i_b = this.base_i_b;
@@ -73,12 +74,14 @@ export class FuncionesResumenComponent implements OnInit {
     setTimeout(()=>{
       this.r_actual.otros_ingresos = 0;
       this.Http.getIngresos(this.r_actual).subscribe(res=>{
-        this.o_ingresos = res;
-        this.o_ingresos.forEach(element => {
-          this.r_actual.otros_ingresos += parseInt(element.total);        
-          this.resumen.calcularSubTotales();
-        });
-  
+
+        if(res != null){
+          this.o_ingresos = res;
+          this.o_ingresos.forEach(element => {
+            this.r_actual.otros_ingresos += parseInt(element.total);        
+            this.resumen.calcularSubTotales();
+          });
+        }
       })
     },100) 
   }

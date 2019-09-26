@@ -8,7 +8,7 @@ export class Resumen{
 
     base_i_b?:number = 0;
     base_i_m?:number = 0;
-    pedidos_facturados?:number = 0;
+    pedidos_facturados?:number;
     datafono?:number =0;
     online?:number= 0;
     otros_ingresos?:number = 0;
