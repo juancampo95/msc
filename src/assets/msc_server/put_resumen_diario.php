@@ -18,7 +18,7 @@ header('Allow: GET, POST, OPTIONS, PUT, DELETE');
 
 		}
 
-
+		// METODOS PARA FUNCIONES DE BALANCE GENERAL
 		public function Actualizar($tabla){
 			if(isset($this->pedido)){
 				switch ($this->funcion){
@@ -33,6 +33,25 @@ header('Allow: GET, POST, OPTIONS, PUT, DELETE');
 						break;					
 					case 'actualizar_ingreso':
 								$this->updateIngresos('otrosingresos_tb');
+						break;					
+					case 'eliminar_ingreso':
+								echo "Si lee el param";
+								$this->deleteIngresos('otrosingresos_tb');
+						break;	
+
+					case 'post_gasto':
+								echo "Si lee el param";
+								$this->postGasto('gastos_y_vales');
+						break;	
+
+					case 'actualizar_gasto':
+								echo "Si lee el param";
+								$this->updateGasto('gastos_y_vales');
+						break;
+
+					case 'eliminar_gastos':
+								echo "Si lee el param de gasots";
+								$this->deleteGastos('gastos_y_vales');
 						break;					
 					
 					default:
@@ -87,9 +106,107 @@ header('Allow: GET, POST, OPTIONS, PUT, DELETE');
 			}
 			
 		}
+
+		public function deleteIngresos($tabla){
+			$id = mysqli_real_escape_string($this->conexion,$this->pedido->id);
+			$querypost = "DELETE FROM $tabla WHERE id = '$id'";
+
+			if(mysqli_query($this->conexion,$querypost)){
+					echo "se eliminó";
+			}else{
+				echo "Error ".mysqli_error($this->conexion);
+			}
+		}
+
+		public function postGasto($tabla){
+			$id_r = mysqli_real_escape_string($this->conexion,$this->pedido->id_resumen);
+			$fecha = mysqli_real_escape_string($this->conexion,$this->pedido->fecha);
+			$detalle = mysqli_real_escape_string($this->conexion,$this->pedido->detalle);
+			$tipo = mysqli_real_escape_string($this->conexion,$this->pedido->tipo);
+			$total = mysqli_real_escape_string($this->conexion,$this->pedido->total);
+			$usuario = mysqli_real_escape_string($this->conexion,$this->pedido->usuario);
+			$querypost = "INSERT into $tabla (id_resumen,fecha,detalle,tipo,total,usuario) VALUES ('$id_r','$fecha','$detalle','$tipo','$total','$usuario')";
+
+			if(mysqli_query($this->conexion,$querypost)){
+					echo "ingreso correctamente";
+			}else{
+				echo "Error ".mysqli_error($this->conexion);
+			}
+		}
+
+		public function updateGasto($tabla){
+			$id = mysqli_real_escape_string($this->conexion,$this->pedido->id);
+			$id_r = mysqli_real_escape_string($this->conexion,$this->pedido->id_resumen);
+			$fecha = mysqli_real_escape_string($this->conexion,$this->pedido->fecha);
+			$tipo = mysqli_real_escape_string($this->conexion,$this->pedido->tipo);
+			$detalle = mysqli_real_escape_string($this->conexion,$this->pedido->detalle);
+			$total = mysqli_real_escape_string($this->conexion,$this->pedido->total);
+			$usuario = mysqli_real_escape_string($this->conexion,$this->pedido->usuario);
+			$querypost = "UPDATE $tabla SET fecha = '$fecha', detalle = '$detalle', tipo = '$tipo', total = '$total' WHERE id = '$id'";
+
+			if(mysqli_query($this->conexion,$querypost)){
+					echo "actualizó";
+			}else{
+				echo "Error ".mysqli_error($this->conexion);
+			}
+			
+		}
+		public function deleteGastos($tabla){
+			$id = mysqli_real_escape_string($this->conexion,$this->pedido->id);
+			$querypost = "DELETE FROM $tabla WHERE id = '$id'";
+
+			if(mysqli_query($this->conexion,$querypost)){
+					echo "se eliminó";
+			}else{
+				echo "Error ".mysqli_error($this->conexion);
+			}
+		}
+
 	}
 
 	$clienteNuevo = new update("balances_diarios");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 // <!--  				$fecha_ini = mysqli_real_escape_string($this->conexion,$pedido->fecha_ini);

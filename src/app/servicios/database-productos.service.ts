@@ -48,5 +48,8 @@ export class DatabaseProductosService {
   getIngresos(Resumen){
     return this.Http.post(this.api_url +'/get_ingresos.php',Resumen);
   }
+  getGastos(Resumen){
+    return this.Http.post(this.api_url +'/get_gastos.php',Resumen);
+  }
 
 }

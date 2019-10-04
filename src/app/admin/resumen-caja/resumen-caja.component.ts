@@ -19,13 +19,16 @@ export class ResumenCajaComponent implements OnInit {
   constructor(private http:DatabaseProductosService, private auth:AuthSessionService) { }
 
   ngOnInit() {
-    this.getResumen()
+    this.getResumen();
     this.sumarFacturados();
+    // this.calcularSubTotales();
   }
 
   calcularSubTotales(){
-    this.r_actual.total_ingresos = this.r_actual.pedidos_facturados + Number(this.base_inicial)  + Number(this.r_actual.datafono) + Number(this.r_actual.online) +  Number(this.r_actual.otros_ingresos);
-    //this.r_actual.total_ingresos = Number(this.r_actual.pedidos_facturados) + Number(this.base_inicial)  + Number(this.r_actual.datafono) + Number(this.r_actual.online) +  Number(this.r_actual.otros_ingresos);
+    this.r_actual.total_ingresos = Number(this.r_actual.pedidos_facturados) + Number(this.base_inicial)  + Number(this.r_actual.datafono) + Number(this.r_actual.online) +  Number(this.r_actual.otros_ingresos);
+    
+    this.r_actual.total_gastos = Number(this.r_actual.vales) + Number(this.r_actual.compras_gastos);
+
     this.r_actual.total_resumen = this.r_actual.total_ingresos - this.r_actual.total_gastos;
   }
   sumarFacturados(){

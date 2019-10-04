@@ -30,13 +30,21 @@
                 </div>                
             </div>
         </div>
+
+
         <div *ngIf="pestana == 'otros ingresos'" class="pedido_container">
             <div class="d-flex justify-content-between pl-1 pr-1">
                 <h6>Otros Ingresos</h6>
                 <div class="btns_caja d-flex">
-                    <button *ngIf="btn_ingreso === 'Actualizar'"  (click)="limpiarIngreso()" class="btn btn-limpiar d-flex ml-5"><i class="material-icons"  style="margin-right: 5px;">clear_all</i>Nuevo</button>
-                    <button *ngIf="btn_ingreso === 'Actualizar'"  (click)="agregarIngreso('actualizar_ingreso')" class="btn btn-primary d-flex ml-2"><i class="material-icons"  style="margin-right: 5px;">add</i>Actualizar</button>
-                    <button *ngIf="btn_ingreso != 'Actualizar'"  (click)="agregarIngreso('post_ingresos')" class="btn btn-primary d-flex ml-2"><i class="material-icons"  style="margin-right: 5px;">add</i>Guardar</button>
+                    <button *ngIf="btn_ingreso === 'Actualizar'" (click)="limpiar('ingreso')" class="btn btn-limpiar d-flex ml-5">
+                        <i class="material-icons"  style="margin-right: 5px;">clear_all</i>Nuevo
+                    </button>
+                    <button *ngIf="btn_ingreso === 'Actualizar'"  (click)="agregarIngreso('actualizar_ingreso')" class="btn btn-primary d-flex ml-2">
+                        <i class="material-icons"  style="margin-right: 5px;">add</i>Actualizar
+                    </button>
+                    <button *ngIf="btn_ingreso != 'Actualizar'"  (click)="agregarIngreso('post_ingresos')" class="btn btn-primary d-flex ml-2">
+                        <i class="material-icons"  style="margin-right: 5px;">add</i>Guardar
+                    </button>
                 </div>
              
             </div>
@@ -70,7 +78,7 @@
                             <button (click)="cargarIngreso(i)" class="btn btn-danger borrar_btn btn-detalle-y" style="margin-right: 5px">
                                 <i class="material-icons">edit</i>
                             </button>
-                            <button (click)="eliminarIngreso(i)" class="btn btn-danger borrar_btn">
+                            <button (click)="eliminarIngreso(i,'eliminar_ingreso')" class="btn btn-danger borrar_btn">
                                 <i class="material-icons">close</i>
                             </button>
                         </td>
@@ -78,30 +86,45 @@
                 </tbody>
             </table>
         </div>
+
+        <!-- gastos y vales -->
         <div *ngIf="pestana == 'gastos y vales'" class="pedido_container">
             <div class="d-flex justify-content-between pl-1 pr-1">
                 <h6>Gastos y Vales</h6>
                 <div class="btns_caja d-flex">
-                    <button *ngIf="btn_ingreso === 'Actualizar'"  (click)="limpiarIngreso()" class="btn btn-limpiar d-flex ml-5"><i class="material-icons"  style="margin-right: 5px;">clear_all</i>Nuevo</button>
-                    <button *ngIf="btn_ingreso === 'Actualizar'"  (click)="agregarIngreso('actualizar_ingreso')" class="btn btn-primary d-flex ml-2"><i class="material-icons"  style="margin-right: 5px;">add</i>Actualizar</button>
-                    <button *ngIf="btn_ingreso != 'Actualizar'"  (click)="agregarIngreso('post_ingresos')" class="btn btn-primary d-flex ml-2"><i class="material-icons"  style="margin-right: 5px;">add</i>Guardar</button>
+                    <button *ngIf="btn_gastos === 'Actualizar'"  (click)="limpiar('gasto')" class="btn btn-limpiar d-flex ml-5">
+                        <i class="material-icons"  style="margin-right: 5px;">clear_all</i>Nuevo
+                    </button>
+
+                    <button *ngIf="btn_gastos === 'Actualizar'"  (click)="agregarGasto('actualizar_gasto')" class="btn btn-primary d-flex ml-2"><i class="material-icons"  style="margin-right: 5px;">add</i>Actualizar</button>
+
+                    <button *ngIf="btn_gastos != 'Actualizar'"  (click)="agregarGasto('post_gasto')" class="btn btn-primary d-flex ml-2"><i class="material-icons"  style="margin-right: 5px;">add</i>Guardar</button>                    
                 </div>
-             
-            </div>
-            <div class="mesa_numbers_detail" style="margin:0.5em auto">
-                <div class="row" style="width: 100%">
-                    <div class="col-md-12 form-container">
-                            <input [(ngModel)]="nuevoIngreso.total" class="form-control" name="Total" type="number" placeholder="Total de ingreso"  (ngModelChange)="calcularBaseInicial()">
-                    </div>
-                    <div class="col-md-12 form-container">
-                            <input [(ngModel)]="nuevoIngreso.detalle" class="form-control" name="Total" type="text" placeholder="Detalle o motivo de ingreso"  (ngModelChange)="calcularBaseInicial()">
-                    </div>
+        </div>
+        <div class="mesa_numbers_detail" style="margin:0.5em auto">
+        <!-- <form #gastosForm="ngForm"></form> -->
+            <div class="row" style="width: 100%">
+                <div class="col-md-6 form-container">
+                    <input [(ngModel)]="nuevoGasto.total" class="form-control" name="Total" type="number" placeholder="Total de ingreso"  (ngModelChange)="calcularBaseInicial()">
+                    <input [(ngModel)]="nuevoGasto.detalle" class="form-control" name="Total" type="text" placeholder="Detalle o motivo de ingreso"  (ngModelChange)="calcularBaseInicial()">
+                </div>
+                <div class="col-md-2 form-container">
+                    <label class="radio">
+                        <input type="radio" name="tipo" value="gasto" [(ngModel)]="nuevoGasto.tipo">
+                        Gasto
+                    </label>
+                    <label class="radio">
+                        <input type="radio" name="tipo" value="vale" [(ngModel)]="nuevoGasto.tipo">
+                        Vale
+                    </label>
+                </div>
                 </div>
             </div>
             <table class="table table-condensed">
                 <thead class="thead-light">
                     <tr>
                         <th>No.</th>
+                        <th>Tipo</th>
                         <th>Detalle</th>
                         <th>Fecha</th>
                         <th>Total</th>
@@ -109,16 +132,17 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let i of o_ingresos | filterBy:listaFilter">
+                    <tr *ngFor="let i of o_gastos | filterBy:listaFilter">
                         <td class="cant_td"><i class="material-icons" style="color:#00d400;margin-right: 0.5em;font-size: 14px;">done_outline</i> {{i.id}}</td>
+                        <td>{{i.tipo}}</td>
                         <td>{{i.detalle}}</td>
                         <td>{{i.fecha}}</td>
                         <td>{{i.total | number}}</td>
                         <td>
-                            <button (click)="cargarIngreso(i)" class="btn btn-danger borrar_btn btn-detalle-y" style="margin-right: 5px">
+                            <button (click)="cargarGasto(i)" class="btn btn-danger borrar_btn btn-detalle-y" style="margin-right: 5px">
                                 <i class="material-icons">edit</i>
                             </button>
-                            <button (click)="eliminarIngreso(i)" class="btn btn-danger borrar_btn">
+                            <button (click)="eliminarGasto(i,'eliminar_gastos')" class="btn btn-danger borrar_btn">
                                 <i class="material-icons">close</i>
                             </button>
                         </td>
