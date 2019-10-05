@@ -21,13 +21,15 @@
     justify-content: flex-start;
     flex-flow: row;
     .foto_product_list{
-        width: 80px;
-        height: 56px;
+        // width: 80px!important;
+        // height: 56px!important;
+        padding:25px 36px;
         background-position: center;
         background-size: cover;
+        margin-right: 10px;
     }
     .nombre_desc_list{
-        padding-left: 0.5rem;
+        // padding-left: 0.5rem;
         h6,p{
             margin-bottom: 0;
         }

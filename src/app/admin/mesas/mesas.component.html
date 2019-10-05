@@ -41,7 +41,7 @@
                 <div class="btn-group">
                     <button class="btn btn-filtro" (click)="filtrar('salchipapa')">Salchipapas</button>
                     <button class="btn btn-filtro" (click)="filtrar('perro')">Perros</button>
-                    <button class="btn btn-filtro" (click)="filtrar('hamburguesa')">Hamburguesas</button>
+                    <button class="btn btn-filtro" (click)="filtrar('HB')">Hamburguesas</button>
                     <button class="btn btn-filtro" (click)="filtrar('filete')">Filetes</button>
                     <button class="btn btn-filtro" (click)="filtrar('adicion')">Adiciones</button>
 
@@ -113,8 +113,10 @@
                           <ng-container *ngFor="let product of listadeproductos | filterBy:listaFilter">
                           <tr  *ngIf="product.tipo==='bebida'" >
                               <td class="td_container_items">
-                                  <div class="foto_product_list" [style.backgroundImage]="'url('+ '../../../assets/img/' + product.foto +')'" ></div>
-                                  <div class="nombre_desc_list">
+                                <div  class="foto_product_list" [style.backgroundImage]="'url('+ '../../../assets/img/' + product.foto +')'" >
+                                
+                                </div>
+                                <div class="nombre_desc_list">
                                       <h6>{{product.nombre}}</h6>
                                       <p>{{product.descripcion}}</p>
                                   </div>

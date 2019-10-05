@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 04, 2019 at 10:21 PM
+-- Generation Time: Oct 05, 2019 at 10:41 PM
 -- Server version: 10.1.28-MariaDB
 -- PHP Version: 7.1.11
 
@@ -85,7 +85,9 @@ CREATE TABLE `gastos_y_vales` (
 
 INSERT INTO `gastos_y_vales` (`id`, `id_resumen`, `fecha`, `detalle`, `tipo`, `total`, `usuario`) VALUES
 (1, 7, '10/4/2019', 'carne', 'gasto', 50000, 'juancampo95'),
-(2, 7, '10/4/2019', 'vale alex bicicleta', 'vale', 80000, 'juancampo95');
+(2, 7, '10/4/2019', 'vale alex bicicleta', 'vale', 80000, 'juancampo95'),
+(3, 7, '5/10/2019', 'alex ', 'vale', 50000, 'juancampo95'),
+(4, 7, '5/10/2019', 'Jean Carlo gastos', 'gasto', 36000, 'juancampo95');
 
 -- --------------------------------------------------------
 
@@ -107,7 +109,7 @@ CREATE TABLE `otrosingresos_tb` (
 --
 
 INSERT INTO `otrosingresos_tb` (`id`, `id_resumen`, `fecha`, `detalle`, `total`, `usuario`) VALUES
-(6, 7, '10/4/2019', 'venta de aceite', 5500, 'juancampo95');
+(7, 7, '5/10/2019', 'Jean Carlo venta', 218650, 'juancampo95');
 
 -- --------------------------------------------------------
 
@@ -145,10 +147,10 @@ INSERT INTO `pedidos_tb` (`id`, `fecha`, `hora`, `cliente`, `documento`, `mesero
 -- --------------------------------------------------------
 
 --
--- Table structure for table `productos_tb`
+-- Table structure for table `productos_tb3`
 --
 
-CREATE TABLE `productos_tb` (
+CREATE TABLE `productos_tb3` (
   `id` int(20) NOT NULL,
   `nombre` varchar(120) COLLATE utf8_spanish_ci NOT NULL,
   `descripcion` tinytext COLLATE utf8_spanish_ci NOT NULL,
@@ -161,16 +163,37 @@ CREATE TABLE `productos_tb` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
--- Dumping data for table `productos_tb`
+-- Dumping data for table `productos_tb3`
 --
 
-INSERT INTO `productos_tb` (`id`, `nombre`, `descripcion`, `cantidad`, `v_unidad`, `v_total`, `foto`, `anadido`, `tipo`) VALUES
-(1, 'Salchipapa Especial', '2 ingredientes especiales, queso, ripio papa amarilla, salchicha y salsas caseras.', 1, 15000, 15000, 'maisitos.jpg', 0, 'comida'),
-(2, 'Perro Caliente', '2 ingredientes especiales, queso, ripio papa amarilla, salchicha y salsas caseras.', 1, 3000, 3000, 'perro.png', 0, 'comida'),
-(3, 'Pepsi Litro 1/2', 'Gaseosa pepsi cola litro y medio - postobon', 1, 3500, 3500, 'gaseosas.png', 0, 'bebida'),
-(4, 'Jugo de Mango (Con Agua)', 'Juego de pulpa natural con agua', 1, 3500, 3500, 'jugos.png', 0, 'bebida'),
-(5, 'Hamburguesa Sencilla', 'Carne de Hamburguesa, tomate, queso, tocineta, lechuga, pan bimbo.', 1, 9000, 9000, 'hamburguesa.png', 0, 'comida'),
-(6, 'Filete de Res', 'Asado a la plancha, ensalada, papas a la francesa.', 1, 8000, 8000, 'filete.png', 0, 'comida');
+INSERT INTO `productos_tb3` (`id`, `nombre`, `descripcion`, `cantidad`, `v_unidad`, `v_total`, `foto`, `anadido`, `tipo`) VALUES
+(1, 'HB Artesanal de Res', 'Hamburguesa carne de res, tocineta, jamon, queso, lecucha, ripio y salsas.', 1, 10000, 10000, 'f_hbres.jpg', 0, 'comida'),
+(2, 'HB Especial de Res', 'Hamburguesa Especial de res, tocineta, doble jamon, doble queso, lecucha, rip...', 1, 12000, 12000, 'f_hbres.jpg', 0, 'comida'),
+(3, 'HB Super Combo de Res', 'Artesanal Especial, papas a la francesa y postobon 400ml', 1, 16000, 16000, 'f_hbres.jpg', 0, 'comida'),
+(4, 'HB Artesanal de pollo', 'Hamburguesa filete de pollo, tocineta, jamon, queso, lechuga, ripio y salsas.', 1, 11000, 11000, 'f_hbpollo.jpg', 0, 'comida'),
+(5, 'HB Especial de pollo', 'Hamburguesa filete de pollo, tocineta, doble jamon, doble queso, lechuga, ripio y salsas.', 1, 13000, 13000, 'f_hbpollo.jpg', 0, 'comida'),
+(6, 'HB Mixta Res y Pollo', 'Hamburguesa res, pollo, jamon, queso, lechuga, ripio y salsas.', 1, 8000, 8000, 'f_hbres.jpg', 0, 'comida'),
+(7, 'HB Super Combo de Pollo', 'Hamburguesa especial de pollo, papas francesas y gaseosa 400l', 1, 17000, 17000, 'f_hbpollo.jpg', 0, 'comida'),
+(8, 'Perro Americano', 'Salchicha Americana, jamon, queso y salsas caseras', 1, 8000, 8000, 'f_perro.jpg', 0, 'comida'),
+(9, 'Perro Americano Especial', 'Salchicha Americana, tocineta, jamon, queso y salsas caseras', 1, 10000, 10000, 'f_perro.jpg', 0, 'comida'),
+(10, 'Super Combo Americano', 'Perro especial, papas francesas y gaseosa 400ml', 1, 15000, 15000, 'f_perro.jpg', 0, 'comida'),
+(11, 'Salchipapa Sencilla Personal', 'Papa amarilla, salchicha y salsas', 1, 4500, 4500, 'f_salchipapa.jpg', 0, 'comida'),
+(12, 'Salchipapa Sencilla Grande', 'Papa amarilla, salchicha y salsas', 1, 5500, 5500, 'f_salchipapa.jpg', 0, 'comida'),
+(13, 'Salchipapa Gratinada Personal', 'Queso, Ripio, Papa amarilla, salchicha y salsas', 1, 6500, 6500, 'f_gratinada.jpg', 0, 'comida'),
+(14, 'Salchipapa Gratinada Grande', 'Queso, Ripio, Papa amarilla, salchicha y salsas', 1, 8000, 8000, 'f_gratinada.jpg', 0, 'comida'),
+(15, 'Salchipapa de Pollo Personal', 'Pollo desmechado, queso, ripio papa y salchicha', 1, 10000, 10000, 'f_salchi_in.jpg', 0, 'comida'),
+(16, 'Salchipapa de Pollo Grande', 'Pollo desmechado, queso, ripio papa y salchicha', 1, 12000, 12000, 'f_salchi_in.jpg', 0, 'comida'),
+(17, 'Salchipapa de Tocineta Personal', 'Tocineta, queso, ripio papa y salchicha', 1, 10000, 10000, 'f_salchi_in.jpg', 0, 'comida'),
+(18, 'Salchipapa de Tocineta Grande', 'Tocineta, queso, ripio papa y salchicha', 1, 12000, 12000, 'f_salchi_in.jpg', 0, 'comida'),
+(19, 'Salchipapa Ranchera Personal', 'Salchicha ranchera, queso, ripio y papa', 1, 10000, 10000, 'f_salchi_in.jpg', 0, 'comida'),
+(20, 'Salchipapa Ranchera Grande', 'Salchicha ranchera, queso, ripio y papa', 1, 12000, 12000, 'f_salchi_in.jpg', 0, 'comida'),
+(21, 'Salchipapa de Carne Personal', 'Carne desmechada, queso, ripio, papa y salchicha', 1, 10000, 10000, 'f_salchi_in.jpg', 0, 'comida'),
+(22, 'Salchipapa de Carne Grande', 'Carne desmechada, queso, ripio, papa y salchicha', 1, 12000, 12000, 'f_salchi_in.jpg', 0, 'comida'),
+(23, 'Salchipapa de HB Personal', 'Carne de hamburguesa, queso, ripio, papa y salchicha', 1, 10000, 10000, 'f_salchi_in.jpg', 0, 'comida'),
+(24, 'Salchipapa de HB Grande', 'Carne de hamburguesa, queso, ripio, papa y salchicha', 1, 12000, 12000, 'f_salchi_in.jpg', 0, 'comida'),
+(25, 'Salchipapa de Maiz Personal', 'Maicitos, queso, ripio, papa y salchicha', 1, 10000, 10000, 'f_salchi_in.jpg', 0, 'comida'),
+(26, 'Salchipapa de Maiz Grande', 'Maicitos, queso, ripio, papa y salchicha', 1, 12000, 12000, 'f_salchi_in.jpg', 0, 'comida'),
+(27, 'Salchipapa de Costilla', 'Costilla, queso, ripio, papa y salchicha', 1, 14000, 14000, 'f_costilla.jpg', 0, 'comida');
 
 -- --------------------------------------------------------
 
@@ -191,7 +214,7 @@ CREATE TABLE `usuarios_tb` (
 --
 
 INSERT INTO `usuarios_tb` (`id`, `username`, `password`, `rol`, `key_access`) VALUES
-(1, 'juancampo95', 'camilocampo', 'administrador', 'b4pzqr8cncdji82ugs0n'),
+(1, 'juancampo95', 'camilocampo', 'administrador', 'acwif719m4n5l9ygm2ys'),
 (2, 'milton', 'fabian', 'administrador', 'g9yj8iyecdslaejdagtq'),
 (3, 'rodrigo', 'campo', 'administrador', 'd6u7i3a2j0m48j0yx4qu'),
 (4, 'jose', 'aldemar', 'administrador', 'ij9fmh3v7qlvgha2tlu6');
@@ -225,9 +248,9 @@ ALTER TABLE `pedidos_tb`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `productos_tb`
+-- Indexes for table `productos_tb3`
 --
-ALTER TABLE `productos_tb`
+ALTER TABLE `productos_tb3`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -250,13 +273,13 @@ ALTER TABLE `balances_diarios`
 -- AUTO_INCREMENT for table `gastos_y_vales`
 --
 ALTER TABLE `gastos_y_vales`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `otrosingresos_tb`
 --
 ALTER TABLE `otrosingresos_tb`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `pedidos_tb`
@@ -265,10 +288,10 @@ ALTER TABLE `pedidos_tb`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=118;
 
 --
--- AUTO_INCREMENT for table `productos_tb`
+-- AUTO_INCREMENT for table `productos_tb3`
 --
-ALTER TABLE `productos_tb`
-  MODIFY `id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+ALTER TABLE `productos_tb3`
+  MODIFY `id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `usuarios_tb`

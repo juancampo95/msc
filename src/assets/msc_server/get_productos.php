@@ -19,5 +19,5 @@ class showData extends conexion{
 			}
 		}
 	}
-	$mostrarCliente = new showData("productos_tb");
+	$mostrarCliente = new showData("productos_tb3");
  ?>
