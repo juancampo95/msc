@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 05, 2019 at 10:41 PM
+-- Generation Time: Oct 11, 2019 at 09:59 PM
 -- Server version: 10.1.28-MariaDB
 -- PHP Version: 7.1.11
 
@@ -61,7 +61,7 @@ CREATE TABLE `balances_diarios` (
 
 INSERT INTO `balances_diarios` (`id`, `usuario`, `base_i_b`, `base_i_m`, `pedidos_facturados`, `datafono`, `online`, `otros_ingresos`, `total_ingresos`, `compras_gastos`, `vales`, `total_gastos`, `total_resumen`, `billetes_a`, `monedas_a`, `datafono_a`, `online_a`, `total_arqueo`, `descuadre`, `cuadrado`, `fecha_ini`, `hora_ini`, `fecha_fin`, `hora_fin`) VALUES
 (6, 'jose', 800000, 20000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'no', '6/12/2019', '3:25:28 PM', 'sin fecha final', 'sin hora final'),
-(7, 'juancampo95', 450000, 50000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'no', '9/20/2019', '11:45:54 AM', 'sin fecha final', 'sin hora final');
+(7, 'juancampo95', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'no', '9/20/2019', '11:45:54 AM', 'sin fecha final', 'sin hora final');
 
 -- --------------------------------------------------------
 
@@ -79,16 +79,6 @@ CREATE TABLE `gastos_y_vales` (
   `usuario` varchar(100) COLLATE utf8_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
---
--- Dumping data for table `gastos_y_vales`
---
-
-INSERT INTO `gastos_y_vales` (`id`, `id_resumen`, `fecha`, `detalle`, `tipo`, `total`, `usuario`) VALUES
-(1, 7, '10/4/2019', 'carne', 'gasto', 50000, 'juancampo95'),
-(2, 7, '10/4/2019', 'vale alex bicicleta', 'vale', 80000, 'juancampo95'),
-(3, 7, '5/10/2019', 'alex ', 'vale', 50000, 'juancampo95'),
-(4, 7, '5/10/2019', 'Jean Carlo gastos', 'gasto', 36000, 'juancampo95');
-
 -- --------------------------------------------------------
 
 --
@@ -103,13 +93,6 @@ CREATE TABLE `otrosingresos_tb` (
   `total` int(100) NOT NULL,
   `usuario` varchar(100) COLLATE utf8_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-
---
--- Dumping data for table `otrosingresos_tb`
---
-
-INSERT INTO `otrosingresos_tb` (`id`, `id_resumen`, `fecha`, `detalle`, `total`, `usuario`) VALUES
-(7, 7, '5/10/2019', 'Jean Carlo venta', 218650, 'juancampo95');
 
 -- --------------------------------------------------------
 
@@ -142,7 +125,7 @@ CREATE TABLE `pedidos_tb` (
 --
 
 INSERT INTO `pedidos_tb` (`id`, `fecha`, `hora`, `cliente`, `documento`, `mesero`, `metodo`, `comentario`, `mesa`, `subtotal_p`, `total_p`, `descuento`, `productos`, `estado`, `pagadocon`, `devuelta`, `usuario`) VALUES
-(117, '10/4/2019', '2:01:29 PM', 'jeffre', '12131512', 'Caja', 'Efectivo', 'empacar salsas, ', 14, 24500, 24500, 0, '[{\"0\":\"2\",\"1\":\"Perro Caliente\",\"2\":\"2 ingredientes especiales, queso, ripio papa amarilla, salchicha y salsas caseras.\",\"3\":\"1\",\"4\":\"3000\",\"5\":\"3000\",\"6\":\"perro.png\",\"7\":\"0\",\"8\":\"comida\",\"id\":\"2\",\"nombre\":\"Perro Caliente\",\"descripcion\":\"2 ingredientes especiales, queso, ripio papa amarilla, salchicha y salsas caseras.\",\"cantidad\":2,\"v_unidad\":\"3000\",\"v_total\":6000,\"foto\":\"perro.png\",\"anadido\":\"1\",\"tipo\":\"comida\"},{\"0\":\"3\",\"1\":\"Pepsi Litro 1/2\",\"2\":\"Gaseosa pepsi cola litro y medio - postobon\",\"3\":\"1\",\"4\":\"3500\",\"5\":\"3500\",\"6\":\"gaseosas.png\",\"7\":\"0\",\"8\":\"bebida\",\"id\":\"3\",\"nombre\":\"Pepsi Litro 1/2\",\"descripcion\":\"Gaseosa pepsi cola litro y medio - postobon\",\"cantidad\":\"1\",\"v_unidad\":\"3500\",\"v_total\":3500,\"foto\":\"gaseosas.png\",\"anadido\":\"1\",\"tipo\":\"bebida\"},{\"0\":\"1\",\"1\":\"Salchipapa Especial\",\"2\":\"2 ingredientes especiales, queso, ripio papa amarilla, salchicha y salsas caseras.\",\"3\":\"1\",\"4\":\"15000\",\"5\":\"15000\",\"6\":\"maisitos.jpg\",\"7\":\"0\",\"8\":\"comida\",\"id\":\"1\",\"nombre\":\"Salchipapa Especial\",\"descripcion\":\"2 ingredientes especiales, queso, ripio papa amarilla, salchicha y salsas caseras.\",\"cantidad\":\"1\",\"v_unidad\":\"15000\",\"v_total\":15000,\"foto\":\"maisitos.jpg\",\"anadido\":\"1\",\"tipo\":\"comida\"}]', 'facturado', 24500, 0, 'juancampo95');
+(117, '10/4/2019', '2:01:29 PM', 'jeffre', '12131512', 'Caja', 'Efectivo', 'empacar salsas, ', 14, 24500, 24500, 0, '[{\"0\":\"2\",\"1\":\"Perro Caliente\",\"2\":\"2 ingredientes especiales, queso, ripio papa amarilla, salchicha y salsas caseras.\",\"3\":\"1\",\"4\":\"3000\",\"5\":\"3000\",\"6\":\"perro.png\",\"7\":\"0\",\"8\":\"comida\",\"id\":\"2\",\"nombre\":\"Perro Caliente\",\"descripcion\":\"2 ingredientes especiales, queso, ripio papa amarilla, salchicha y salsas caseras.\",\"cantidad\":2,\"v_unidad\":\"3000\",\"v_total\":6000,\"foto\":\"perro.png\",\"anadido\":\"1\",\"tipo\":\"comida\"},{\"0\":\"3\",\"1\":\"Pepsi Litro 1/2\",\"2\":\"Gaseosa pepsi cola litro y medio - postobon\",\"3\":\"1\",\"4\":\"3500\",\"5\":\"3500\",\"6\":\"gaseosas.png\",\"7\":\"0\",\"8\":\"bebida\",\"id\":\"3\",\"nombre\":\"Pepsi Litro 1/2\",\"descripcion\":\"Gaseosa pepsi cola litro y medio - postobon\",\"cantidad\":\"1\",\"v_unidad\":\"3500\",\"v_total\":3500,\"foto\":\"gaseosas.png\",\"anadido\":\"1\",\"tipo\":\"bebida\"},{\"0\":\"1\",\"1\":\"Salchipapa Especial\",\"2\":\"2 ingredientes especiales, queso, ripio papa amarilla, salchicha y salsas caseras.\",\"3\":\"1\",\"4\":\"15000\",\"5\":\"15000\",\"6\":\"maisitos.jpg\",\"7\":\"0\",\"8\":\"comida\",\"id\":\"1\",\"nombre\":\"Salchipapa Especial\",\"descripcion\":\"2 ingredientes especiales, queso, ripio papa amarilla, salchicha y salsas caseras.\",\"cantidad\":\"1\",\"v_unidad\":\"15000\",\"v_total\":15000,\"foto\":\"maisitos.jpg\",\"anadido\":\"1\",\"tipo\":\"comida\"}]', 'anulado', 24500, 0, 'juancampo95');
 
 -- --------------------------------------------------------
 
@@ -193,7 +176,87 @@ INSERT INTO `productos_tb3` (`id`, `nombre`, `descripcion`, `cantidad`, `v_unida
 (24, 'Salchipapa de HB Grande', 'Carne de hamburguesa, queso, ripio, papa y salchicha', 1, 12000, 12000, 'f_salchi_in.jpg', 0, 'comida'),
 (25, 'Salchipapa de Maiz Personal', 'Maicitos, queso, ripio, papa y salchicha', 1, 10000, 10000, 'f_salchi_in.jpg', 0, 'comida'),
 (26, 'Salchipapa de Maiz Grande', 'Maicitos, queso, ripio, papa y salchicha', 1, 12000, 12000, 'f_salchi_in.jpg', 0, 'comida'),
-(27, 'Salchipapa de Costilla', 'Costilla, queso, ripio, papa y salchicha', 1, 14000, 14000, 'f_costilla.jpg', 0, 'comida');
+(27, 'Salchipapa de Costilla', 'Costilla, queso, ripio, papa y salchicha', 1, 14000, 14000, 's_costi.jpg', 0, 'comida'),
+(28, 'Salchipapa Especial Personal', 'Tocineta, pollo, queso, ripio, salsas, papa y salchicha.', 1, 14000, 14000, 'f_gratinada.jpg', 0, 'comida'),
+(29, 'Salchipapa Especial Grande', 'Tocineta, pollo, queso, ripio, salsas, papa y salchicha.', 1, 17000, 17000, 'f_gratinada.jpg', 0, 'comida'),
+(30, 'Salchipapa Super Especial Personal', 'Tocineta, pollo, maiz, queso, ripio, salsas, papa y salchicha.', 1, 16000, 16000, 'supoercostilla.jpg', 0, 'comida'),
+(31, 'Salchipapa Super Especial Grande', 'Tocineta, pollo, maiz, queso, ripio, salsas, papa y salchicha.', 1, 20000, 20000, 'supoercostilla.jpg', 0, 'comida'),
+(32, 'Salchipapa Mega Hamburguesa', 'Carne de Hb, tocineta, pollo, maiz, queso, ripio, salsas.', 1, 25000, 25000, 'hbmegaHB.jpg', 0, 'comida'),
+(33, 'Salchipapa Mega Especial', 'Costilla, carne de Hb, tocineta, pollo, maiz, queso, ripio, salsas.', 1, 28000, 28000, 'mgmega.jpg', 0, 'comida'),
+(34, 'Pizza personal Mixta', 'Dos ingredientes diferentes', 1, 10000, 10000, 'p_pizzapp.jpg', 0, 'comida'),
+(35, 'Pizza Personal Hawaiana', 'Pina calada, queso doble crema y jamon', 1, 8000, 8000, 'p_pizzapp.jpg', 0, 'comida'),
+(36, 'Pizza Personal Jamon y Queso', 'Jamon y Queso doble crema', 1, 8000, 8000, 'p_pizzapp.jpg', 0, 'comida'),
+(37, 'Pizza Personal Napolitana', 'Tomate, oregano y queso doble crema', 1, 8000, 8000, 'p_pizzapp.jpg', 0, 'comida'),
+(38, 'Pizza Personal Pollo Champinones', 'Pollo, champinones y queso.', 1, 8000, 8000, 'p_pizzapp.jpg', 0, 'comida'),
+(39, 'Pizza Personal Pollo Jamon', 'Pollo, jamon y queso.', 1, 8000, 8000, 'p_pizzapp.jpg', 0, 'comida'),
+(40, 'Pizza Personal Pepperoni', 'Pepperoni y queso doble crema', 1, 8000, 8000, 'p_pizzapp.jpg', 0, 'comida'),
+(41, 'Pizza Personal De La Casa', 'Maduro, tocineta, jamon, queso.', 1, 9000, 9000, 'p_pizzapp.jpg', 0, 'comida'),
+(42, 'Pizza Personal 3 Carnes', 'Pepperoni, salami, jamon y queso.', 1, 9000, 9000, 'p_pizzapp.jpg', 0, 'comida'),
+(43, 'Pizza Personal Campesina', 'Tocineta, maiz dulce, jamon y queso.', 1, 9000, 9000, 'p_pizzapp.jpg', 0, 'comida'),
+(44, 'Pizza Mediana Mixta', 'Dos sabores diferentes', 1, 23000, 23000, 'f_ppm.jpg', 0, 'comida'),
+(45, 'Pizza Mediana Hawaiana', 'Pina calada, queso, jamon', 1, 19000, 19000, 'f_ppm.jpg', 0, 'comida'),
+(46, 'Pizza Mediana Jamon y Queso', 'Jamon y queso doble crema.', 1, 19000, 19000, 'f_ppm.jpg', 0, 'comida'),
+(47, 'Pizza Mediana Napolitana', 'Tomate, oregano, queso doble crema', 1, 19000, 19000, 'f_ppm.jpg', 0, 'comida'),
+(48, 'Pizza Mediana Pollo Champinones', 'Pollo, champinones y queso.', 1, 21000, 21000, 'f_ppm.jpg', 0, 'comida'),
+(49, 'Pizza Mediana Pollo Jamon', 'Pollo, jamon y queso.', 1, 21000, 21000, 'f_ppm.jpg', 0, 'comida'),
+(50, 'Pizza Mediana Pepperoni', 'Pepperoni y queso.', 1, 21000, 21000, 'f_ppm.jpg', 0, 'comida'),
+(51, 'Pizza Mediana De La Casa', 'Maduro, tocineta, jamon y queso.', 1, 23000, 23000, 'f_ppm.jpg', 0, 'comida'),
+(52, 'Pizza Mediana 3 Carnes', 'Pepperoni, salami, jamon y queso.', 1, 23000, 23000, 'f_ppm.jpg', 0, 'comida'),
+(53, 'Pizza Mediana Campesina', 'Tocineta, maiz dulce, jamon y queso doble crema.', 1, 23000, 23000, 'f_ppm.jpg', 0, 'comida'),
+(54, 'Filete de Res', '300 gr de lomo caracho, papas francesas, ensalada.', 1, 16000, 16000, 'f_res.jpg', 0, 'comida'),
+(55, 'Filete de Pollo', '300gr de pernil, papas a la francesa, ensalada, salsas.', 1, 16000, 16000, 'f_res.jpg', 0, 'comida'),
+(56, 'Costilla Ahumada Personal', '250gr Costilla, papas a la francesa, ensalada y salsas.', 1, 10000, 10000, 'f_costilla.jpg', 0, 'comida'),
+(57, 'Costilla Ahumada Grande', '400gr Costilla, papas a la francesa, ensalada y salsas.', 1, 16000, 16000, 'f_costilla.jpg', 0, 'comida'),
+(58, 'Sandwich mixto', 'combinacion de dos sabores', 1, 12000, 12000, 'sdsd.jpg', 0, 'comida'),
+(59, 'Sandwich Jamon y Queso', 'Salami, peperoni, jamon queso, lechuga y salsa de ajo', 1, 8000, 8000, 'f_sandwichcarne.jpg', 0, 'comida'),
+(60, 'Sandwich Cordero', 'Jamon de cordero, salami, pepperoni, queso, lechuga y salsa', 1, 8000, 8000, 'f_sandwichjamon.jpg', 0, 'comida'),
+(61, 'Sandwich pollo', 'filete de pollo, salami, pepperoni, queso, lechuga y salsa', 1, 8000, 8000, 'f_sandwichcarne.jpg', 0, 'comida'),
+(62, 'Sandwich Hawaiano', 'pina calada, salami, pepperoni, queso, jamon lechuga y salsa', 1, 8000, 8000, 'f_sandwichjamon.jpg', 0, 'comida'),
+(63, 'Sandwich Tocineta', 'tocineta, salami, pepperoni, queso, lechuga y salsa', 1, 8000, 8000, 'f_sandwichcarne.jpg', 0, 'comida'),
+(64, 'Sandwich Carne', 'Carne desmechada, salami, pepperoni, queso, lechuga y salsa', 1, 8000, 8000, 'f_sandwichcarne.jpg', 0, 'colombia'),
+(65, 'Combo para Sandwich', 'Aplicar el combo para el sandwich', 1, 5000, 5000, 'sdsd.jpg', 0, 'comida'),
+(66, 'Maicitos de Pollo Personal', 'maicitos, pollo queso', 1, 11000, 11000, 'f_maicitos.jpg', 0, 'comida'),
+(67, 'Maicitos Rancheros Personales', 'maicitos con salchicha ranchera', 1, 11000, 11000, 'f_maicitos.jpg', 0, 'comida'),
+(68, 'Maicitos Tocineta Personal', 'Tocineta, maiz y queso', 1, 11000, 11000, 'f_maicitos.jpg', 0, 'comida'),
+(69, 'Maicitos Carne Personal', 'Carne desmechada, maiz y queso', 1, 11000, 11000, 'f_maicitos.jpg', 0, 'comida'),
+(70, 'Maicitos Pollo Grande', 'Pollo maicitos grandes', 1, 18000, 18000, 'g_maicitos_g.jpg', 0, 'comida'),
+(71, 'Maicitos Rancheros Grande', 'Rancheros maicitos grandes', 1, 18000, 18000, 'g_maicitos_g.jpg', 0, 'comida'),
+(72, 'Maicitos Tocineta Grande', 'Tocineta maicitos grandes', 1, 18000, 18000, 'g_maicitos_g.jpg', 0, 'comida'),
+(73, 'Maicitos Carne Grande', 'Carne maicitos grandes', 1, 18000, 18000, 'g_maicitos_g.jpg', 0, 'comida'),
+(74, 'Adicion Ensalada', 'lechuga tomate salsa', 1, 4000, 4000, 'f_ensalada.jpg', 0, 'comida'),
+(75, 'Adicion Cebolla', 'Adicion cebolla con bbq', 1, 2500, 2500, 'ff_cebllo.jpg', 0, 'comida'),
+(76, 'Adicion Queso', 'Adicion queso dos lonjas', 1, 2500, 2500, 'ff_queso.jpg', 0, 'comida'),
+(77, 'Adicion Carne Hamburguesa', 'Adicion Carne de Hamburguesa', 1, 4000, 4000, 'ff_carnehb.jpg', 0, 'comida'),
+(78, 'Adicion Carne Desmechada', 'Adicion Carne Desmechada', 1, 4000, 4000, 'ff_carnedes.jpg', 0, 'comida'),
+(79, 'Adicion Pollo Desmechado', 'Adicion Pollo Desmechado', 1, 4000, 4000, 'ff_pollodes.jpg', 0, 'comida'),
+(80, 'Adicion Tocineta', 'Adicion Tocineta', 1, 4000, 4000, 'ff_tocineta.jpg', 0, 'comida'),
+(81, 'Adicion Maiz ', 'Adicion Maiz ', 1, 4000, 4000, 'ff_maiz.jpg', 0, 'comida'),
+(82, 'Adicion Ranchera', 'Adicion Ranchera', 1, 5500, 5500, 'ff_ranchera.jpg', 0, 'comida'),
+(83, 'Adicion Costilla', 'Adicion Costilla', 1, 5500, 5500, 'ff_costilla.jpg', 0, 'comida'),
+(84, 'Adicion Papa Amarilla', 'Adicion Papa Amarilla', 1, 4000, 4000, 'f_papamaralla.jpg', 0, 'comida'),
+(85, 'Adicion Francesa Personal', 'Adicion Francesa Personal 5000', 1, 5000, 5000, 'f_francesas.jpg', 0, 'comida'),
+(86, 'Adicion Francesa Personal', 'Adicion Francesa Personal 7000', 1, 7000, 7000, 'f_francesas.jpg', 0, 'comida'),
+(88, 'Postobon 400ml', 'Uva Manzana Pepsi Colombiana', 1, 2500, 2500, 'f_postobon.jpg', 0, 'bebida'),
+(89, 'Postobon 2 Litros', 'Uva Manzana Pepsi Colombiana', 1, 4000, 4000, 'f_postobon.jpg', 0, 'bebida'),
+(90, 'Postobon 3 Lts', 'Uva Manzana Pepsi Colombiana', 1, 7000, 7000, 'f_postobon.jpg', 0, 'bebida'),
+(91, 'Hit Personal 500ml', 'Mora, Frutos Tropicales, Mango, Naranja Pina', 1, 2500, 2500, 'f_hit500.jpg', 0, 'bebida'),
+(92, 'Hit Caja Litro', 'Mora, Frutos Tropicales, Mango, Naranja Pina', 1, 3500, 3500, 'f_hit500.jpg', 0, 'bebida'),
+(93, 'Mr Tea 500ml', 'Limon y durazno', 1, 2500, 2500, 'f_mrtea.jpg', 0, 'bebida'),
+(94, 'Botella Agua', 'Botella con agua', 1, 2500, 2500, 'aguaagua.jpg', 0, 'bebida'),
+(95, 'Jugo de Limonada JARRA', 'Jarra de Limonada', 1, 7000, 7000, 'f_jugolimoana.jpg', 0, 'bebida'),
+(96, 'Jugo de Limonada', 'Jugo de Limonada', 1, 3500, 3500, 'f_jugolimoana.jpg', 0, 'bebida'),
+(97, 'Jugo de Mango Agua', 'Jugo de Mango Agua', 1, 4000, 4000, 'f_jugomango.jpg', 0, 'bebida'),
+(98, 'Jugo de Mango Leche', 'Jugo de Mango Leche', 1, 5000, 5000, 'f_jugomango.jpg', 0, 'bebida'),
+(99, 'Jugo de Mora Agua', 'Jugo de Mora Agua', 1, 4000, 4000, 'f_jugomora.jpg', 0, 'bebida'),
+(100, 'Jugo de Mora Leche', 'Jugo de Mora Leche', 1, 5000, 5000, 'f_jugomora.jpg', 0, 'bebida'),
+(101, 'Jugo de Fresa Agua', 'Jugo de Fresa Agua', 1, 4000, 4000, 'f_jugofresa.jpg', 0, 'bebida'),
+(102, 'Jugo de Fresa Leche', 'Jugo de Fresa Leche', 1, 5000, 5000, 'f_jugofresa.jpg', 0, 'bebida'),
+(103, 'Jugo de Guanabana Agua', 'Jugo de Guanabana Agua', 1, 4000, 4000, 'f_jugoguanabana.jpg', 0, 'bebida'),
+(104, 'Jugo de Guanabana Leche', 'Jugo de Guanabana Leche', 1, 5000, 5000, 'f_jugoguanabana.jpg', 0, 'bebida'),
+(105, 'Jugo de Lulo Agua', 'Jugo de Lulo Agua', 1, 4000, 4000, 'f_jugolulo.jpg', 0, 'bebida'),
+(106, 'Jugo de Lulo Leche', 'Jugo de Lulo Leche', 1, 5000, 5000, 'f_jugolulo.jpg', 0, 'bebida'),
+(126, 'Jugo de Maracuya Agua', 'Jugo de Maracuya Agua', 1, 4000, 4000, 'f_jugomaracuya.jpg', 0, 'bebida'),
+(127, 'Jugo de Maracuya Leche', 'Jugo de Maracuya Leche', 1, 5000, 5000, 'f_jugomaracuya.jpg', 0, 'bebida');
 
 -- --------------------------------------------------------
 
@@ -291,7 +354,7 @@ ALTER TABLE `pedidos_tb`
 -- AUTO_INCREMENT for table `productos_tb3`
 --
 ALTER TABLE `productos_tb3`
-  MODIFY `id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=128;
 
 --
 -- AUTO_INCREMENT for table `usuarios_tb`

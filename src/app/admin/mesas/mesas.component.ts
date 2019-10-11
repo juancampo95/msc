@@ -124,7 +124,7 @@ export class MesasComponent implements OnInit {
     }
   }
   filtrar(producto){
-    if(this.listaFilter.nombre == producto){
+    if(this.listaFilter.nombre == producto ){
       this.listaFilter.nombre = "";
     }else{
       this.listaFilter.nombre = producto;
