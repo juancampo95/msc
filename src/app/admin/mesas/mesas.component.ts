@@ -43,6 +43,7 @@ export class MesasComponent implements OnInit {
   cargarProductos(){
     this.DatabaseProductosService.getProductos().subscribe(productos=>{
      return this.listadeproductos = productos;
+    // console.log(productos);
     });    
   }
   cargarPedidos(){
