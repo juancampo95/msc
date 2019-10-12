@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 11, 2019 at 09:59 PM
+-- Generation Time: Oct 12, 2019 at 10:03 PM
 -- Server version: 10.1.28-MariaDB
 -- PHP Version: 7.1.11
 
@@ -61,7 +61,7 @@ CREATE TABLE `balances_diarios` (
 
 INSERT INTO `balances_diarios` (`id`, `usuario`, `base_i_b`, `base_i_m`, `pedidos_facturados`, `datafono`, `online`, `otros_ingresos`, `total_ingresos`, `compras_gastos`, `vales`, `total_gastos`, `total_resumen`, `billetes_a`, `monedas_a`, `datafono_a`, `online_a`, `total_arqueo`, `descuadre`, `cuadrado`, `fecha_ini`, `hora_ini`, `fecha_fin`, `hora_fin`) VALUES
 (6, 'jose', 800000, 20000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'no', '6/12/2019', '3:25:28 PM', 'sin fecha final', 'sin hora final'),
-(7, 'juancampo95', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'no', '9/20/2019', '11:45:54 AM', 'sin fecha final', 'sin hora final');
+(7, 'juancampo95', 1433000, 26800, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'no', '9/20/2019', '11:45:54 AM', 'sin fecha final', 'sin hora final');
 
 -- --------------------------------------------------------
 
@@ -119,13 +119,6 @@ CREATE TABLE `pedidos_tb` (
   `devuelta` int(50) NOT NULL,
   `usuario` varchar(100) COLLATE utf8_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-
---
--- Dumping data for table `pedidos_tb`
---
-
-INSERT INTO `pedidos_tb` (`id`, `fecha`, `hora`, `cliente`, `documento`, `mesero`, `metodo`, `comentario`, `mesa`, `subtotal_p`, `total_p`, `descuento`, `productos`, `estado`, `pagadocon`, `devuelta`, `usuario`) VALUES
-(117, '10/4/2019', '2:01:29 PM', 'jeffre', '12131512', 'Caja', 'Efectivo', 'empacar salsas, ', 14, 24500, 24500, 0, '[{\"0\":\"2\",\"1\":\"Perro Caliente\",\"2\":\"2 ingredientes especiales, queso, ripio papa amarilla, salchicha y salsas caseras.\",\"3\":\"1\",\"4\":\"3000\",\"5\":\"3000\",\"6\":\"perro.png\",\"7\":\"0\",\"8\":\"comida\",\"id\":\"2\",\"nombre\":\"Perro Caliente\",\"descripcion\":\"2 ingredientes especiales, queso, ripio papa amarilla, salchicha y salsas caseras.\",\"cantidad\":2,\"v_unidad\":\"3000\",\"v_total\":6000,\"foto\":\"perro.png\",\"anadido\":\"1\",\"tipo\":\"comida\"},{\"0\":\"3\",\"1\":\"Pepsi Litro 1/2\",\"2\":\"Gaseosa pepsi cola litro y medio - postobon\",\"3\":\"1\",\"4\":\"3500\",\"5\":\"3500\",\"6\":\"gaseosas.png\",\"7\":\"0\",\"8\":\"bebida\",\"id\":\"3\",\"nombre\":\"Pepsi Litro 1/2\",\"descripcion\":\"Gaseosa pepsi cola litro y medio - postobon\",\"cantidad\":\"1\",\"v_unidad\":\"3500\",\"v_total\":3500,\"foto\":\"gaseosas.png\",\"anadido\":\"1\",\"tipo\":\"bebida\"},{\"0\":\"1\",\"1\":\"Salchipapa Especial\",\"2\":\"2 ingredientes especiales, queso, ripio papa amarilla, salchicha y salsas caseras.\",\"3\":\"1\",\"4\":\"15000\",\"5\":\"15000\",\"6\":\"maisitos.jpg\",\"7\":\"0\",\"8\":\"comida\",\"id\":\"1\",\"nombre\":\"Salchipapa Especial\",\"descripcion\":\"2 ingredientes especiales, queso, ripio papa amarilla, salchicha y salsas caseras.\",\"cantidad\":\"1\",\"v_unidad\":\"15000\",\"v_total\":15000,\"foto\":\"maisitos.jpg\",\"anadido\":\"1\",\"tipo\":\"comida\"}]', 'anulado', 24500, 0, 'juancampo95');
 
 -- --------------------------------------------------------
 
@@ -213,7 +206,7 @@ INSERT INTO `productos_tb3` (`id`, `nombre`, `descripcion`, `cantidad`, `v_unida
 (61, 'Sandwich pollo', 'filete de pollo, salami, pepperoni, queso, lechuga y salsa', 1, 8000, 8000, 'f_sandwichcarne.jpg', 0, 'comida'),
 (62, 'Sandwich Hawaiano', 'pina calada, salami, pepperoni, queso, jamon lechuga y salsa', 1, 8000, 8000, 'f_sandwichjamon.jpg', 0, 'comida'),
 (63, 'Sandwich Tocineta', 'tocineta, salami, pepperoni, queso, lechuga y salsa', 1, 8000, 8000, 'f_sandwichcarne.jpg', 0, 'comida'),
-(64, 'Sandwich Carne', 'Carne desmechada, salami, pepperoni, queso, lechuga y salsa', 1, 8000, 8000, 'f_sandwichcarne.jpg', 0, 'colombia'),
+(64, 'Sandwich Carne', 'Carne desmechada, salami, pepperoni, queso, lechuga y salsa', 1, 8000, 8000, 'f_sandwichcarne.jpg', 0, 'comida'),
 (65, 'Combo para Sandwich', 'Aplicar el combo para el sandwich', 1, 5000, 5000, 'sdsd.jpg', 0, 'comida'),
 (66, 'Maicitos de Pollo Personal', 'maicitos, pollo queso', 1, 11000, 11000, 'f_maicitos.jpg', 0, 'comida'),
 (67, 'Maicitos Rancheros Personales', 'maicitos con salchicha ranchera', 1, 11000, 11000, 'f_maicitos.jpg', 0, 'comida'),
@@ -256,7 +249,11 @@ INSERT INTO `productos_tb3` (`id`, `nombre`, `descripcion`, `cantidad`, `v_unida
 (105, 'Jugo de Lulo Agua', 'Jugo de Lulo Agua', 1, 4000, 4000, 'f_jugolulo.jpg', 0, 'bebida'),
 (106, 'Jugo de Lulo Leche', 'Jugo de Lulo Leche', 1, 5000, 5000, 'f_jugolulo.jpg', 0, 'bebida'),
 (126, 'Jugo de Maracuya Agua', 'Jugo de Maracuya Agua', 1, 4000, 4000, 'f_jugomaracuya.jpg', 0, 'bebida'),
-(127, 'Jugo de Maracuya Leche', 'Jugo de Maracuya Leche', 1, 5000, 5000, 'f_jugomaracuya.jpg', 0, 'bebida');
+(127, 'Jugo de Maracuya Leche', 'Jugo de Maracuya Leche', 1, 5000, 5000, 'f_jugomaracuya.jpg', 0, 'bebida'),
+(128, 'HB Combo Doble Burger 25000', '2 burgers, 2 francesas, 2 litros', 1, 25000, 25000, 'd_burgersd.jpg', 0, 'comida'),
+(129, 'HB Combo Doble Burger 29000', '2 burgers especiales, 2 francesas, 2 litros', 1, 29000, 29000, 'd_burgersd.jpg', 0, 'comida'),
+(130, 'Cerveza en lata', 'Poker, Light, Club', 1, 4000, 4000, 'g_cerveza.jpg', 0, 'bebida'),
+(131, 'Cerveza Corona', 'Corona botella vidrio', 1, 6500, 6500, 'co_cerveza.jpg', 0, 'bebida');
 
 -- --------------------------------------------------------
 
@@ -277,7 +274,7 @@ CREATE TABLE `usuarios_tb` (
 --
 
 INSERT INTO `usuarios_tb` (`id`, `username`, `password`, `rol`, `key_access`) VALUES
-(1, 'juancampo95', 'camilocampo', 'administrador', 'acwif719m4n5l9ygm2ys'),
+(1, 'juancampo95', 'camilocampo', 'administrador', '964tn7wo1058pcwje9zf'),
 (2, 'milton', 'fabian', 'administrador', 'g9yj8iyecdslaejdagtq'),
 (3, 'rodrigo', 'campo', 'administrador', 'd6u7i3a2j0m48j0yx4qu'),
 (4, 'jose', 'aldemar', 'administrador', 'ij9fmh3v7qlvgha2tlu6');
@@ -336,25 +333,25 @@ ALTER TABLE `balances_diarios`
 -- AUTO_INCREMENT for table `gastos_y_vales`
 --
 ALTER TABLE `gastos_y_vales`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `otrosingresos_tb`
 --
 ALTER TABLE `otrosingresos_tb`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `pedidos_tb`
 --
 ALTER TABLE `pedidos_tb`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=118;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `productos_tb3`
 --
 ALTER TABLE `productos_tb3`
-  MODIFY `id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=128;
+  MODIFY `id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=132;
 
 --
 -- AUTO_INCREMENT for table `usuarios_tb`
