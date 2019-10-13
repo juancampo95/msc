@@ -18,11 +18,14 @@ export class ResumenDetailComponent implements OnInit {
 
   calcularArqueo(){
     this.resumen.calcularArqueo();
-    this.online = this.r_actual.datafono_a + this.r_actual.online_a;
+    this.online = Number(this.r_actual.datafono_a) + Number(this.r_actual.online_a);
   }
 
   postResumen(){
     this.Http.postResumenDiario(this.r_actual).subscribe(res=>{
     })
+  }
+  cuadrarCaja(){
+    this.resumen.cuadrarCaja();
   }
 }

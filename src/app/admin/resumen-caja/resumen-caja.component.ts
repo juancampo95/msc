@@ -26,10 +26,9 @@ export class ResumenCajaComponent implements OnInit {
 
   calcularSubTotales(){
     this.r_actual.total_ingresos = Number(this.r_actual.pedidos_facturados) + Number(this.base_inicial)  + Number(this.r_actual.datafono) + Number(this.r_actual.online) +  Number(this.r_actual.otros_ingresos);
-    
     this.r_actual.total_gastos = Number(this.r_actual.vales) + Number(this.r_actual.compras_gastos);
-
     this.r_actual.total_resumen = this.r_actual.total_ingresos - this.r_actual.total_gastos;
+    this.calcularArqueo()
   }
   sumarFacturados(){
     setTimeout(()=>{
@@ -62,7 +61,7 @@ export class ResumenCajaComponent implements OnInit {
 }
 
   calcularArqueo(){
-    this.r_actual.total_arqueo = this.r_actual.billetes_a + this.r_actual.monedas_a;
+    this.r_actual.total_arqueo = Number(this.r_actual.billetes_a) + Number(this.r_actual.monedas_a);
     this.r_actual.descuadre = this.r_actual.total_resumen - this.r_actual.total_arqueo - this.r_actual.datafono_a - this.r_actual.online_a;
   }
 
@@ -74,7 +73,6 @@ export class ResumenCajaComponent implements OnInit {
         this.inicio = this.auth.caja(false);
       }else{
         this.inicio = this.auth.caja(true);
-        // console.log(res);
         this.r_actual = res;
         this.base_inicial =  Number(this.r_actual.base_i_m) + Number(this.r_actual.base_i_b);
       }
@@ -95,5 +93,39 @@ export class ResumenCajaComponent implements OnInit {
       }
     })
   }
+  
+  cuadrarCaja(){
 
+    if(this.r_actual.descuadre == 0){
+      
+      this.r_actual.fecha_fin = new Date().toLocaleDateString();
+      this.r_actual.hora_fin = new Date().toLocaleTimeString();
+      this.r_actual.total_arqueo = this.r_actual.total_resumen;
+
+
+      // AGREGO LOS PEDIDOS AL RESUMEN
+      this.http.getPedidos(this.usuario).subscribe(res=>{
+        if(res!=null){
+          this.r_actual.detalle_pedidos = res;}
+      })
+      // AGREGO LOS GASTOS AL RESUMEN
+      this.http.getGastos(this.r_actual).subscribe(res=>{
+        if(res!=null){
+          this.r_actual.detalle_gastos = res;
+        }
+      })
+      // AGREGO LOS OTROS INGRESOS
+      this.http.getIngresos(this.r_actual).subscribe(res=>{
+        if(res!=null){
+          this.r_actual.detalle_otros_ingresos = res;
+        }
+      })
+      this.http.putResumen(this.r_actual,'cuadrar_resumen').subscribe(res=>{
+          console.log(res);
+
+       })
+    }else{
+      console.log("no esta cuadrado")
+    }
+  }
 }

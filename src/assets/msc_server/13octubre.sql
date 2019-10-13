@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 12, 2019 at 10:03 PM
+-- Generation Time: Oct 13, 2019 at 10:22 PM
 -- Server version: 10.1.28-MariaDB
 -- PHP Version: 7.1.11
 
@@ -42,6 +42,9 @@ CREATE TABLE `balances_diarios` (
   `vales` int(100) NOT NULL,
   `total_gastos` int(100) NOT NULL,
   `total_resumen` int(100) NOT NULL,
+  `detalle_pedidos` longtext COLLATE utf8_spanish_ci NOT NULL,
+  `detalle_gastos` text COLLATE utf8_spanish_ci NOT NULL,
+  `detalle_otros_ingresos` text COLLATE utf8_spanish_ci NOT NULL,
   `billetes_a` int(100) NOT NULL,
   `monedas_a` int(100) NOT NULL,
   `datafono_a` int(100) NOT NULL,
@@ -59,9 +62,9 @@ CREATE TABLE `balances_diarios` (
 -- Dumping data for table `balances_diarios`
 --
 
-INSERT INTO `balances_diarios` (`id`, `usuario`, `base_i_b`, `base_i_m`, `pedidos_facturados`, `datafono`, `online`, `otros_ingresos`, `total_ingresos`, `compras_gastos`, `vales`, `total_gastos`, `total_resumen`, `billetes_a`, `monedas_a`, `datafono_a`, `online_a`, `total_arqueo`, `descuadre`, `cuadrado`, `fecha_ini`, `hora_ini`, `fecha_fin`, `hora_fin`) VALUES
-(6, 'jose', 800000, 20000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'no', '6/12/2019', '3:25:28 PM', 'sin fecha final', 'sin hora final'),
-(7, 'juancampo95', 1433000, 26800, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'no', '9/20/2019', '11:45:54 AM', 'sin fecha final', 'sin hora final');
+INSERT INTO `balances_diarios` (`id`, `usuario`, `base_i_b`, `base_i_m`, `pedidos_facturados`, `datafono`, `online`, `otros_ingresos`, `total_ingresos`, `compras_gastos`, `vales`, `total_gastos`, `total_resumen`, `detalle_pedidos`, `detalle_gastos`, `detalle_otros_ingresos`, `billetes_a`, `monedas_a`, `datafono_a`, `online_a`, `total_arqueo`, `descuadre`, `cuadrado`, `fecha_ini`, `hora_ini`, `fecha_fin`, `hora_fin`) VALUES
+(6, 'jose', 800000, 20000, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', '0', '0', 0, 0, 0, 0, 0, 0, 'no', '6/12/2019', '3:25:28 PM', 'sin fecha final', 'sin hora final'),
+(7, 'juancampo95', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', '', '', 0, 0, 0, 0, 0, 0, 'no', '9/20/2019', '11:45:54 AM', '', '');
 
 -- --------------------------------------------------------
 
@@ -102,6 +105,7 @@ CREATE TABLE `otrosingresos_tb` (
 
 CREATE TABLE `pedidos_tb` (
   `id` int(11) NOT NULL,
+  `id_resumen` int(100) NOT NULL,
   `fecha` varchar(200) COLLATE utf8_spanish_ci NOT NULL,
   `hora` varchar(20) COLLATE utf8_spanish_ci NOT NULL,
   `cliente` varchar(200) COLLATE utf8_spanish_ci NOT NULL,
@@ -274,7 +278,7 @@ CREATE TABLE `usuarios_tb` (
 --
 
 INSERT INTO `usuarios_tb` (`id`, `username`, `password`, `rol`, `key_access`) VALUES
-(1, 'juancampo95', 'camilocampo', 'administrador', '964tn7wo1058pcwje9zf'),
+(1, 'juancampo95', 'camilocampo', 'administrador', 'yglh66iq8ng6818xmk78'),
 (2, 'milton', 'fabian', 'administrador', 'g9yj8iyecdslaejdagtq'),
 (3, 'rodrigo', 'campo', 'administrador', 'd6u7i3a2j0m48j0yx4qu'),
 (4, 'jose', 'aldemar', 'administrador', 'ij9fmh3v7qlvgha2tlu6');
@@ -333,19 +337,19 @@ ALTER TABLE `balances_diarios`
 -- AUTO_INCREMENT for table `gastos_y_vales`
 --
 ALTER TABLE `gastos_y_vales`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `otrosingresos_tb`
 --
 ALTER TABLE `otrosingresos_tb`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `pedidos_tb`
 --
 ALTER TABLE `pedidos_tb`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `productos_tb3`

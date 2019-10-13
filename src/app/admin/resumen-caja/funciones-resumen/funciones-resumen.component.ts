@@ -40,6 +40,7 @@ export class FuncionesResumenComponent implements OnInit {
     this.Http.getResumenDiario(user).subscribe(res=>{
       if(res == null){
       }else{
+        
         this.base_i_m = res.base_i_m;
         this.base_i_b = res.base_i_b;
       }
@@ -125,7 +126,7 @@ export class FuncionesResumenComponent implements OnInit {
 
         if(res != null){
           this.o_gastos = res;
-          console.log(this.o_gastos);
+
           this.o_gastos.forEach(element => {
             if(element.tipo == 'gasto'){
               this.r_actual.compras_gastos += parseInt(element.total);        
