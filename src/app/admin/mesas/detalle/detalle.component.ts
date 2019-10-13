@@ -50,7 +50,9 @@ export class DetalleComponent implements OnInit {
       }
       this.http.enviarPedido(pedido).subscribe(res=>{
         pedido.id= parseInt(res[0].id)
-        this.imprimirPedido("",pedido);
+        // this.imprimirPedido("",pedido);
+        this.mesas.cargarProductos()
+        this.mesas.cargarPedidos();
         // console.log(res);
       });
       
