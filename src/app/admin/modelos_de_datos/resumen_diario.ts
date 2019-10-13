@@ -1,3 +1,6 @@
+import { Pedido } from './pedidos';
+import { Ingreso, Gastos } from './ingresos';
+
 export class Resumen{
     id?:number;
     fecha_ini?:string;
@@ -19,6 +22,9 @@ export class Resumen{
     total_gastos?: number = 0;
     total_resumen?: number = 0;
 
+    detalle_pedidos?:Pedido[] = [];
+    detalle_gastos?: any = [];
+    detalle_otros_ingresos?: any = [];
     billetes_a?: number = 0;
     monedas_a?:number = 0;
     datafono_a?:number = 0;

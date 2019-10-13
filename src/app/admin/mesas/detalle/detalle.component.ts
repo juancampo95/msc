@@ -51,7 +51,6 @@ export class DetalleComponent implements OnInit {
       this.http.enviarPedido(pedido).subscribe(res=>{
         pedido.id= parseInt(res[0].id)
         this.imprimirPedido("",pedido);
-        // console.log(res);
       });
       
     }else if(pedido.id > 0  && accion == 'put'){

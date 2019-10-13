@@ -52,8 +52,13 @@ header('Allow: GET, POST, OPTIONS, PUT, DELETE');
 					case 'eliminar_gastos':
 								echo "Si lee el param de gasots";
 								$this->deleteGastos('gastos_y_vales');
-						break;					
-					
+						break;	
+
+					case 'cuadrar_resumen':
+								// echo "Si lee el parametro de cuadre de resumen";
+								$this->cuadrarResumen($tabla);
+						break;		
+
 					default:
 							echo "respuesta default de switch case";
 						break;
@@ -70,6 +75,71 @@ header('Allow: GET, POST, OPTIONS, PUT, DELETE');
 			$query = "UPDATE $tabla SET base_i_b = '$base_i_b',	base_i_m = '$base_i_m' WHERE id = '$id' AND usuario = '$usuario'";
 				if(mysqli_query($this->conexion,$query)){
 					echo "El resumen fue guardado";
+				}else{
+					echo "Error ".mysqli_error($this->conexion);
+				};
+		}
+
+		public function cuadrarResumen($tabla){
+			$id = mysqli_real_escape_string($this->conexion,$this->pedido->id);
+			$usuario = mysqli_real_escape_string($this->conexion,$this->pedido->usuario);
+
+			$fecha_fin = mysqli_real_escape_string($this->conexion,$this->pedido->fecha_fin);
+			$hora_fin = mysqli_real_escape_string($this->conexion,$this->pedido->hora_fin);
+
+			$pedidos_facturados = mysqli_real_escape_string($this->conexion,$this->pedido->pedidos_facturados);
+			$datafono = mysqli_real_escape_string($this->conexion,$this->pedido->datafono);
+			$online = mysqli_real_escape_string($this->conexion,$this->pedido->online);
+			$otros_ingresos = mysqli_real_escape_string($this->conexion,$this->pedido->otros_ingresos);
+			$total_ingresos = mysqli_real_escape_string($this->conexion,$this->pedido->total_ingresos);
+
+			$compras_gastos = mysqli_real_escape_string($this->conexion,$this->pedido->compras_gastos);
+			$vales = mysqli_real_escape_string($this->conexion,$this->pedido->vales);
+			$total_gastos = mysqli_real_escape_string($this->conexion,$this->pedido->total_gastos);
+
+			$total_resumen = mysqli_real_escape_string($this->conexion,$this->pedido->total_resumen);
+			$detalle_pedidos = json_encode($this->pedido->detalle_pedidos);
+			$detalle_gastos = json_encode($this->pedido->detalle_gastos);
+			$detalle_otros_ingresos = json_encode($this->pedido->detalle_otros_ingresos);
+			
+
+			$billetes_a = mysqli_real_escape_string($this->conexion,$this->pedido->billetes_a);
+			$monedas_a = mysqli_real_escape_string($this->conexion,$this->pedido->monedas_a);
+			$datafono_a = mysqli_real_escape_string($this->conexion,$this->pedido->datafono_a);
+			$online_a = mysqli_real_escape_string($this->conexion,$this->pedido->online_a);
+			$total_arqueo = mysqli_real_escape_string($this->conexion,$this->pedido->total_arqueo);
+
+			$descuadre = mysqli_real_escape_string($this->conexion,$this->pedido->descuadre);
+			$cuadrado = mysqli_real_escape_string($this->conexion,$this->pedido->cuadrado);
+
+
+			$query = "UPDATE $tabla SET
+				fecha_fin = '$fecha_fin',
+				hora_fin = '$hora_fin',
+
+ 				pedidos_facturados = '$pedidos_facturados',
+ 				datafono = '$datafono',
+ 				online = '$online',
+ 				otros_ingresos = '$otros_ingresos',
+ 				total_ingresos = '$total_ingresos',
+
+ 				compras_gastos = '$compras_gastos',
+ 				vales = '$vales',
+ 				total_gastos = '$total_gastos',
+ 				total_resumen = '$total_resumen',
+ 				detalle_pedidos = '$detalle_pedidos',
+ 				detalle_gastos = '$detalle_gastos',
+ 				detalle_otros_ingresos = '$detalle_otros_ingresos',
+
+ 				billetes_a = '$billetes_a',
+ 				monedas_a = '$monedas_a',
+ 				datafono_a = '$datafono_a',
+ 				online_a  = '$online_a',
+ 				total_arqueo = '$total_arqueo',
+ 				descuadre = '$descuadre',
+ 				cuadrado = '$cuadrado' WHERE id = '$id' AND usuario = '$usuario'";
+				if(mysqli_query($this->conexion,$query)){
+					echo "El resumen fue actualizado con exito";
 				}else{
 					echo "Error ".mysqli_error($this->conexion);
 				};
