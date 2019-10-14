@@ -96,8 +96,8 @@ header('Allow: GET, POST, OPTIONS, PUT, DELETE');
 
 					$printer->text("\n"."Mi Salsa Casera®"."\n");
 					$printer->text("Nit 31.576.714-5"."\n");
-					$printer->text("Cra 1D # 61A 85 Los Almendros"."\n");
-					$printer->text("Tel:4492626 Cel:3135094422"."\n");
+					$printer->text("Cra 56 #17 67 Av Guadalupe"."\n");
+					$printer->text("Cel:3175503136"."\n");
 					$printer->text($this->fecha." ".$this->hora."\n");
 					$printer->text("Atendido por: ".$this->mesero."- Mesa: ".$this->mesa."\n");
 					$salto_de_linea= "\n";
