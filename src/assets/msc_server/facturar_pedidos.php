@@ -71,7 +71,7 @@ header('Allow: GET, POST, OPTIONS, PUT, DELETE');
 				if(mysqli_query($this->conexion,$query)){
 					echo "El pedido fue facturado correctamente";
 					echo $pedido->productos[0]->nombre;
-					$this->imprimirFactura($pedido);
+					// $this->imprimirFactura($pedido);
 					
 				}else{
 					// echo json_decode("{'status':'Error en exitoso'".mysqli_error($this->conexion)."}");
@@ -81,76 +81,76 @@ header('Allow: GET, POST, OPTIONS, PUT, DELETE');
 			}
 		}
 
-		public function imprimirFactura($pedido){
-				$nombre_impresora = "POS-58"; 
-				$connector = new WindowsPrintConnector($nombre_impresora);
-				$printer = new Printer($connector);
-				$printer->pulse();
-			// // IMPRIMIR DE TICKET
-					$printer->setJustification(Printer::JUSTIFY_CENTER);
-					try{
-						$logo = EscposImage::load("./imgs/logo.png", false);
-						$printer->setJustification(Printer::JUSTIFY_CENTER);
-					    $printer->bitImage($logo);
-					}catch(Exception $e){}
+		// public function imprimirFactura($pedido){
+		// 		$nombre_impresora = "POS-58"; 
+		// 		$connector = new WindowsPrintConnector($nombre_impresora);
+		// 		$printer = new Printer($connector);
+		// 		$printer->pulse();
+		// 	// // IMPRIMIR DE TICKET
+		// 			$printer->setJustification(Printer::JUSTIFY_CENTER);
+		// 			try{
+		// 				$logo = EscposImage::load("./imgs/logo.png", false);
+		// 				$printer->setJustification(Printer::JUSTIFY_CENTER);
+		// 			    $printer->bitImage($logo);
+		// 			}catch(Exception $e){}
 
-					$printer->text("\n"."Mi Salsa Casera®"."\n");
-					$printer->text("Nit 31.576.714-5"."\n");
-					$printer->text("Cra 56 #17 67 Av Guadalupe"."\n");
-					$printer->text("Cel:3175503136"."\n");
-					$printer->text($this->fecha." ".$this->hora."\n");
-					$printer->text("Atendido por: ".$this->mesero."- Mesa: ".$this->mesa."\n");
-					$salto_de_linea= "\n";
-					if($this->cliente !== ""){
-						$printer->text("Cliente: ".$this->cliente."\n");
-					}
-					if($this->documento !== ""){
-						$printer->text("Nit/CC: ".$this->documento.$salto_de_linea."\n");
-					}
-					$printer->text("Factura No.".$this->id." Pago:".$this->metodo."\n");
-					$printer->text("-------------------------------\n");
-					$printer->setJustification(Printer::JUSTIFY_LEFT);
-					$printer->text("CANT    ITEM     PRECIO   TOTAL\n");
-					$printer->text("-------------------------------\n");
+		// 			$printer->text("\n"."Mi Salsa Casera®"."\n");
+		// 			$printer->text("Nit 31.576.714-5"."\n");
+		// 			$printer->text("Cra 56 #17 67 Av Guadalupe"."\n");
+		// 			$printer->text("Cel:3175503136"."\n");
+		// 			$printer->text($this->fecha." ".$this->hora."\n");
+		// 			$printer->text("Atendido por: ".$this->mesero."- Mesa: ".$this->mesa."\n");
+		// 			$salto_de_linea= "\n";
+		// 			if($this->cliente !== ""){
+		// 				$printer->text("Cliente: ".$this->cliente."\n");
+		// 			}
+		// 			if($this->documento !== ""){
+		// 				$printer->text("Nit/CC: ".$this->documento.$salto_de_linea."\n");
+		// 			}
+		// 			$printer->text("Factura No.".$this->id." Pago:".$this->metodo."\n");
+		// 			$printer->text("-------------------------------\n");
+		// 			$printer->setJustification(Printer::JUSTIFY_LEFT);
+		// 			$printer->text("CANT    ITEM     PRECIO   TOTAL\n");
+		// 			$printer->text("-------------------------------\n");
 
-					for($i=0;count($pedido->productos)>$i;$i++){
-						$printer->setJustification(Printer::JUSTIFY_LEFT);
-						$printer->text(" ".$pedido->productos[$i]->cantidad." - ".$pedido->productos[$i]->nombre."\n");
-						$printer->setJustification(Printer::JUSTIFY_RIGHT);
-						$printer->text("             $".number_format($pedido->productos[$i]->v_unidad)." - $".number_format($pedido->productos[$i]->v_total)."\n");
-					}
+		// 			for($i=0;count($pedido->productos)>$i;$i++){
+		// 				$printer->setJustification(Printer::JUSTIFY_LEFT);
+		// 				$printer->text(" ".$pedido->productos[$i]->cantidad." - ".$pedido->productos[$i]->nombre."\n");
+		// 				$printer->setJustification(Printer::JUSTIFY_RIGHT);
+		// 				$printer->text("             $".number_format($pedido->productos[$i]->v_unidad)." - $".number_format($pedido->productos[$i]->v_total)."\n");
+		// 			}
 
-					$printer->setJustification(Printer::JUSTIFY_LEFT);
-					$printer->text("-------------------------------"."\n");
-					$printer->setJustification(Printer::JUSTIFY_LEFT);
-					$printer->text("SUBTOTAL: $".number_format($this->subtotal_p)."\n");
-					$printer->text("DESCUENTO: $".number_format($this->descuento)."\n");
-					$printer->setTextSize(5,5);
-					$printer->text("TOTAL: $".number_format($this->total_p)."\n");
-					$printer->text("-------------------------------"."\n");
-					$printer->text("PAGA CON: $".number_format($this->pagadocon)."\n");
-					$printer->text("CAMBIO: $".number_format($this->devuelve)."\n");
-					$printer->setTextSize(1,1);
-					$printer->feed(1);
-					$printer->setJustification(Printer::JUSTIFY_CENTER);					
-					$printer->text("Síguenos en Redes\n");
-					try{
-						$redes_img = EscposImage::load("./imgs/redeslogo-.png");
-					    $printer->bitImage($redes_img);
-					}catch(Exception $e){}
+		// 			$printer->setJustification(Printer::JUSTIFY_LEFT);
+		// 			$printer->text("-------------------------------"."\n");
+		// 			$printer->setJustification(Printer::JUSTIFY_LEFT);
+		// 			$printer->text("SUBTOTAL: $".number_format($this->subtotal_p)."\n");
+		// 			$printer->text("DESCUENTO: $".number_format($this->descuento)."\n");
+		// 			$printer->setTextSize(5,5);
+		// 			$printer->text("TOTAL: $".number_format($this->total_p)."\n");
+		// 			$printer->text("-------------------------------"."\n");
+		// 			$printer->text("PAGA CON: $".number_format($this->pagadocon)."\n");
+		// 			$printer->text("CAMBIO: $".number_format($this->devuelve)."\n");
+		// 			$printer->setTextSize(1,1);
+		// 			$printer->feed(1);
+		// 			$printer->setJustification(Printer::JUSTIFY_CENTER);					
+		// 			$printer->text("Síguenos en Redes\n");
+		// 			try{
+		// 				$redes_img = EscposImage::load("./imgs/redeslogo-.png");
+		// 			    $printer->bitImage($redes_img);
+		// 			}catch(Exception $e){}
 
-					$printer->feed(2);
-					// $printer->setJustification(Printer::JUSTIFY_CENTER);
-					$printer->text("Muchas gracias por tu compra\n");
-					$printer->text("¡Esperamos verte pronto!\n");
+		// 			$printer->feed(2);
+		// 			// $printer->setJustification(Printer::JUSTIFY_CENTER);
+		// 			$printer->text("Muchas gracias por tu compra\n");
+		// 			$printer->text("¡Esperamos verte pronto!\n");
 
-					$printer->feed(4);
-					$printer->cut();
+		// 			$printer->feed(4);
+		// 			$printer->cut();
 
 					
-					$printer->close();
-					// IMPRIMIR DE TICKET
-		}
+		// 			$printer->close();
+		// 			// IMPRIMIR DE TICKET
+		// }
 	}
 
 	$clienteNuevo = new update("pedidos_tb");

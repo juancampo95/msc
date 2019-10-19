@@ -15,8 +15,8 @@ export class DatabaseProductosService {
   getProductos(){
     return this.Http.get<Producto[]>(this.api_url + '/get_productos.php')
   }
-  getPedidos(paramUser){
-    return this.Http.get<Pedido[]>(this.api_url + '/get_pedidos.php?user='+paramUser);
+  getPedidos(paramUser,idResumen?){
+    return this.Http.get<Pedido[]>(this.api_url + '/get_pedidos.php?user='+paramUser+'&id='+idResumen);
   }
   enviarPedido(pedido){
     return this.Http.post(this.api_url + '/post_pedidos.php',pedido);

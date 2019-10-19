@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 13, 2019 at 10:22 PM
+-- Generation Time: Oct 19, 2019 at 10:34 PM
 -- Server version: 10.1.28-MariaDB
 -- PHP Version: 7.1.11
 
@@ -42,9 +42,6 @@ CREATE TABLE `balances_diarios` (
   `vales` int(100) NOT NULL,
   `total_gastos` int(100) NOT NULL,
   `total_resumen` int(100) NOT NULL,
-  `detalle_pedidos` longtext COLLATE utf8_spanish_ci NOT NULL,
-  `detalle_gastos` text COLLATE utf8_spanish_ci NOT NULL,
-  `detalle_otros_ingresos` text COLLATE utf8_spanish_ci NOT NULL,
   `billetes_a` int(100) NOT NULL,
   `monedas_a` int(100) NOT NULL,
   `datafono_a` int(100) NOT NULL,
@@ -62,9 +59,12 @@ CREATE TABLE `balances_diarios` (
 -- Dumping data for table `balances_diarios`
 --
 
-INSERT INTO `balances_diarios` (`id`, `usuario`, `base_i_b`, `base_i_m`, `pedidos_facturados`, `datafono`, `online`, `otros_ingresos`, `total_ingresos`, `compras_gastos`, `vales`, `total_gastos`, `total_resumen`, `detalle_pedidos`, `detalle_gastos`, `detalle_otros_ingresos`, `billetes_a`, `monedas_a`, `datafono_a`, `online_a`, `total_arqueo`, `descuadre`, `cuadrado`, `fecha_ini`, `hora_ini`, `fecha_fin`, `hora_fin`) VALUES
-(6, 'jose', 800000, 20000, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', '0', '0', 0, 0, 0, 0, 0, 0, 'no', '6/12/2019', '3:25:28 PM', 'sin fecha final', 'sin hora final'),
-(7, 'juancampo95', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', '', '', 0, 0, 0, 0, 0, 0, 'no', '9/20/2019', '11:45:54 AM', '', '');
+INSERT INTO `balances_diarios` (`id`, `usuario`, `base_i_b`, `base_i_m`, `pedidos_facturados`, `datafono`, `online`, `otros_ingresos`, `total_ingresos`, `compras_gastos`, `vales`, `total_gastos`, `total_resumen`, `billetes_a`, `monedas_a`, `datafono_a`, `online_a`, `total_arqueo`, `descuadre`, `cuadrado`, `fecha_ini`, `hora_ini`, `fecha_fin`, `hora_fin`) VALUES
+(6, 'jose', 800000, 20000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'no', '6/12/2019', '3:25:28 PM', 'sin fecha final', 'sin hora final'),
+(7, 'juancampo95', 10, 10, 862500, 0, 0, 20, 862540, 20, 0, 20, 862520, 67000, 67000, 661520, 67000, 862520, 0, 'si', '9/20/2019', '11:45:54 AM', '10/19/2019', '3:16:25 PM'),
+(8, 'juancampo95', 2000, 2000, 10000, 0, 0, 200, 14200, 20, 0, 20, 14180, 0, 0, 14180, 0, 14180, 0, 'si', '10/19/2019', '3:17:06 PM', '10/19/2019', '3:21:32 PM'),
+(9, 'juancampo95', 0, 0, 22000, 0, 0, 0, 22000, 0, 0, 0, 22000, 0, 0, 22000, 0, 22000, 0, 'si', '10/19/2019', '3:22:08 PM', '10/19/2019', '3:28:43 PM'),
+(10, 'juancampo95', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'no', '10/19/2019', '3:32:26 PM', 'sin fecha final', 'sin hora final');
 
 -- --------------------------------------------------------
 
@@ -82,6 +82,15 @@ CREATE TABLE `gastos_y_vales` (
   `usuario` varchar(100) COLLATE utf8_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
+--
+-- Dumping data for table `gastos_y_vales`
+--
+
+INSERT INTO `gastos_y_vales` (`id`, `id_resumen`, `fecha`, `detalle`, `tipo`, `total`, `usuario`) VALUES
+(1, 7, '10/18/2019', 'Floralia', 'gasto', 10, 'juancampo95'),
+(2, 7, '10/18/2019', 'guabal', 'gasto', 10, 'juancampo95'),
+(3, 8, '10/19/2019', 'sadas', 'gasto', 20, 'juancampo95');
+
 -- --------------------------------------------------------
 
 --
@@ -96,6 +105,50 @@ CREATE TABLE `otrosingresos_tb` (
   `total` int(100) NOT NULL,
   `usuario` varchar(100) COLLATE utf8_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Dumping data for table `otrosingresos_tb`
+--
+
+INSERT INTO `otrosingresos_tb` (`id`, `id_resumen`, `fecha`, `detalle`, `total`, `usuario`) VALUES
+(1, 7, '10/18/2019', 'jean carlo', 10, 'juancampo95'),
+(2, 7, '10/18/2019', 'felipe', 10, 'juancampo95'),
+(3, 8, '10/19/2019', 'dfs', 200, 'juancampo95');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pedidos_history`
+--
+
+CREATE TABLE `pedidos_history` (
+  `id` int(11) NOT NULL,
+  `id_resumen` int(100) NOT NULL,
+  `fecha` varchar(200) COLLATE utf8_spanish_ci NOT NULL,
+  `hora` varchar(20) COLLATE utf8_spanish_ci NOT NULL,
+  `cliente` varchar(200) COLLATE utf8_spanish_ci NOT NULL,
+  `documento` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
+  `mesero` varchar(200) COLLATE utf8_spanish_ci NOT NULL,
+  `metodo` varchar(60) COLLATE utf8_spanish_ci NOT NULL,
+  `comentario` varchar(200) COLLATE utf8_spanish_ci NOT NULL,
+  `mesa` int(10) NOT NULL,
+  `subtotal_p` int(20) NOT NULL,
+  `total_p` int(20) NOT NULL,
+  `descuento` int(20) NOT NULL,
+  `productos` text COLLATE utf8_spanish_ci NOT NULL,
+  `estado` varchar(60) COLLATE utf8_spanish_ci NOT NULL,
+  `pagadocon` int(50) NOT NULL,
+  `devuelta` int(50) NOT NULL,
+  `usuario` varchar(100) COLLATE utf8_spanish_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Dumping data for table `pedidos_history`
+--
+
+INSERT INTO `pedidos_history` (`id`, `id_resumen`, `fecha`, `hora`, `cliente`, `documento`, `mesero`, `metodo`, `comentario`, `mesa`, `subtotal_p`, `total_p`, `descuento`, `productos`, `estado`, `pagadocon`, `devuelta`, `usuario`) VALUES
+(1, 0, '17/10/2019', '', 'cuadritos', '234', 'Caja', 'Efectivo', '', 8, 47000, 47000, 0, '[{\"0\":\"1\",\"1\":\"HB Artesanal de Res\",\"2\":\"Hamburguesa carne de res, tocineta, jamon, queso, lecucha, ripio y salsas.\",\"3\":\"1\",\"4\":\"10000\",\"5\":\"10000\",\"6\":\"f_hbres.jpg\",\"7\":\"0\",\"8\":\"comida\",\"id\":\"1\",\"nombre\":\"HB Artesanal de Res\",\"descripcion\":\"Hamburguesa carne de res, tocineta, jamon, queso, lecucha, ripio y salsas.\",\"cantidad\":\"1\",\"v_unidad\":\"10000\",\"v_total\":10000,\"foto\":\"f_hbres.jpg\",\"anadido\":\"1\",\"tipo\":\"comida\"},{\"0\":\"2\",\"1\":\"HB Especial de Res\",\"2\":\"Hamburguesa Especial de res, tocineta, doble jamon, doble queso, lecucha, rip...\",\"3\":\"1\",\"4\":\"12000\",\"5\":\"12000\",\"6\":\"f_hbres.jpg\",\"7\":\"0\",\"8\":\"comida\",\"id\":\"2\",\"nombre\":\"HB Especial de Res\",\"descripcion\":\"Hamburguesa Especial de res, tocineta, doble jamon, doble queso, lecucha, rip...\",\"cantidad\":\"1\",\"v_unidad\":\"12000\",\"v_total\":12000,\"foto\":\"f_hbres.jpg\",\"anadido\":\"1\",\"tipo\":\"comida\"},{\"0\":\"32\",\"1\":\"Salchipapa Mega Hamburguesa\",\"2\":\"Carne de Hb, tocineta, pollo, maiz, queso, ripio, salsas.\",\"3\":\"1\",\"4\":\"25000\",\"5\":\"25000\",\"6\":\"hbmegaHB.jpg\",\"7\":\"0\",\"8\":\"comida\",\"id\":\"32\",\"nombre\":\"Salchipapa Mega Hamburguesa\",\"descripcion\":\"Carne de Hb, tocineta, pollo, maiz, queso, ripio, salsas.\",\"cantidad\":\"1\",\"v_unidad\":\"25000\",\"v_total\":25000,\"foto\":\"hbmegaHB.jpg\",\"anadido\":\"1\",\"tipo\":\"comida\"}]', 'facturado', 18500, 0, 'juancampo95'),
+(2, 0, '10/19/2019', '1:00:35 PM', '0', '0', 'Caja', 'Efectivo', '', 0, 10000, 10000, 0, '[{\"0\":\"1\",\"1\":\"HB Artesanal de Res\",\"2\":\"Hamburguesa carne de res, tocineta, jamon, queso, lecucha, ripio y salsas.\",\"3\":\"1\",\"4\":\"10000\",\"5\":\"10000\",\"6\":\"f_hbres.jpg\",\"7\":\"0\",\"8\":\"comida\",\"id\":\"1\",\"nombre\":\"HB Artesanal de Res\",\"descripcion\":\"Hamburguesa carne de res, tocineta, jamon, queso, lecucha, ripio y salsas.\",\"cantidad\":\"1\",\"v_unidad\":\"10000\",\"v_total\":10000,\"foto\":\"f_hbres.jpg\",\"anadido\":\"1\",\"tipo\":\"comida\"}]', 'facturado', 0, 0, 'juancampo95');
 
 -- --------------------------------------------------------
 
@@ -123,6 +176,26 @@ CREATE TABLE `pedidos_tb` (
   `devuelta` int(50) NOT NULL,
   `usuario` varchar(100) COLLATE utf8_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Dumping data for table `pedidos_tb`
+--
+
+INSERT INTO `pedidos_tb` (`id`, `id_resumen`, `fecha`, `hora`, `cliente`, `documento`, `mesero`, `metodo`, `comentario`, `mesa`, `subtotal_p`, `total_p`, `descuento`, `productos`, `estado`, `pagadocon`, `devuelta`, `usuario`) VALUES
+(1, 7, '17/10/2019', '', 'cuadritos', '234', 'Caja', 'Efectivo', '', 8, 47000, 47000, 0, '[{\"0\":\"1\",\"1\":\"HB Artesanal de Res\",\"2\":\"Hamburguesa carne de res, tocineta, jamon, queso, lecucha, ripio y salsas.\",\"3\":\"1\",\"4\":\"10000\",\"5\":\"10000\",\"6\":\"f_hbres.jpg\",\"7\":\"0\",\"8\":\"comida\",\"id\":\"1\",\"nombre\":\"HB Artesanal de Res\",\"descripcion\":\"Hamburguesa carne de res, tocineta, jamon, queso, lecucha, ripio y salsas.\",\"cantidad\":\"1\",\"v_unidad\":\"10000\",\"v_total\":10000,\"foto\":\"f_hbres.jpg\",\"anadido\":\"1\",\"tipo\":\"comida\"},{\"0\":\"2\",\"1\":\"HB Especial de Res\",\"2\":\"Hamburguesa Especial de res, tocineta, doble jamon, doble queso, lecucha, rip...\",\"3\":\"1\",\"4\":\"12000\",\"5\":\"12000\",\"6\":\"f_hbres.jpg\",\"7\":\"0\",\"8\":\"comida\",\"id\":\"2\",\"nombre\":\"HB Especial de Res\",\"descripcion\":\"Hamburguesa Especial de res, tocineta, doble jamon, doble queso, lecucha, rip...\",\"cantidad\":\"1\",\"v_unidad\":\"12000\",\"v_total\":12000,\"foto\":\"f_hbres.jpg\",\"anadido\":\"1\",\"tipo\":\"comida\"},{\"0\":\"32\",\"1\":\"Salchipapa Mega Hamburguesa\",\"2\":\"Carne de Hb, tocineta, pollo, maiz, queso, ripio, salsas.\",\"3\":\"1\",\"4\":\"25000\",\"5\":\"25000\",\"6\":\"hbmegaHB.jpg\",\"7\":\"0\",\"8\":\"comida\",\"id\":\"32\",\"nombre\":\"Salchipapa Mega Hamburguesa\",\"descripcion\":\"Carne de Hb, tocineta, pollo, maiz, queso, ripio, salsas.\",\"cantidad\":\"1\",\"v_unidad\":\"25000\",\"v_total\":25000,\"foto\":\"hbmegaHB.jpg\",\"anadido\":\"1\",\"tipo\":\"comida\"}]', 'facturado', 18500, 0, 'juancampo95'),
+(2, 7, '10/19/2019', '1:00:35 PM', '0', '0', 'Caja', 'Efectivo', '', 0, 10000, 10000, 0, '[{\"0\":\"1\",\"1\":\"HB Artesanal de Res\",\"2\":\"Hamburguesa carne de res, tocineta, jamon, queso, lecucha, ripio y salsas.\",\"3\":\"1\",\"4\":\"10000\",\"5\":\"10000\",\"6\":\"f_hbres.jpg\",\"7\":\"0\",\"8\":\"comida\",\"id\":\"1\",\"nombre\":\"HB Artesanal de Res\",\"descripcion\":\"Hamburguesa carne de res, tocineta, jamon, queso, lecucha, ripio y salsas.\",\"cantidad\":\"1\",\"v_unidad\":\"10000\",\"v_total\":10000,\"foto\":\"f_hbres.jpg\",\"anadido\":\"1\",\"tipo\":\"comida\"}]', 'facturado', 0, 0, 'juancampo95'),
+(3, 0, '10/19/2019', '3:16:54 PM', '0', '0', 'Caja', 'Efectivo', '', 1, 22000, 22000, 0, '[{\"0\":\"1\",\"1\":\"HB Artesanal de Res\",\"2\":\"Hamburguesa carne de res, tocineta, jamon, queso, lecucha, ripio y salsas.\",\"3\":\"1\",\"4\":\"10000\",\"5\":\"10000\",\"6\":\"f_hbres.jpg\",\"7\":\"0\",\"8\":\"comida\",\"id\":\"1\",\"nombre\":\"HB Artesanal de Res\",\"descripcion\":\"Hamburguesa carne de res, tocineta, jamon, queso, lecucha, ripio y salsas.\",\"cantidad\":\"1\",\"v_unidad\":\"10000\",\"v_total\":10000,\"foto\":\"f_hbres.jpg\",\"anadido\":\"1\",\"tipo\":\"comida\"},{\"0\":\"2\",\"1\":\"HB Especial de Res\",\"2\":\"Hamburguesa Especial de res, tocineta, doble jamon, doble queso, lecucha, rip...\",\"3\":\"1\",\"4\":\"12000\",\"5\":\"12000\",\"6\":\"f_hbres.jpg\",\"7\":\"0\",\"8\":\"comida\",\"id\":\"2\",\"nombre\":\"HB Especial de Res\",\"descripcion\":\"Hamburguesa Especial de res, tocineta, doble jamon, doble queso, lecucha, rip...\",\"cantidad\":\"1\",\"v_unidad\":\"12000\",\"v_total\":12000,\"foto\":\"f_hbres.jpg\",\"anadido\":\"1\",\"tipo\":\"comida\"}]', 'facturado', 0, 0, 'juancampo95'),
+(4, 0, '10/19/2019', '3:16:57 PM', '0', '0', 'Caja', 'Efectivo', '', 1, 22000, 22000, 0, '[{\"0\":\"1\",\"1\":\"HB Artesanal de Res\",\"2\":\"Hamburguesa carne de res, tocineta, jamon, queso, lecucha, ripio y salsas.\",\"3\":\"1\",\"4\":\"10000\",\"5\":\"10000\",\"6\":\"f_hbres.jpg\",\"7\":\"0\",\"8\":\"comida\",\"id\":\"1\",\"nombre\":\"HB Artesanal de Res\",\"descripcion\":\"Hamburguesa carne de res, tocineta, jamon, queso, lecucha, ripio y salsas.\",\"cantidad\":\"1\",\"v_unidad\":\"10000\",\"v_total\":10000,\"foto\":\"f_hbres.jpg\",\"anadido\":\"1\",\"tipo\":\"comida\"},{\"0\":\"2\",\"1\":\"HB Especial de Res\",\"2\":\"Hamburguesa Especial de res, tocineta, doble jamon, doble queso, lecucha, rip...\",\"3\":\"1\",\"4\":\"12000\",\"5\":\"12000\",\"6\":\"f_hbres.jpg\",\"7\":\"0\",\"8\":\"comida\",\"id\":\"2\",\"nombre\":\"HB Especial de Res\",\"descripcion\":\"Hamburguesa Especial de res, tocineta, doble jamon, doble queso, lecucha, rip...\",\"cantidad\":\"1\",\"v_unidad\":\"12000\",\"v_total\":12000,\"foto\":\"f_hbres.jpg\",\"anadido\":\"1\",\"tipo\":\"comida\"}]', 'facturado', 0, 0, 'juancampo95'),
+(5, 0, '10/19/2019', '3:17:00 PM', '0', '0', 'Caja', 'Efectivo', '', 3, 10000, 10000, 0, '[{\"0\":\"1\",\"1\":\"HB Artesanal de Res\",\"2\":\"Hamburguesa carne de res, tocineta, jamon, queso, lecucha, ripio y salsas.\",\"3\":\"1\",\"4\":\"10000\",\"5\":\"10000\",\"6\":\"f_hbres.jpg\",\"7\":\"0\",\"8\":\"comida\",\"id\":\"1\",\"nombre\":\"HB Artesanal de Res\",\"descripcion\":\"Hamburguesa carne de res, tocineta, jamon, queso, lecucha, ripio y salsas.\",\"cantidad\":\"1\",\"v_unidad\":\"10000\",\"v_total\":10000,\"foto\":\"f_hbres.jpg\",\"anadido\":\"1\",\"tipo\":\"comida\"}]', 'facturado', 0, 0, 'juancampo95'),
+(6, 0, '10/19/2019', '3:16:59 PM', '0', '0', 'Caja', 'Efectivo', '', 1, 10000, 10000, 0, '[{\"0\":\"1\",\"1\":\"HB Artesanal de Res\",\"2\":\"Hamburguesa carne de res, tocineta, jamon, queso, lecucha, ripio y salsas.\",\"3\":\"1\",\"4\":\"10000\",\"5\":\"10000\",\"6\":\"f_hbres.jpg\",\"7\":\"0\",\"8\":\"comida\",\"id\":\"1\",\"nombre\":\"HB Artesanal de Res\",\"descripcion\":\"Hamburguesa carne de res, tocineta, jamon, queso, lecucha, ripio y salsas.\",\"cantidad\":\"1\",\"v_unidad\":\"10000\",\"v_total\":10000,\"foto\":\"f_hbres.jpg\",\"anadido\":\"1\",\"tipo\":\"comida\"}]', 'facturado', 0, 0, 'juancampo95'),
+(7, 7, '10/19/2019', '2:31:02 PM', '0', '0', 'Caja', 'Efectivo', '', 1, 10000, 10000, 0, '[{\"0\":\"1\",\"1\":\"HB Artesanal de Res\",\"2\":\"Hamburguesa carne de res, tocineta, jamon, queso, lecucha, ripio y salsas.\",\"3\":\"1\",\"4\":\"10000\",\"5\":\"10000\",\"6\":\"f_hbres.jpg\",\"7\":\"0\",\"8\":\"comida\",\"id\":\"1\",\"nombre\":\"HB Artesanal de Res\",\"descripcion\":\"Hamburguesa carne de res, tocineta, jamon, queso, lecucha, ripio y salsas.\",\"cantidad\":\"1\",\"v_unidad\":\"10000\",\"v_total\":10000,\"foto\":\"f_hbres.jpg\",\"anadido\":\"1\",\"tipo\":\"comida\"}]', 'Sin Facturar', 0, 0, 'juancampo95'),
+(8, 7, '10/19/2019', '2:33:27 PM', '', '', 'Caja', 'Efectivo', '', 1, 10000, 10000, 0, '[{\"0\":\"1\",\"1\":\"HB Artesanal de Res\",\"2\":\"Hamburguesa carne de res, tocineta, jamon, queso, lecucha, ripio y salsas.\",\"3\":\"1\",\"4\":\"10000\",\"5\":\"10000\",\"6\":\"f_hbres.jpg\",\"7\":\"0\",\"8\":\"comida\",\"id\":\"1\",\"nombre\":\"HB Artesanal de Res\",\"descripcion\":\"Hamburguesa carne de res, tocineta, jamon, queso, lecucha, ripio y salsas.\",\"cantidad\":\"1\",\"v_unidad\":\"10000\",\"v_total\":10000,\"foto\":\"f_hbres.jpg\",\"anadido\":\"1\",\"tipo\":\"comida\"}]', 'Sin Facturar', 0, 0, 'juancampo95'),
+(9, 7, '10/19/2019', '2:34:18 PM', '', '0', 'Caja', 'Efectivo', '', 3, 27000, 27000, 0, '[{\"0\":\"3\",\"1\":\"HB Super Combo de Res\",\"2\":\"Artesanal Especial, papas a la francesa y postobon 400ml\",\"3\":\"1\",\"4\":\"16000\",\"5\":\"16000\",\"6\":\"f_hbres.jpg\",\"7\":\"0\",\"8\":\"comida\",\"id\":\"3\",\"nombre\":\"HB Super Combo de Res\",\"descripcion\":\"Artesanal Especial, papas a la francesa y postobon 400ml\",\"cantidad\":\"1\",\"v_unidad\":\"16000\",\"v_total\":16000,\"foto\":\"f_hbres.jpg\",\"anadido\":\"1\",\"tipo\":\"comida\"},{\"0\":\"4\",\"1\":\"HB Artesanal de pollo\",\"2\":\"Hamburguesa filete de pollo, tocineta, jamon, queso, lechuga, ripio y salsas.\",\"3\":\"1\",\"4\":\"11000\",\"5\":\"11000\",\"6\":\"f_hbpollo.jpg\",\"7\":\"0\",\"8\":\"comida\",\"id\":\"4\",\"nombre\":\"HB Artesanal de pollo\",\"descripcion\":\"Hamburguesa filete de pollo, tocineta, jamon, queso, lechuga, ripio y salsas.\",\"cantidad\":\"1\",\"v_unidad\":\"11000\",\"v_total\":11000,\"foto\":\"f_hbpollo.jpg\",\"anadido\":\"1\",\"tipo\":\"comida\"}]', 'Sin Facturar', 0, 0, 'juancampo95'),
+(10, 7, '10/19/2019', '2:38:15 PM', '0', '0', 'Caja', 'Efectivo', '', 2, 12000, 12000, 0, '[{\"0\":\"2\",\"1\":\"HB Especial de Res\",\"2\":\"Hamburguesa Especial de res, tocineta, doble jamon, doble queso, lecucha, rip...\",\"3\":\"1\",\"4\":\"12000\",\"5\":\"12000\",\"6\":\"f_hbres.jpg\",\"7\":\"0\",\"8\":\"comida\",\"id\":\"2\",\"nombre\":\"HB Especial de Res\",\"descripcion\":\"Hamburguesa Especial de res, tocineta, doble jamon, doble queso, lecucha, rip...\",\"cantidad\":\"1\",\"v_unidad\":\"12000\",\"v_total\":12000,\"foto\":\"f_hbres.jpg\",\"anadido\":\"1\",\"tipo\":\"comida\"}]', 'Sin Facturar', 0, 0, 'juancampo95'),
+(11, 7, '10/19/2019', '2:51:41 PM', '0', '0', 'Caja', 'Efectivo', '', 1, 12000, 12000, 0, '[{\"0\":\"2\",\"1\":\"HB Especial de Res\",\"2\":\"Hamburguesa Especial de res, tocineta, doble jamon, doble queso, lecucha, rip...\",\"3\":\"1\",\"4\":\"12000\",\"5\":\"12000\",\"6\":\"f_hbres.jpg\",\"7\":\"0\",\"8\":\"comida\",\"id\":\"2\",\"nombre\":\"HB Especial de Res\",\"descripcion\":\"Hamburguesa Especial de res, tocineta, doble jamon, doble queso, lecucha, rip...\",\"cantidad\":\"1\",\"v_unidad\":\"12000\",\"v_total\":12000,\"foto\":\"f_hbres.jpg\",\"anadido\":\"1\",\"tipo\":\"comida\"}]', 'Sin Facturar', 0, 0, 'juancampo95'),
+(12, 7, '10/19/2019', '2:55:22 PM', '0', '0', 'Caja', 'Efectivo', '', 10, 10000, 10000, 0, '[{\"0\":\"1\",\"1\":\"HB Artesanal de Res\",\"2\":\"Hamburguesa carne de res, tocineta, jamon, queso, lecucha, ripio y salsas.\",\"3\":\"1\",\"4\":\"10000\",\"5\":\"10000\",\"6\":\"f_hbres.jpg\",\"7\":\"0\",\"8\":\"comida\",\"id\":\"1\",\"nombre\":\"HB Artesanal de Res\",\"descripcion\":\"Hamburguesa carne de res, tocineta, jamon, queso, lecucha, ripio y salsas.\",\"cantidad\":\"1\",\"v_unidad\":\"10000\",\"v_total\":10000,\"foto\":\"f_hbres.jpg\",\"anadido\":\"1\",\"tipo\":\"comida\"}]', 'facturado', 10000, 0, 'juancampo95'),
+(13, 8, '10/19/2019', '3:20:58 PM', '0', '0', 'Caja', 'Efectivo', '', 2, 10000, 10000, 0, '[{\"0\":\"1\",\"1\":\"HB Artesanal de Res\",\"2\":\"Hamburguesa carne de res, tocineta, jamon, queso, lecucha, ripio y salsas.\",\"3\":\"1\",\"4\":\"10000\",\"5\":\"10000\",\"6\":\"f_hbres.jpg\",\"7\":\"0\",\"8\":\"comida\",\"id\":\"1\",\"nombre\":\"HB Artesanal de Res\",\"descripcion\":\"Hamburguesa carne de res, tocineta, jamon, queso, lecucha, ripio y salsas.\",\"cantidad\":\"1\",\"v_unidad\":\"10000\",\"v_total\":10000,\"foto\":\"f_hbres.jpg\",\"anadido\":\"1\",\"tipo\":\"comida\"}]', 'facturado', 10000, 0, 'juancampo95'),
+(14, 9, '10/19/2019', '3:26:09 PM', '0', '0', 'Caja', 'Efectivo', '', 0, 22000, 22000, 0, '[{\"0\":\"1\",\"1\":\"HB Artesanal de Res\",\"2\":\"Hamburguesa carne de res, tocineta, jamon, queso, lecucha, ripio y salsas.\",\"3\":\"1\",\"4\":\"10000\",\"5\":\"10000\",\"6\":\"f_hbres.jpg\",\"7\":\"0\",\"8\":\"comida\",\"id\":\"1\",\"nombre\":\"HB Artesanal de Res\",\"descripcion\":\"Hamburguesa carne de res, tocineta, jamon, queso, lecucha, ripio y salsas.\",\"cantidad\":\"1\",\"v_unidad\":\"10000\",\"v_total\":10000,\"foto\":\"f_hbres.jpg\",\"anadido\":\"1\",\"tipo\":\"comida\"},{\"0\":\"2\",\"1\":\"HB Especial de Res\",\"2\":\"Hamburguesa Especial de res, tocineta, doble jamon, doble queso, lecucha, rip...\",\"3\":\"1\",\"4\":\"12000\",\"5\":\"12000\",\"6\":\"f_hbres.jpg\",\"7\":\"0\",\"8\":\"comida\",\"id\":\"2\",\"nombre\":\"HB Especial de Res\",\"descripcion\":\"Hamburguesa Especial de res, tocineta, doble jamon, doble queso, lecucha, rip...\",\"cantidad\":\"1\",\"v_unidad\":\"12000\",\"v_total\":12000,\"foto\":\"f_hbres.jpg\",\"anadido\":\"1\",\"tipo\":\"comida\"}]', 'facturado', 0, 0, 'juancampo95');
 
 -- --------------------------------------------------------
 
@@ -152,7 +225,7 @@ INSERT INTO `productos_tb3` (`id`, `nombre`, `descripcion`, `cantidad`, `v_unida
 (3, 'HB Super Combo de Res', 'Artesanal Especial, papas a la francesa y postobon 400ml', 1, 16000, 16000, 'f_hbres.jpg', 0, 'comida'),
 (4, 'HB Artesanal de pollo', 'Hamburguesa filete de pollo, tocineta, jamon, queso, lechuga, ripio y salsas.', 1, 11000, 11000, 'f_hbpollo.jpg', 0, 'comida'),
 (5, 'HB Especial de pollo', 'Hamburguesa filete de pollo, tocineta, doble jamon, doble queso, lechuga, ripio y salsas.', 1, 13000, 13000, 'f_hbpollo.jpg', 0, 'comida'),
-(6, 'HB Mixta Res y Pollo', 'Hamburguesa res, pollo, jamon, queso, lechuga, ripio y salsas.', 1, 8000, 8000, 'f_hbres.jpg', 0, 'comida'),
+(6, 'HB Mixta Res y Pollo', 'Hamburguesa res, pollo, jamon, queso, lechuga, ripio y salsas.', 1, 16000, 16000, 'f_hbres.jpg', 0, 'comida'),
 (7, 'HB Super Combo de Pollo', 'Hamburguesa especial de pollo, papas francesas y gaseosa 400l', 1, 17000, 17000, 'f_hbpollo.jpg', 0, 'comida'),
 (8, 'Perro Americano', 'Salchicha Americana, jamon, queso y salsas caseras', 1, 8000, 8000, 'f_perro.jpg', 0, 'comida'),
 (9, 'Perro Americano Especial', 'Salchicha Americana, tocineta, jamon, queso y salsas caseras', 1, 10000, 10000, 'f_perro.jpg', 0, 'comida'),
@@ -201,7 +274,7 @@ INSERT INTO `productos_tb3` (`id`, `nombre`, `descripcion`, `cantidad`, `v_unida
 (52, 'Pizza Mediana 3 Carnes', 'Pepperoni, salami, jamon y queso.', 1, 23000, 23000, 'f_ppm.jpg', 0, 'comida'),
 (53, 'Pizza Mediana Campesina', 'Tocineta, maiz dulce, jamon y queso doble crema.', 1, 23000, 23000, 'f_ppm.jpg', 0, 'comida'),
 (54, 'Filete de Res', '300 gr de lomo caracho, papas francesas, ensalada.', 1, 16000, 16000, 'f_res.jpg', 0, 'comida'),
-(55, 'Filete de Pollo', '300gr de pernil, papas a la francesa, ensalada, salsas.', 1, 16000, 16000, 'f_res.jpg', 0, 'comida'),
+(55, 'Filete de Pollo', '300gr de pernil, papas a la francesa, ensalada, salsas.', 1, 16000, 16000, 'filete_pollo.jpg', 0, 'comida'),
 (56, 'Costilla Ahumada Personal', '250gr Costilla, papas a la francesa, ensalada y salsas.', 1, 10000, 10000, 'f_costilla.jpg', 0, 'comida'),
 (57, 'Costilla Ahumada Grande', '400gr Costilla, papas a la francesa, ensalada y salsas.', 1, 16000, 16000, 'f_costilla.jpg', 0, 'comida'),
 (58, 'Sandwich mixto', 'combinacion de dos sabores', 1, 12000, 12000, 'sdsd.jpg', 0, 'comida'),
@@ -257,7 +330,8 @@ INSERT INTO `productos_tb3` (`id`, `nombre`, `descripcion`, `cantidad`, `v_unida
 (128, 'HB Combo Doble Burger 25000', '2 burgers, 2 francesas, 2 litros', 1, 25000, 25000, 'd_burgersd.jpg', 0, 'comida'),
 (129, 'HB Combo Doble Burger 29000', '2 burgers especiales, 2 francesas, 2 litros', 1, 29000, 29000, 'd_burgersd.jpg', 0, 'comida'),
 (130, 'Cerveza en lata', 'Poker, Light, Club', 1, 4000, 4000, 'g_cerveza.jpg', 0, 'bebida'),
-(131, 'Cerveza Corona', 'Corona botella vidrio', 1, 6500, 6500, 'co_cerveza.jpg', 0, 'bebida');
+(131, 'Cerveza Corona', 'Corona botella vidrio', 1, 6500, 6500, 'co_cerveza.jpg', 0, 'bebida'),
+(133, 'Perro Americano COMBO', 'Perro Americano COMBO', 1, 15000, 15000, 'f_perro.jpg', 0, 'comida');
 
 -- --------------------------------------------------------
 
@@ -278,7 +352,7 @@ CREATE TABLE `usuarios_tb` (
 --
 
 INSERT INTO `usuarios_tb` (`id`, `username`, `password`, `rol`, `key_access`) VALUES
-(1, 'juancampo95', 'camilocampo', 'administrador', 'yglh66iq8ng6818xmk78'),
+(1, 'juancampo95', 'camilocampo', 'administrador', 'gailv6zo4pyglsaxola3'),
 (2, 'milton', 'fabian', 'administrador', 'g9yj8iyecdslaejdagtq'),
 (3, 'rodrigo', 'campo', 'administrador', 'd6u7i3a2j0m48j0yx4qu'),
 (4, 'jose', 'aldemar', 'administrador', 'ij9fmh3v7qlvgha2tlu6');
@@ -303,6 +377,12 @@ ALTER TABLE `gastos_y_vales`
 -- Indexes for table `otrosingresos_tb`
 --
 ALTER TABLE `otrosingresos_tb`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `pedidos_history`
+--
+ALTER TABLE `pedidos_history`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -331,31 +411,37 @@ ALTER TABLE `usuarios_tb`
 -- AUTO_INCREMENT for table `balances_diarios`
 --
 ALTER TABLE `balances_diarios`
-  MODIFY `id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `gastos_y_vales`
 --
 ALTER TABLE `gastos_y_vales`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `otrosingresos_tb`
 --
 ALTER TABLE `otrosingresos_tb`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `pedidos_history`
+--
+ALTER TABLE `pedidos_history`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `pedidos_tb`
 --
 ALTER TABLE `pedidos_tb`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `productos_tb3`
 --
 ALTER TABLE `productos_tb3`
-  MODIFY `id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=132;
+  MODIFY `id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=134;
 
 --
 -- AUTO_INCREMENT for table `usuarios_tb`

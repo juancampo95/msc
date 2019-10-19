@@ -107,13 +107,13 @@
                             Pedido
                     </button>
                 </div>
-                <button (click)="pedido_cargado.pagadocon = 0;pedido_cargado.devuelve = 0"  data-toggle="modal" data-target="#exampleModalFacturar"  class="btn-pedir btn btn-small btn-primary d-flex">
+                <button *ngIf="pedido_cargado.estado ==='Sin Facturar' || pedido_cargado.estado === 'facturado'" (click)="pedido_cargado.pagadocon = 0;pedido_cargado.devuelve = 0"  data-toggle="modal" data-target="#exampleModalFacturar"  class="btn-pedir btn btn-small btn-primary d-flex">
                     <i class="material-icons"  style="margin-right: 5px;">print</i>
                     Facturar
                 </button>
-                <button  data-toggle="modal" data-target="#exampleModal" class="btn-pedir btn btn-small btn-danger  d-flex">
+                <!-- <button  data-toggle="modal" data-target="#exampleModal" class="btn-pedir btn btn-small btn-danger  d-flex">
                         <i class="material-icons"  style="padding:0 0.2rem;">delete_forever</i>
-                </button>
+                </button> -->
             </div>
             <div class="col-md-12 d-flex justify-content-end">
                 <span style="font-size: 12px;" *ngIf="pedido_cargado.estado"> Este pedido está <b>{{pedido_cargado.estado}}.</b></span>

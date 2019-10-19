@@ -39,15 +39,19 @@ export class DetalleComponent implements OnInit {
   }
 
   enviarPedido(pedido,accion){
+    // pedido.id_resumen = localStorage.getItem('id_resumen')
     if(pedido.id == undefined && accion == 'post'){
       pedido.fecha = new Date().toLocaleDateString();
       pedido.hora = new Date().toLocaleTimeString();
+      // pedido.id_resumen = 
       pedido.estado = 'Sin Facturar'
       if(pedido.documento == undefined){
-        pedido.documento = "";
-      }else if(pedido.cliente == undefined){
-        pedido.cliente = "";
+        pedido.documento = "0"
       }
+      if(pedido.cliente == undefined){
+        pedido.cliente = "0"
+      }
+    
       this.http.enviarPedido(pedido).subscribe(res=>{
         pedido.id= parseInt(res[0].id)
         // this.imprimirPedido("",pedido);

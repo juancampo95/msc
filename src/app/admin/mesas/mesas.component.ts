@@ -48,7 +48,8 @@ export class MesasComponent implements OnInit {
   }
   cargarPedidos(){
     this.mesasEnUso = []
-    this.DatabaseProductosService.getPedidos(this.user).subscribe(pedidos=>{
+    var id_resumen = localStorage.getItem('id_resumen');
+    this.DatabaseProductosService.getPedidos(this.user,id_resumen).subscribe(pedidos=>{
       let caja = this.Auth.inicio_de_caja;
       if(pedidos == null && caja == false ){
         this.router.navigate(['administracion/resumen-de-caja']);
@@ -159,7 +160,9 @@ export class MesasComponent implements OnInit {
   }
 
   asignarPedidoParam(){
-    this.DatabaseProductosService.getPedidos(this.user).subscribe(pedidos=>{
+    var id_resumen = localStorage.getItem('id_resumen');
+    console.log(id_resumen)
+    this.DatabaseProductosService.getPedidos(this.user,id_resumen).subscribe(pedidos=>{
       pedidos.forEach(pedido=>{
         if(pedido.id == this.idParam){
           this.mostrarPedido(pedido);

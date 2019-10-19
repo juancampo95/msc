@@ -75,10 +75,10 @@ header('Allow: GET, POST, OPTIONS, PUT, DELETE');
 					$printer->text($this->fecha." ".$this->hora."\n");
 					$printer->text("Atendido por: ".$this->mesero."- Mesa: ".$this->mesa."\n");
 					$salto_de_linea= "\n";
-					if($this->cliente !== ""){
+					if($this->cliente != "0"){
 						$printer->text("Cliente: ".$this->cliente."\n");
 					}
-					if($this->documento !== ""){
+					if($this->documento != "0"){
 						$printer->text("Nit/CC: ".$this->documento.$salto_de_linea."\n");
 					}
 					$printer->text("Factura No.".$this->id." Pago:".$this->metodo."\n");

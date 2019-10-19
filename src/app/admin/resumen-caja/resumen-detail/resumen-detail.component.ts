@@ -28,4 +28,7 @@ export class ResumenDetailComponent implements OnInit {
   cuadrarCaja(){
     this.resumen.cuadrarCaja();
   }
+  guardarArqueo(){
+    this.resumen.guardarArqueo();
+  }
 }

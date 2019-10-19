@@ -21,7 +21,6 @@ export class ResumenCajaComponent implements OnInit {
   ngOnInit() {
     this.getResumen();
     this.sumarFacturados();
-    // this.calcularSubTotales();
   }
 
   calcularSubTotales(){
@@ -32,8 +31,8 @@ export class ResumenCajaComponent implements OnInit {
   }
   sumarFacturados(){
     setTimeout(()=>{
-      this.http.getPedidos(this.usuario).subscribe(res=>{
-        // console.log(res);
+      var id_resumen = localStorage.getItem('id_resumen');
+      this.http.getPedidos(this.usuario,id_resumen).subscribe(res=>{
         if(res!=null){
         var n = Number(this.r_actual.pedidos_facturados);
         var d = Number(this.r_actual.datafono);
@@ -74,6 +73,7 @@ export class ResumenCajaComponent implements OnInit {
       }else{
         this.inicio = this.auth.caja(true);
         this.r_actual = res;
+        localStorage.setItem('id_resumen',this.r_actual.id.toString());
         this.base_inicial =  Number(this.r_actual.base_i_m) + Number(this.r_actual.base_i_b);
       }
       this.calcularArqueo()
@@ -86,8 +86,9 @@ export class ResumenCajaComponent implements OnInit {
     this.r_actual.hora_ini = new Date().toLocaleTimeString();
     this.http.postResumenDiario(this.r_actual).subscribe(res=>{
       if(res=='ingreso correctamente'){
-        this.getResumen();
         this.auth.caja(true);
+        this.inicio = true;
+        this.getResumen();
       }else{
         console.log(res); 
       }
@@ -95,37 +96,31 @@ export class ResumenCajaComponent implements OnInit {
   }
   
   cuadrarCaja(){
-
     if(this.r_actual.descuadre == 0){
-      
       this.r_actual.fecha_fin = new Date().toLocaleDateString();
       this.r_actual.hora_fin = new Date().toLocaleTimeString();
       this.r_actual.total_arqueo = this.r_actual.total_resumen;
+      this.r_actual.cuadrado = 'si';
 
 
-      // AGREGO LOS PEDIDOS AL RESUMEN
-      this.http.getPedidos(this.usuario).subscribe(res=>{
-        if(res!=null){
-          this.r_actual.detalle_pedidos = res;}
-      })
-      // AGREGO LOS GASTOS AL RESUMEN
-      this.http.getGastos(this.r_actual).subscribe(res=>{
-        if(res!=null){
-          this.r_actual.detalle_gastos = res;
-        }
-      })
-      // AGREGO LOS OTROS INGRESOS
-      this.http.getIngresos(this.r_actual).subscribe(res=>{
-        if(res!=null){
-          this.r_actual.detalle_otros_ingresos = res;
-        }
-      })
-      this.http.putResumen(this.r_actual,'cuadrar_resumen').subscribe(res=>{
-          console.log(res);
-
+      setTimeout(()=>{
+        this.http.putResumen(this.r_actual,'cuadrar_resumen').subscribe(res=>{
+          console.log("respuesta: "+res);
+          if(res == "cuadre exitoso"){
+            localStorage.removeItem('id_resumen');
+            this.getResumen();
+          }
        })
+      },1000)
     }else{
       console.log("no esta cuadrado")
     }
   }
+  guardarArqueo(){
+    this.http.putResumen(this.r_actual,'guardarArqueo').subscribe(res=>{
+      console.log(res);
+      this.getResumen();
+    })
+  }
+
 }

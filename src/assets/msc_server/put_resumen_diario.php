@@ -58,7 +58,10 @@ header('Allow: GET, POST, OPTIONS, PUT, DELETE');
 								// echo "Si lee el parametro de cuadre de resumen";
 								$this->cuadrarResumen($tabla);
 						break;		
-
+					case 'guardarArqueo':
+								// echo "Si lee el parametro de cuadre de resumen";
+								$this->guardarArqueo($tabla);
+						break;		
 					default:
 							echo "respuesta default de switch case";
 						break;
@@ -75,6 +78,25 @@ header('Allow: GET, POST, OPTIONS, PUT, DELETE');
 			$query = "UPDATE $tabla SET base_i_b = '$base_i_b',	base_i_m = '$base_i_m' WHERE id = '$id' AND usuario = '$usuario'";
 				if(mysqli_query($this->conexion,$query)){
 					echo "El resumen fue guardado";
+				}else{
+					echo "Error ".mysqli_error($this->conexion);
+				};
+		}
+		public function guardarArqueo($tabla){
+			$id = mysqli_real_escape_string($this->conexion,$this->pedido->id);
+			$billetes_a = mysqli_real_escape_string($this->conexion,$this->pedido->billetes_a);
+			$monedas_a = mysqli_real_escape_string($this->conexion,$this->pedido->monedas_a);
+			$datafono_a = mysqli_real_escape_string($this->conexion,$this->pedido->datafono_a);
+			$online_a = mysqli_real_escape_string($this->conexion,$this->pedido->online_a);
+
+			$usuario = mysqli_real_escape_string($this->conexion,$this->pedido->usuario);
+			$query = "UPDATE $tabla SET 
+				billetes_a = '$billetes_a',
+ 				monedas_a = '$monedas_a',
+ 				datafono_a = '$datafono_a',
+ 				online_a  = '$online_a'WHERE id = '$id' AND usuario = '$usuario'";
+				if(mysqli_query($this->conexion,$query)){
+					echo "Arqueo actualizado";
 				}else{
 					echo "Error ".mysqli_error($this->conexion);
 				};
@@ -98,10 +120,6 @@ header('Allow: GET, POST, OPTIONS, PUT, DELETE');
 			$total_gastos = mysqli_real_escape_string($this->conexion,$this->pedido->total_gastos);
 
 			$total_resumen = mysqli_real_escape_string($this->conexion,$this->pedido->total_resumen);
-			$detalle_pedidos = json_encode($this->pedido->detalle_pedidos);
-			$detalle_gastos = json_encode($this->pedido->detalle_gastos);
-			$detalle_otros_ingresos = json_encode($this->pedido->detalle_otros_ingresos);
-			
 
 			$billetes_a = mysqli_real_escape_string($this->conexion,$this->pedido->billetes_a);
 			$monedas_a = mysqli_real_escape_string($this->conexion,$this->pedido->monedas_a);
@@ -127,10 +145,6 @@ header('Allow: GET, POST, OPTIONS, PUT, DELETE');
  				vales = '$vales',
  				total_gastos = '$total_gastos',
  				total_resumen = '$total_resumen',
- 				detalle_pedidos = '$detalle_pedidos',
- 				detalle_gastos = '$detalle_gastos',
- 				detalle_otros_ingresos = '$detalle_otros_ingresos',
-
  				billetes_a = '$billetes_a',
  				monedas_a = '$monedas_a',
  				datafono_a = '$datafono_a',
@@ -139,7 +153,7 @@ header('Allow: GET, POST, OPTIONS, PUT, DELETE');
  				descuadre = '$descuadre',
  				cuadrado = '$cuadrado' WHERE id = '$id' AND usuario = '$usuario'";
 				if(mysqli_query($this->conexion,$query)){
-					echo "El resumen fue actualizado con exito";
+					echo "cuadre exitoso";
 				}else{
 					echo "Error ".mysqli_error($this->conexion);
 				};

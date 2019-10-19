@@ -9,6 +9,7 @@
 			$pedido = json_decode(file_get_contents("php://input"));
 
 			if(isset($pedido)){
+				$id_resumen = mysqli_real_escape_string($this->conexion,$pedido->id_resumen);
 				$fecha = mysqli_real_escape_string($this->conexion,$pedido->fecha);
 				$hora = mysqli_real_escape_string($this->conexion,$pedido->hora);
 				$cliente = mysqli_real_escape_string($this->conexion,$pedido->cliente);
@@ -25,8 +26,8 @@
 				$usuario =mysqli_real_escape_string($this->conexion,$pedido->usuario);
 				
 
-				$query = "INSERT INTO $tabla (fecha,hora,cliente,documento,mesero,metodo,comentario,mesa,subtotal_p,total_p,descuento,productos,estado,usuario)
-				VALUES 	('$fecha','$hora','$cliente','$documento','$mesero','$metodo','$comentario','$mesa','$subtotal_p','$total_p','$descuento','$productos','$estado','$usuario')";
+				$query = "INSERT INTO $tabla (id_resumen,fecha,hora,cliente,documento,mesero,metodo,comentario,mesa,subtotal_p,total_p,descuento,productos,estado,usuario)
+				VALUES 	('$id_resumen','$fecha','$hora','$cliente','$documento','$mesero','$metodo','$comentario','$mesa','$subtotal_p','$total_p','$descuento','$productos','$estado','$usuario')";
 				if(mysqli_query($this->conexion,$query)){
 					// print_r($productos);
 					// echo "ingreso correctamente";

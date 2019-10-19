@@ -2,6 +2,7 @@ import {Producto} from './producto';
 
 export class Pedido{
     id?:number;
+    id_resumen?:string = localStorage.getItem('id_resumen');
     fecha?:string;
     hora?:string;
     cliente?:string;
