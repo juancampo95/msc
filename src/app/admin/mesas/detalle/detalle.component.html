@@ -1,7 +1,12 @@
 <section class="main-container container-fluid">
     <nav>
-        <span class="titulo_nav">Detalle de pedido <span *ngIf="pedido_cargado.id > 0">No. {{pedido_cargado.id}}</span><span *ngIf="pedido_cargado.mesa == 0 && pedido_cargado.id > 0"> - Llevar</span></span>
-        <button class="btn btn-small btn-primary"  data-toggle="modal" data-target="#exampleModalCenter"> <i class="material-icons">add</i>Agregar Producto</button>
+        <span class="titulo_nav">Detalle de pedido
+            <span *ngIf="pedido_cargado.id > 0">No. {{pedido_cargado.id}}</span>
+            <span *ngIf="pedido_cargado.mesa == 0 && pedido_cargado.id > 0"> - Llevar</span>
+        </span>
+        <button class="btn btn-small btn-primary"  data-toggle="modal" data-target="#exampleModalCenter">
+            <i class="material-icons">add</i>Agregar Producto
+        </button>
     </nav>
     <div class="pedido_container">
         <div class="mesa_numbers_detail">
