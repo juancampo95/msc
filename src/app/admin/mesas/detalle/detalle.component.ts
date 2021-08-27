@@ -93,8 +93,10 @@ export class DetalleComponent implements OnInit {
       this.http.actualizarPedido(pedido).subscribe(res=>{console.log(res)});
     }
     this.http.imprimirPedido(pedido).subscribe(res=>{
+      console.log(res);
       this.mesas.cargarProductos()
       this.mesas.cargarPedidos();
+      console.log("paso por el ts")
     })
   }
   eliminarPedido(pedido_cargado){

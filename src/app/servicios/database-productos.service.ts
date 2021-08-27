@@ -9,12 +9,12 @@ import { Resumen } from '../admin/modelos_de_datos/resumen_diario';
 })
 export class DatabaseProductosService {
 
-  api_url = 'http://localhost/msc_server'
+  api_url = 'https://localhost/msc_server'
   
   constructor(private Http:HttpClient) { }
   getProductos(){
     return this.Http.get<Producto[]>(this.api_url + '/get_productos.php')
-  }
+  } 
   getPedidos(paramUser,idResumen?){
     return this.Http.get<Pedido[]>(this.api_url + '/get_pedidos.php?user='+paramUser+'&id='+idResumen);
   }
@@ -28,13 +28,13 @@ export class DatabaseProductosService {
     return this.Http.post(this.api_url + '/facturar_pedidos.php',pedido,{responseType:'text'});
   }
   imprimirPedido(pedido){
-    return this.Http.post('http://localhost/msc_server/imprimir_pedido.php',pedido,{responseType:'text'});
+    return this.Http.post('https://localhost/msc_server/imprimir_pedido.php',pedido,{responseType:'text'});
   }
   anularPedido(idyestado){
     return this.Http.post(this.api_url + '/anulacion_pedidos.php',idyestado,{responseType:'text'});
   }
   imprimirFacturaSola(pedido){
-    return this.Http.post('http://localhost/msc_server/imprimir_factura_sola.php',pedido,{responseType:'text'});
+    return this.Http.post('https://localhost/msc_server/imprimir_factura_sola.php',pedido,{responseType:'text'});
   }
   getResumenDiario(paramUser){
     return this.Http.get<Resumen>(this.api_url + '/get_resumen_diario.php?user='+paramUser);
